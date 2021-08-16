@@ -7,7 +7,12 @@
         </div>
     </div>
     </template>
-    <script>
+
+    <script language="javascript">
+        import {help , test} from '../helper' ;
+
+
+
         export default {
         data (){
             return {
@@ -19,6 +24,13 @@
         props : ['model'] ,
 
         mounted (){
+
+
+            
+       let x = help.callme() ;
+       let x2 = test.show() ;
+        console.log(x+"5466");
+        console.log(x2);
 
             axios({
             method: 'get',
