@@ -1,11 +1,20 @@
     <template>
-    <v-app>
-        <div v-if="loaded">
+  
+  
+           
+         <div v-if="loaded">
 
-           hello form vue {{ local }}   {{ model }}
+           hello form vue {{ local }}   {{ model }} <br>
+           <v-btn loading>are</v-btn>
+
+               <v-date-picker v-model="picker"></v-date-picker>
+
 
         </div>
-    </v-app>
+
+           
+    
+
     </template>
 
     <script language="javascript">
@@ -16,6 +25,9 @@
             return {
              loaded : false ,
              local : null ,
+             dark:true,
+                     picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+
             } ;
         },
         name : 'Welcome' ,

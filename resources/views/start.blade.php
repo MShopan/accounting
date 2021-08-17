@@ -12,14 +12,14 @@
 <body>
 
     <div id="app">
+            
+        <!-- <Welcome model="{{ $model }}"/> -->
+        <!-- <Welcome /> -->
+
+      <App></App>
 
    
 
-        <!-- <Welcome model="{{ $model }}"/> -->
-        <!-- <Welcome /> -->
-        <router-link to="/wel" >link wel</router-link>
-
-        <router-view></router-view>
 
     </div>
 

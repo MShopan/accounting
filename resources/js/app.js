@@ -4,34 +4,59 @@ require('alpinejs');
 
 import Vue from 'vue';
 import Welcome from './components/Welcome.vue';
+import App from './components/App.vue';
 
 // Vue.component('Welcome', require('./components/Welcome.vue')); 
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-//Routes
 import { routes } from './routes';
-import Vuetify from 'vuetify';
+import Vuetify, {
+    VCard ,
+    VDatePicker,
+  } from 'vuetify';
+
+  import 'vuetify/dist/vuetify.min.css'
+
 // import 'vuetify/dist/vuetify.min.css';
 
-const opts = {}
 
-export default new Vuetify(opts)
+// export default new Vuetify({
 
+//     theme: {
+//       dark: false,
+//     },
+
+//   })
+
+  const vuetifyOptions = { }
 Vue.use(Vuetify);
+
+
 
 //Register Routes
 const router = new VueRouter({
     routes, 
     // mode: 'hash',
     mode: 'history',
+    
 
 })
 
 const app = new Vue({
     el: '#app' ,
-    components : {Welcome,},
+
+    components : {Welcome,App},
     router ,
-    Vuetify  ,
+    render: h => h(App),
+
+    Vuetify: new Vuetify(vuetifyOptions)  ,
+    VDatePicker,
 });
+
+// const app = new Vue({
+//     vuetify,
+//     render: h => h(App),
+//     el: '#app',
+// });
