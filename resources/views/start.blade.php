@@ -15,7 +15,11 @@
 
    
 
-        <Welcome model="{{ $model }}"/>
+        <!-- <Welcome model="{{ $model }}"/> -->
+        <!-- <Welcome /> -->
+        <router-link to="/wel" >link wel</router-link>
+
+        <router-view></router-view>
 
     </div>
 
