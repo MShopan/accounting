@@ -9,9 +9,7 @@
     </template>
 
     <script language="javascript">
-        import {help , test} from '../helper' ;
-
-
+        import {get_data , help} from '../helper' ;
 
         export default {
         data (){
@@ -22,29 +20,25 @@
         },
         name : 'Welcome' ,
         props : ['model'] ,
+        methods :{
+            async load_data()  {
+                 let res = await get_data('first');
+                 this.local = res.data ;
+                 console.log('local is :'+this.local);
+                 this.loaded =true;
+            }
+        },
 
         mounted (){
 
+            this.load_data() ;
 
-            
+
        let x = help.callme() ;
-       let x2 = test.show() ;
-        console.log(x+"5466");
-        console.log(x2);
+        console.log(x+" 010");
 
-            axios({
-            method: 'get',
-            baseURL: 'http://127.0.0.1:8000/api/' ,
-            url: 'first',
-            responseType: 'json'
-           })
-          .then( (response) => {
-              console.log('start axios');
-               this.local = response.data ;
-               console.log(this.local);
-               console.log(response);
-               this.loaded = true;
-             });
+
+           
 
           }
         }
