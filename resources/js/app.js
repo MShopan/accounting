@@ -12,6 +12,14 @@ Vue.use(VueRouter);
 
 //Routes
 import { routes } from './routes';
+import Vuetify from 'vuetify';
+// import 'vuetify/dist/vuetify.min.css';
+
+const opts = {}
+
+export default new Vuetify(opts)
+
+Vue.use(Vuetify);
 
 //Register Routes
 const router = new VueRouter({
@@ -24,5 +32,6 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app' ,
     components : {Welcome,},
-    router
+    router ,
+    Vuetify  ,
 });

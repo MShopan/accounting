@@ -1,11 +1,11 @@
     <template>
-    <div>
+    <v-app>
         <div v-if="loaded">
 
            hello form vue {{ local }}   {{ model }}
 
         </div>
-    </div>
+    </v-app>
     </template>
 
     <script language="javascript">
