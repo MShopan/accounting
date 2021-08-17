@@ -21,8 +21,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/start/{model}', function ($model) {
-    return view('start', ['model'=>$model]    );
+// Route::get('/start/{model}', function ($model) {
+//     return view('start', ['model'=>$model]    );
+// });
+Route::get('/start', function () {
+    return view('start');
 });
 
 

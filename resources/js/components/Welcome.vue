@@ -4,10 +4,15 @@
            
          <div v-if="loaded">
 
-           hello form vue {{ local }}   {{ model }} <br>
-           <v-btn loading>are</v-btn>
+           hello form vue {{ local }}   {{ model }} <br/>  <br/>
 
-               <v-date-picker v-model="picker"></v-date-picker>
+
+                 <vs-input
+        type="date"
+        v-model="value7"
+        label="Date"
+      />
+
 
 
         </div>
@@ -26,7 +31,7 @@
              loaded : false ,
              local : null ,
              dark:true,
-                     picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+             value7 :'' ,
 
             } ;
         },

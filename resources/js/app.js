@@ -6,32 +6,12 @@ import Vue from 'vue';
 import Welcome from './components/Welcome.vue';
 import App from './components/App.vue';
 
-// Vue.component('Welcome', require('./components/Welcome.vue')); 
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import { routes } from './routes';
-import Vuetify, {
-    VCard ,
-    VDatePicker,
-  } from 'vuetify';
 
-  import 'vuetify/dist/vuetify.min.css'
-
-// import 'vuetify/dist/vuetify.min.css';
-
-
-// export default new Vuetify({
-
-//     theme: {
-//       dark: false,
-//     },
-
-//   })
-
-  const vuetifyOptions = { }
-Vue.use(Vuetify);
 
 
 
@@ -44,6 +24,14 @@ const router = new VueRouter({
 
 })
 
+// vuesax
+import Vuesax from 'vuesax'
+
+import 'vuesax/dist/vuesax.css' //Vuesax styles
+Vue.use(Vuesax, {
+  // options here
+})
+
 const app = new Vue({
     el: '#app' ,
 
@@ -51,12 +39,7 @@ const app = new Vue({
     router ,
     render: h => h(App),
 
-    Vuetify: new Vuetify(vuetifyOptions)  ,
-    VDatePicker,
+
 });
 
-// const app = new Vue({
-//     vuetify,
-//     render: h => h(App),
-//     el: '#app',
-// });
+

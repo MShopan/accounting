@@ -12,9 +12,7 @@
 <body>
 
     <div id="app">
-            
-        <!-- <Welcome model="{{ $model }}"/> -->
-        <!-- <Welcome /> -->
+
 
       <App></App>
 
