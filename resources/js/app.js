@@ -18,8 +18,8 @@ import { routes } from './routes';
 //Register Routes
 const router = new VueRouter({
     routes, 
-    // mode: 'hash',
-    mode: 'history',
+    mode: 'hash',
+    // mode: 'history',
     
 
 })

@@ -28,6 +28,11 @@ Route::get('/start', function () {
     return view('start');
 });
 
+Route::get('spa/{any}', function ()
+{
+    return view('start');
+})->where('any', '.*');
+
 
 
 

@@ -13,7 +13,7 @@
             </vs-button>
 
             <vs-button border 
-            to="/tbl1">
+            to="/tbl1/mohammed">
             table1
             </vs-button>
 

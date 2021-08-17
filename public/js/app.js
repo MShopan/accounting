@@ -3922,6 +3922,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Tabel1',
   data: function data() {
@@ -3944,48 +3945,6 @@ __webpack_require__.r(__webpack_exports__);
         "username": "Samantha",
         "email": "Nathan@yesenia.net",
         "website": "ramiro.info"
-      }, {
-        "id": 4,
-        "name": "Patricia Lebsack",
-        "username": "Karianne",
-        "email": "Julianne.OConner@kory.org",
-        "website": "kale.biz"
-      }, {
-        "id": 5,
-        "name": "Chelsey Dietrich",
-        "username": "Kamren",
-        "email": "Lucio_Hettinger@annie.ca",
-        "website": "demarco.info"
-      }, {
-        "id": 6,
-        "name": "Mrs. Dennis Schulist",
-        "username": "Leopoldo_Corkery",
-        "email": "Karley_Dach@jasper.info",
-        "website": "ola.org"
-      }, {
-        "id": 7,
-        "name": "Kurtis Weissnat",
-        "username": "Elwyn.Skiles",
-        "email": "Telly.Hoeger@billy.biz",
-        "website": "elvis.io"
-      }, {
-        "id": 8,
-        "name": "Nicholas Runolfsdottir V",
-        "username": "Maxime_Nienow",
-        "email": "Sherwood@rosamond.me",
-        "website": "jacynthe.com"
-      }, {
-        "id": 9,
-        "name": "Glenna Reichert",
-        "username": "Delphine",
-        "email": "Chaim_McDermott@dana.io",
-        "website": "conrad.com"
-      }, {
-        "id": 10,
-        "name": "Clementina DuBuque",
-        "username": "Moriah.Stanton",
-        "email": "Rey.Padberg@karina.biz",
-        "website": "ambrose.net"
       }]
     };
   }
@@ -4115,8 +4074,8 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__.default({
   routes: _routes__WEBPACK_IMPORTED_MODULE_4__.routes,
-  // mode: 'hash',
-  mode: 'history'
+  mode: 'hash' // mode: 'history',
+
 }); // vuesax
 
 
@@ -4261,7 +4220,7 @@ var routes = [{
   path: '/wel',
   component: __webpack_require__(/*! ./components/Welcome.vue */ "./resources/js/components/Welcome.vue").default
 }, {
-  path: '/tbl1',
+  path: '/tbl1/:name',
   component: __webpack_require__(/*! ./components/Tabel1.vue */ "./resources/js/components/Tabel1.vue").default
 }];
 
@@ -23101,7 +23060,7 @@ var render = function() {
             _vm._v("\r\n            welcome\r\n            ")
           ]),
           _vm._v(" "),
-          _c("vs-button", { attrs: { border: "", to: "/tbl1" } }, [
+          _c("vs-button", { attrs: { border: "", to: "/tbl1/mohammed" } }, [
             _vm._v("\r\n            table1\r\n            ")
           ]),
           _vm._v(" "),
@@ -23172,11 +23131,15 @@ var render = function() {
               "vs-tr",
               [
                 _c("vs-th", [
-                  _vm._v("\n                Name\n                ")
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$route.params.name) +
+                      "\n                "
+                  )
                 ]),
                 _vm._v(" "),
                 _c("vs-th", [
-                  _vm._v("\n                Email\n                ")
+                  _vm._v("\n                Emailooo\n                ")
                 ]),
                 _vm._v(" "),
                 _c("vs-th", [_vm._v("\n                Id\n                ")])
