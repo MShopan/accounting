@@ -1,5 +1,7 @@
 <template>
-
+<div >
+<div> {{appName}} {{Age}} </div>
+<vs-button border @click="increaseAge">add age</vs-button>
     <vs-table>
                 <template #thead>
                 <vs-tr>
@@ -32,14 +34,20 @@
         </vs-tr>
         </template>
     </vs-table>
+    </div>
+
 </template>
 
 
 
    <script>
+import {globalMix} from '../globalMix.js';
+import {_config} from '../config.js';
     export default {
     name: 'Tabel1',
+    mixins :[globalMix],
       data:() => ({
+        appName : _config.appName ,
         users: [
           {
             "id": 1,
@@ -64,7 +72,12 @@
           },
 
         ]
-      })
+      }),
+      methods : {
+        increaseAge(){
+          this.Age = this.Age + 1 ;
+        }
+      }
     }
     </script>
 

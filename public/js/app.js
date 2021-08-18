@@ -3885,6 +3885,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _globalMix_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalMix.js */ "./resources/js/globalMix.js");
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
 //
 //
 //
@@ -3923,10 +3925,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Tabel1',
+  mixins: [_globalMix_js__WEBPACK_IMPORTED_MODULE_0__.globalMix],
   data: function data() {
     return {
+      appName: _config_js__WEBPACK_IMPORTED_MODULE_1__._config.appName,
       users: [{
         "id": 1,
         "name": "Leanne Graham",
@@ -3947,6 +3957,11 @@ __webpack_require__.r(__webpack_exports__);
         "website": "ramiro.info"
       }]
     };
+  },
+  methods: {
+    increaseAge: function increaseAge() {
+      this.Age = this.Age + 1;
+    }
   }
 });
 
@@ -4126,6 +4141,47 @@ axios.defaults.withCredentials = true;
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/config.js":
+/*!********************************!*\
+  !*** ./resources/js/config.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_config": () => (/* binding */ _config)
+/* harmony export */ });
+var _config = {
+  appName: "Clearance v2.0"
+};
+
+/***/ }),
+
+/***/ "./resources/js/globalMix.js":
+/*!***********************************!*\
+  !*** ./resources/js/globalMix.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "globalMix": () => (/* binding */ globalMix)
+/* harmony export */ });
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ "./resources/js/helper.js");
+// this is global mixin in the projct
+
+var globalMix = {
+  data: function data() {
+    return {
+      Age: 29
+    };
+  }
+};
 
 /***/ }),
 
@@ -23121,63 +23177,95 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("vs-table", {
-    scopedSlots: _vm._u([
-      {
-        key: "thead",
-        fn: function() {
-          return [
-            _c(
-              "vs-tr",
-              [
-                _c("vs-th", [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.$route.params.name) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("vs-th", [
-                  _vm._v("\n                Emailooo\n                ")
-                ]),
-                _vm._v(" "),
-                _c("vs-th", [_vm._v("\n                Id\n                ")])
-              ],
-              1
-            )
-          ]
-        },
-        proxy: true
-      },
-      {
-        key: "tbody",
-        fn: function() {
-          return _vm._l(_vm.users, function(tr, i) {
-            return _c(
-              "vs-tr",
-              { key: i, attrs: { data: tr } },
-              [
-                _c("vs-td", [
-                  _vm._v("\n        " + _vm._s(tr.name) + "\n        ")
-                ]),
-                _vm._v(" "),
-                _c("vs-td", [
-                  _vm._v("\n        " + _vm._s(tr.email) + "\n        ")
-                ]),
-                _vm._v(" "),
-                _c("vs-td", [
-                  _vm._v("\n        " + _vm._s(tr.id) + "\n        ")
-                ])
-              ],
-              1
-            )
-          })
-        },
-        proxy: true
-      }
-    ])
-  })
+  return _c(
+    "div",
+    [
+      _c("div", [
+        _vm._v(" " + _vm._s(_vm.appName) + " " + _vm._s(_vm.Age) + " ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "vs-button",
+        { attrs: { border: "" }, on: { click: _vm.increaseAge } },
+        [_vm._v("add age")]
+      ),
+      _vm._v(" "),
+      _c("vs-table", {
+        scopedSlots: _vm._u([
+          {
+            key: "thead",
+            fn: function() {
+              return [
+                _c(
+                  "vs-tr",
+                  [
+                    _c("vs-th", [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(_vm.$route.params.name) +
+                          "\r\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", [
+                      _vm._v(
+                        "\r\n                    Emailooo\r\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-th", [
+                      _vm._v(
+                        "\r\n                    Id\r\n                    "
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "tbody",
+            fn: function() {
+              return _vm._l(_vm.users, function(tr, i) {
+                return _c(
+                  "vs-tr",
+                  { key: i, attrs: { data: tr } },
+                  [
+                    _c("vs-td", [
+                      _vm._v(
+                        "\r\n            " +
+                          _vm._s(tr.name) +
+                          "\r\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-td", [
+                      _vm._v(
+                        "\r\n            " +
+                          _vm._s(tr.email) +
+                          "\r\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("vs-td", [
+                      _vm._v(
+                        "\r\n            " + _vm._s(tr.id) + "\r\n            "
+                      )
+                    ])
+                  ],
+                  1
+                )
+              })
+            },
+            proxy: true
+          }
+        ])
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
