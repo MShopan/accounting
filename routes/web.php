@@ -28,6 +28,10 @@ Route::get('/start', function () {
     return view('start');
 });
 
+Route::get('/live', function () {
+    return view('live');
+});
+
 Route::get('spa/{any}', function ()
 {
     return view('start');
