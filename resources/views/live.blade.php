@@ -15,5 +15,10 @@
         <livewire:counter />
 </body>
     @livewireScripts
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    
+    <script src="{{ @asset('js/livewire_helpers.js') }}"></script>
+
 
 </html>
