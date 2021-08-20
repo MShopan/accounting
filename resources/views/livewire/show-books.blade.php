@@ -3,4 +3,5 @@
    <div>
        {{ json_encode($books) }}
    </div>
+   <div>@livewire('counter')</div>
 </div>
