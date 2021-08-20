@@ -7,6 +7,7 @@ use Livewire\Component;
 class ShowPost extends Component
 {
     public $_id ;
+    public $car = 'seat';
 
     public function mount($id)
     {

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowPost;
+use App\Http\Livewire\ShowBooks;
 
 
 /*
@@ -40,6 +41,7 @@ Route::get('spa/{any}', function ()
 })->where('any', '.*');
 
 Route::get('/post/{id}', ShowPost::class);
+Route::get('/books', ShowBooks::class);
 
 
 
