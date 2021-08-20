@@ -39,7 +39,7 @@ Route::get('spa/{any}', function ()
     return view('start');
 })->where('any', '.*');
 
-Route::get('/post/{_id}', ShowPost::class);
+Route::get('/post/{id}', ShowPost::class);
 
 
 

@@ -8,9 +8,9 @@ class ShowPost extends Component
 {
     public $_id ;
 
-    public function mount($_id)
+    public function mount($id)
     {
-        $this->_id= $_id; 
+        $this->_id= $id; 
     }
 
     public function render()
