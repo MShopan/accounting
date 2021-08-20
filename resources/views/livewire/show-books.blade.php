@@ -1,4 +1,7 @@
 <div>
+    <div wire:offline>
+        You are now offline.
+    </div>
     <div wire:loading>
         Processing Payment...
     </div>

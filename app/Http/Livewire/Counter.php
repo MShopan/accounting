@@ -97,8 +97,14 @@ class Counter extends Component
     {
         $this->count++;
 
-        $this->success_swal('can i help ' );
 
+    }
+
+    public function areDelete()
+    {
+        $this->success_swal('are you sure delete ?', [
+            'target'=>'delete'
+        ]);
     }
 
     public function decreament()

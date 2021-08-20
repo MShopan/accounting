@@ -8,6 +8,8 @@
     <button wire:click.prevent="add">add</button>
     <button wire:click.prevent="$set('name','ali')">asign ali</button>
 
+    <button wire:click.prevent="areDelete">delete</button>
+
     <ul>
         @foreach ( $items as $el)
         <li>{{$el}}</li>
