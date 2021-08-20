@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Home;
 use App\Http\Livewire\ShowPost;
 use App\Http\Livewire\ShowBooks;
 
@@ -40,6 +41,7 @@ Route::get('spa/{any}', function ()
     return view('start');
 })->where('any', '.*');
 
+Route::get('/home', Home::class);
 Route::get('/post/{id}', ShowPost::class);
 Route::get('/books', ShowBooks::class);
 

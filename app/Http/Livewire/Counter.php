@@ -70,6 +70,8 @@ class Counter extends Component
         'sec'=>['name'=>'khaled'], 
     ];
 
+    public $update = 0 ;
+
     function __construct(){
         $this->name = 'mohammed ali';
         // $this->user = User->get();
@@ -78,6 +80,11 @@ class Counter extends Component
             $this->email =  Auth::user()->email ; 
         }
 
+    }
+
+    public function updatingCount($value) 
+    {
+        $this->update++;
     }
 
     public function delete()
