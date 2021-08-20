@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\ShowPost;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,8 @@ Route::get('spa/{any}', function ()
 {
     return view('start');
 })->where('any', '.*');
+
+Route::get('/post/{_id}', ShowPost::class);
 
 
 
