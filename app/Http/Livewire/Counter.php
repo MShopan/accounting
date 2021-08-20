@@ -101,6 +101,14 @@ class Counter extends Component
 
     }
 
+    public function decreament()
+    {
+        $this->count--;
+
+   
+
+    }
+
 
 
 

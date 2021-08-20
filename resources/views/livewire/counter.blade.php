@@ -1,4 +1,6 @@
 <div style="text-align: center">
+
+
     <button wire:click="increment">+</button>
     <h1>{{ $count }}</h1>
     <h1 class="border p-5">{{$name}}</h1>
@@ -11,6 +13,12 @@
         <li>{{$el}}</li>
         @endforeach
     </ul>
+
+
+
+    <button wire:click="decreament">--</button>
+
+
   
 </div>
 
