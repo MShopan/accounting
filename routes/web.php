@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\ShowPost;
 use App\Http\Livewire\ShowBooks;
+use App\Http\Livewire\ShowUsers;
 
 
 /*
@@ -44,6 +45,7 @@ Route::get('spa/{any}', function ()
 Route::get('/home', Home::class);
 Route::get('/post/{id}', ShowPost::class);
 Route::get('/books', ShowBooks::class);
+Route::get('/users', ShowUsers::class);
 
 
 
