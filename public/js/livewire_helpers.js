@@ -13,7 +13,7 @@ window.addEventListener('swal' , function (e) {
     })
     .then((accept)=>{
         if(accept){
-            window.livewire.emit(data.target);
+            window.livewire.emit(data.target , data.data );
         }
     });
 

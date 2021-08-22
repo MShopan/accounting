@@ -22,6 +22,7 @@
        <a href="/post/66">post 66</a>
        <a href="/post/44">post 44</a>
        <a href="/books">books</a>
+       <a href="/posts">posts</a>
        <a href="/users">users</a>
     </div>
 

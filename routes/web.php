@@ -5,6 +5,7 @@ use App\Http\Livewire\Home;
 use App\Http\Livewire\ShowPost;
 use App\Http\Livewire\ShowBooks;
 use App\Http\Livewire\ShowUsers;
+use App\Http\Livewire\ShowPosts;
 
 
 /*
@@ -43,6 +44,7 @@ Route::get('spa/{any}', function ()
 })->where('any', '.*');
 
 Route::get('/home', Home::class);
+Route::get('/posts', ShowPosts::class);
 Route::get('/post/{id}', ShowPost::class);
 Route::get('/books', ShowBooks::class);
 Route::get('/users', ShowUsers::class);
