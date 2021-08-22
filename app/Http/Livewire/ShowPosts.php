@@ -18,9 +18,15 @@ class ShowPosts extends Component
     public $search = '';
     private $perPage =5;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['do_delete_post'];
+    protected $listeners = [];
 
     public $viewModal = false ;
+
+    function __construct()
+    {
+        // !important to add the mainHelper listiner here
+         $this->listeners = $this->listeners + $this->mainListeners ;
+    }
 
     public function updatingSearch()
     {
@@ -38,17 +44,10 @@ class ShowPosts extends Component
         $this->viewModal = true;
     }
 
-    public function deletePost($id)
-    {
-        $this->warn_swal('Are you sure' , [
-            'target' => 'do_delete_post' ,
-            'data' => ['id'=>$id ]
-        ]);
 
-      //delete
-    }
-
-    public function do_delete_post($event){
+    public function do_delete_element($event){
+    // this function do the delete element
+    // in the blade write deleteElement(model_elment_id)  to run this function after aknoldge event run
 
         $id = $event['id'] ;
         Post::find($id)->delete();
@@ -60,6 +59,7 @@ class ShowPosts extends Component
     {
         return view('livewire.show-posts',[
             'posts' => Post::where('title', 'like', '%'.$this->search.'%')->paginate($this->perPage),
+            'posts_count' => Post::where('title', 'like', '%'.$this->search.'%')->count()
         ]);
     }
 }

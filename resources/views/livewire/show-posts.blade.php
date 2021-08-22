@@ -3,6 +3,7 @@
        <label for="search">search</label>
        <input type="text" wire:model="search">
        <button wire:click="addPost()">+</button>
+       <span>post count is : {{$posts_count}}</span>
     </div>
     <table class="table table-striped">
         <thead>
@@ -21,8 +22,8 @@
                  <th>{{$post->description}}</th>
                  {{-- tools --}}
                  <th>
-                   <button wire:click="editPost({{$post->id}})" data-toggle="modal" data-target="#myModal">edit</button>
-                   <button wire:click="deletePost({{$post->id}})" data-toggle="modal" data-target="#myModal">delete</button>
+                   <button wire:click="editPost({{$post->id}})" >edit</button>
+                   <button wire:click="deleteElement({{$post->id}})" >delete</button>
 
                  </th>
              </tr>

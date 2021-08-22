@@ -1,7 +1,26 @@
 <?php
 namespace App\Http\Livewire;
+use Illuminate\Support\Facades\Log;
+
 
 trait mainHelper {
+
+private $mainListeners = ['do_delete_element','case444'];
+
+function __construct()
+{
+
+}
+
+public function deleteElement($id)
+{
+    $this->warn_swal('Are you sure' , [
+        'target' => 'do_delete_element' ,
+        'data' => ['id'=>$id ]
+    ]);
+
+  //delete
+}
 
 public function send_swal( $msg, $type , $options = array() )
 {
