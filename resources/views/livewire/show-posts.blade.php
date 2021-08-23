@@ -3,7 +3,11 @@
        <label for="search">search</label>
        <input type="text" wire:model="search">
        <button wire:click="$emit('post_create')">+</button>
-       <span>post count is : {{$posts_count}}</span>
+       <span>
+           post count is :
+           <span class="badge badge-pill badge-info">{{$posts_count}}</span>
+       </span>
+
     </div>
     <table class="table table-striped">
         <thead>
