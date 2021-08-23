@@ -18,7 +18,7 @@ class ShowPosts extends Component
     public $search = '';
     private $perPage =5;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = [];
+    protected $listeners = ['refresh_show_post'=>'$refresh'];
 
     public $viewModal = false ;
 

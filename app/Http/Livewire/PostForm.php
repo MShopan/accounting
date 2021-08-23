@@ -79,6 +79,8 @@ class PostForm extends Component
 
        // close modal
        $this->dispatchBrowserEvent('hide-edit-modal');
+       // fire refrish parent
+       $this->dispatchBrowserEvent('refresh_show_post');
 
 
    }
