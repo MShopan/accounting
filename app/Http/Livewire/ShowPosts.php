@@ -29,6 +29,8 @@ class ShowPosts extends Component
     {
         // !important to add the mainHelper listiner here
          $this->listeners = $this->listeners + $this->mainListeners ;
+
+         $this->perPage = config('app.perPage');
     }
 
     public function updatingSearch()

@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'perPage' => 5 ,
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

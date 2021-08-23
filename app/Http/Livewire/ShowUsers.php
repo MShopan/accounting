@@ -20,6 +20,11 @@ class ShowUsers extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    function __construct()
+    {
+        $this->perPage = config('app.perPage');
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
