@@ -25,4 +25,9 @@ window.addEventListener('show-edit-modal' , function (e) {
 
 } );
 
+window.addEventListener('hide-edit-modal' , function (e) {
+    $('#edit-modal').modal('hide');
+
+} );
+
 

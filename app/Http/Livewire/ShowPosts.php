@@ -22,8 +22,9 @@ class ShowPosts extends Component
 
     public $viewModal = false ;
 
-    public $currentPost = [
+    public $currentPost =[
 
+         'id'=>'-1',
          'title'=>'',
          'description'=> '',
          'user_id'=> 1 ,
@@ -42,6 +43,15 @@ class ShowPosts extends Component
     public function editPost($id)
     {
         // edit
+        $post = Post::find($id);
+
+        $this->currentPost = [
+            'id'=>$post->id,
+            'title'=>$post->title,
+            'description'=> $post->description,
+            'user_id'=> $post->user_id ,
+        ];
+
         $this->dispatchBrowserEvent('show-edit-modal');
 
 
@@ -51,7 +61,42 @@ class ShowPosts extends Component
     {
 
         // new
+        $this->reset('currentPost');
         $this->dispatchBrowserEvent('show-edit-modal');
+
+
+    }
+
+    public function save()
+    {
+        $current = $this->currentPost ;
+        $this->dispatchBrowserEvent('hide-edit-modal');
+        // dd($this->currentPost);
+
+        //chek if new
+        if($this->currentPost['id']==-1){
+            // add new record
+            $post = Post::create(
+                [
+                    'title'=>$current['title'],
+                    'description'=> $current['description'],
+                    'user_id'=> $current['user_id'],
+
+                ]
+            );
+
+
+        }else {
+
+
+            // update current
+            $post = Post::find($this->currentPost['id'])->update([
+                'title'=>$current['title'],
+                'description'=> $current['description'],
+            ]);
+
+        }
+
 
 
     }
@@ -70,7 +115,10 @@ class ShowPosts extends Component
     public function render()
     {
         return view('livewire.show-posts',[
-            'posts' => Post::where('title', 'like', '%'.$this->search.'%')->paginate($this->perPage),
+            'posts' => Post::where('title', 'like', '%'.$this->search.'%')
+            ->orderByDesc('id')
+            ->paginate($this->perPage)
+            ,
             'posts_count' => Post::where('title', 'like', '%'.$this->search.'%')->count()
         ]);
     }
