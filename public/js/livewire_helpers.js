@@ -18,3 +18,11 @@ window.addEventListener('swal' , function (e) {
     });
 
 });
+
+
+window.addEventListener('show-edit-modal' , function (e) {
+    $('#edit-modal').modal('show');
+
+} );
+
+

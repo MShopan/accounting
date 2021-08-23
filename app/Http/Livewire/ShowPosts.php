@@ -22,6 +22,13 @@ class ShowPosts extends Component
 
     public $viewModal = false ;
 
+    public $currentPost = [
+
+         'title'=>'',
+         'description'=> '',
+         'user_id'=> 1 ,
+    ];
+
     function __construct()
     {
         // !important to add the mainHelper listiner here
@@ -32,16 +39,21 @@ class ShowPosts extends Component
     {
         $this->resetPage();
     }
-    public function editPost()
+    public function editPost($id)
     {
         // edit
-        $this->viewModal = true;
+        $this->dispatchBrowserEvent('show-edit-modal');
+
+
     }
 
     public function addPost()
     {
+
         // new
-        $this->viewModal = true;
+        $this->dispatchBrowserEvent('show-edit-modal');
+
+
     }
 
 
