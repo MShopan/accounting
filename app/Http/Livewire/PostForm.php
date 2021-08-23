@@ -6,8 +6,6 @@ use Livewire\Component;
 use App\Http\Livewire\mainHelper;
 use App\Models\Post;
 
-
-
 class PostForm extends Component
 {
     use mainHelper;
@@ -22,10 +20,25 @@ class PostForm extends Component
         'user_id'=> 1 ,
    ];
 
+   protected $rules = [
+    'currentPost.title' => 'required|max:15',
+    'currentPost.description' => 'required',
+   ];
+
+
+
+   public function updated($propertyName)
+   {
+        $this->validateOnly($propertyName);
+   }
+
    public function post_update($event)
    {
        # edit
-       $post = Post::find($event->id);
+       $this->resetValidation();
+
+       $id = $event ;
+       $post = Post::find($id);
 
        $this->currentPost = [
            'id'=>$post->id,
@@ -39,9 +52,11 @@ class PostForm extends Component
 
    }
 
-   public function post_create($event)
+   public function post_create()
    {
        # add new
+
+       $this->resetValidation();
 
         $this->reset('currentPost');
         $this->dispatchBrowserEvent('show-edit-modal');
@@ -52,6 +67,9 @@ class PostForm extends Component
    {
        $current = $this->currentPost ;
        // dd($this->currentPost);
+
+       // do validation frist
+       $this->validate();
 
        //chek if new
        if($this->currentPost['id']==-1){
@@ -79,8 +97,8 @@ class PostForm extends Component
 
        // close modal
        $this->dispatchBrowserEvent('hide-edit-modal');
-       // fire refrish parent
-       $this->dispatchBrowserEvent('refresh_show_post');
+       // fire refresh parent
+       $this->emit('refresh_show_post');
 
 
    }

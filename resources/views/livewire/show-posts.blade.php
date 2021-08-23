@@ -2,7 +2,7 @@
     <div id="bar">
        <label for="search">search</label>
        <input type="text" wire:model="search">
-       <button wire:click="addPost()">+</button>
+       <button wire:click="$emit('post_create')">+</button>
        <span>post count is : {{$posts_count}}</span>
     </div>
     <table class="table table-striped">
@@ -22,7 +22,7 @@
                  <th>{{$post->description}}</th>
                  {{-- tools --}}
                  <th>
-                   <button wire:click="editPost({{$post->id}})" >edit</button>
+                   <button wire:click="$emit('post_update',{{$post->id}})" >edit</button>
                    <button wire:click="deleteElement({{$post->id}})" >delete</button>
 
                  </th>
@@ -50,26 +50,7 @@
   <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal 11</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-control">
-              <label for="">title</label>
-              <input type="text" name="" id="title" wire:model.defer="currentPost.title">
-          </div>
-          <div class="form-control">
-              <label for="">description</label>
-              <input type="text" name="" id="description" wire:model.defer="currentPost.description">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" wire:click="save()">Save changes</button>
-        </div>
+        @livewire('post-form')
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 
-<div class="form post-form" action="">
+<form>
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal 11</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -7,17 +7,21 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-control">
-            <label for="">title</label>
-            <input type="text" name="" id="title" wire:model.defer="currentPost.title">
+        <div class="form-row">
+            <label for="">Title</label>
+            <input class="form-control @error('currentPost.title')  is-invalid @enderror" type="text"  id="title" wire:model="currentPost.title">
+            @error('currentPost.title') <span class="invalid-feedback">{{ $message }}</span> @enderror
+
         </div>
-        <div class="form-control">
-            <label for="">description</label>
-            <input type="text" name="" id="description" wire:model.defer="currentPost.description">
+        <div class="form-row">
+            <label for="">Description</label>
+            <input class="form-control @error('currentPost.description')  is-invalid @enderror" type="text"  id="description" wire:model="currentPost.description">
+            @error('currentPost.description') <span class="invalid-feedback">{{ $message }}</span> @enderror
+
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" wire:click="save()">Save changes</button>
       </div>
-</div>
+</form>
