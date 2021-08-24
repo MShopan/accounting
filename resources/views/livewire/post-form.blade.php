@@ -9,13 +9,13 @@
       <div class="modal-body">
         <div class="form-row">
             <label for="">Title</label>
-            <input class="form-control @error('currentPost.title')  is-invalid @enderror" type="text"  id="title" wire:model="currentPost.title">
+            <input class="form-control @error('currentPost.title')  is-invalid @enderror" type="text"  id="title" wire:model="currentPost.title"  wire:keydown.enter="save()">
             @error('currentPost.title') <span class="invalid-feedback">{{ $message }}</span> @enderror
 
         </div>
         <div class="form-row">
             <label for="">Description</label>
-            <input class="form-control @error('currentPost.description')  is-invalid @enderror" type="text"  id="description" wire:model="currentPost.description">
+            <input class="form-control @error('currentPost.description')  is-invalid @enderror" type="text"  id="description" wire:model="currentPost.description" wire:keydown.enter="save()">
             @error('currentPost.description') <span class="invalid-feedback">{{ $message }}</span> @enderror
 
         </div>
