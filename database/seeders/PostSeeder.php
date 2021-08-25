@@ -14,7 +14,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-       $_posts = range(1,50);
+       $_posts = range(100,1000);
        $data = [];
 
        // looping

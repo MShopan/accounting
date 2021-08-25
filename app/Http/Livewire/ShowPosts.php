@@ -16,7 +16,7 @@ class ShowPosts extends Component
     public $myModel = 'App\Models\Post';
     public $myPosts;
     public $search = '';
-    private $perPage =5;
+    public $perPage =5;
     protected $paginationTheme = 'bootstrap';
 
     protected $listeners = ['refresh_show_post'=>'$refresh'];
@@ -25,7 +25,7 @@ class ShowPosts extends Component
 
 
 
-    function __construct()
+    public function mount()
     {
         // !important to add the mainHelper listiner here
          $this->listeners = $this->listeners + $this->mainListeners ;
@@ -33,9 +33,7 @@ class ShowPosts extends Component
          $this->perPage = config('app.perPage');
     }
 
-    public function mount(){
 
-    }
 
     public function updatingSearch()
     {
