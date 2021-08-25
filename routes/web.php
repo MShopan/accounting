@@ -43,11 +43,11 @@ Route::get('spa/{any}', function ()
     return view('start');
 })->where('any', '.*');
 
-Route::get('/home', Home::class);
-Route::get('/posts', ShowPosts::class);
-Route::get('/post/{id}', ShowPost::class);
-Route::get('/books', ShowBooks::class);
-Route::get('/users', ShowUsers::class);
+Route::get('/home', Home::class)->middleware('auth');
+Route::get('/posts', ShowPosts::class)->middleware('auth');
+Route::get('/post/{id}', ShowPost::class)->middleware('auth');
+Route::get('/books', ShowBooks::class)->middleware('auth');
+Route::get('/users', ShowUsers::class)->middleware('auth');
 
 
 

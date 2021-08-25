@@ -10,6 +10,8 @@ class PostForm extends Component
 {
     use mainHelper;
 
+    private $user_id ;
+
     protected $listeners= ['post_update','post_create'];
 
     public $currentPost =[
@@ -26,12 +28,19 @@ class PostForm extends Component
    ];
 
 
+   public function mount(){
+       $this->user_id = auth()->user()->id;
+   }
 
    public function updated($propertyName)
    {
         $this->validateOnly($propertyName);
    }
 
+    /**
+     * function fore prepare form for update not do update in DB
+     * run form the listener
+     */
    public function post_update($event)
    {
        # edit
@@ -52,6 +61,10 @@ class PostForm extends Component
 
    }
 
+    /**
+     * function fore prepare form for create not do create in DB
+     * run from the listener
+     */
    public function post_create()
    {
        # add new

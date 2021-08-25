@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Post;
 use App\Http\Livewire\mainHelper;
 
 
@@ -14,7 +13,7 @@ class ShowPosts extends Component
     use WithPagination;
     use mainHelper;
 
-
+    public $myModel = 'App\Models\Post';
     public $search = '';
     private $perPage =5;
     protected $paginationTheme = 'bootstrap';
@@ -44,7 +43,7 @@ class ShowPosts extends Component
     // in the blade write deleteElement(model_elment_id)  to run this function after aknoldge event run
 
         $id = $event['id'] ;
-        Post::find($id)->delete();
+        $this->myModel::find($id)->delete();
     }
 
 
@@ -52,11 +51,11 @@ class ShowPosts extends Component
     public function render()
     {
         return view('livewire.show-posts',[
-            'posts' => Post::where('title', 'like', '%'.$this->search.'%')
+            'posts' => $this->myModel::where('title', 'like', '%'.$this->search.'%')
             ->orderByDesc('id')
             ->paginate($this->perPage)
             ,
-            'posts_count' => Post::where('title', 'like', '%'.$this->search.'%')->count()
+            'posts_count' => $this->myModel::where('title', 'like', '%'.$this->search.'%')->count()
         ]);
     }
 }

@@ -29,6 +29,11 @@
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <span wire:offline  class="text-danger ml-2 mr-2"><strong>Offline</strong>  </span>
+            @auth
+             <span class="ml-2 mr-2 text-secondary">
+                 <strong>{{ auth()->user()->name }}</strong>
+                </span>
+             @endauth
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
