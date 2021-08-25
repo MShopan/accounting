@@ -1,21 +1,39 @@
 <div>
+    {{-- toast   --}}
+    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+    <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+      <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header">
+          <img src="..." class="rounded mr-2" alt="...">
+          <strong class="mr-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          Hello, world! This is a toast message.
+        </div>
+      </div>
+    </div>
     {{-- success message  --}}
     <div
     id="message"
     x-data="{show:false}"
     x-init = "
-         window.addEventListener('save-success' , function () {
-        console.log('save success');
-        show=true;
-        setTimeout(()=>{ show=false; },1500);
+         $on('save-success' ,  () => {
+
+            show=true;
+            setTimeout(()=>{ show=false; },1500);
+
+
         });
     "
     >
     <div x-show="show"
-    x-transition:enter-start="opacity-0 transform scale-90"
-    x-transition:enter-end="opacity-100 transform scale-100"
-    x-transition:leave="transition ease-in duration-300"
-     style="display: none;" class="alert alert-success mt-3" role="alert">
+    x-transition
+     style="display: none;" class="alert alert-success mt-3 " role="alert">
         Data saved success
     </div>
   </div>
@@ -41,6 +59,11 @@
                     <span class="badge badge-success">+</span>
                     Add
                 </a>
+
+
+                <span wire:loading class="spinner-border spinner-border-sm ml-3 my-3" role="status">
+                  <span class="sr-only">Loading...</span>
+                </span>
 
 
 
@@ -78,29 +101,6 @@
         {{  $posts->links() }}
 
     </div>
-
-
-
-    <div
-    id="alpine-posts"
-    x-data="{ myModel : $wire.myModel , x : 6 , page:'test page' }"
-    >
-
-    <span x-text="myModel"></span>
-     page is : <span x-text="page"></span>
-    <span x-text="x"></span>
-
-    </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
