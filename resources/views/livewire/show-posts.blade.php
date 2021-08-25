@@ -34,7 +34,7 @@
                 <input wire:model.lazy="search" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
               </div>
 
-                <span id="post-count" class="m-2">
+                <span id="post-count" class="m-2 d-xl-inline d-md-inline d-sm-none">
                     post count is :
                     <span class="badge badge-pill badge-info">{{$posts_count}}</span>
                 </span>

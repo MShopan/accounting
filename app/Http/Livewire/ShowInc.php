@@ -12,6 +12,7 @@ class ShowInc extends Component
 
     public $counter=0;
     public $myPosts ;
+    public $search ='';
     protected $paginationTheme = 'bootstrap';
     public $perPage = 6;
 
@@ -29,7 +30,8 @@ class ShowInc extends Component
 
     public function render()
     {
-        $posts = Post::paginate($this->perPage);
+        $posts = Post::where('title', 'like', '%'.$this->search.'%')->paginate($this->perPage);
+
         $this->myPosts = json_encode($posts);
         return view('livewire.show-inc',[
             'posts'=> $posts

@@ -1,6 +1,10 @@
 
 <div>
 
+    <div id="search">
+        <input type="text" placeholder="search" wire:model="search">
+    </div>
+
     <div
     id="posts"
     x-init="
