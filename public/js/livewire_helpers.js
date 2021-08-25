@@ -30,4 +30,17 @@ window.addEventListener('hide-edit-modal' , function (e) {
 
 } );
 
+var $on = function($eventName,$fun){
+
+    window.addEventListener($eventName ,function ($event) {
+        $fun($event);
+    });
+
+}
+
+// $on('show-edit-modal',()=>{
+//     console.log('#on fire this this');
+
+// });
+
 
