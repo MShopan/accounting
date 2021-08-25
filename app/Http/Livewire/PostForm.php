@@ -110,6 +110,9 @@ class PostForm extends Component
 
        // close modal
        $this->dispatchBrowserEvent('hide-edit-modal');
+       // fire save success for javascript
+       $this->dispatchBrowserEvent('save-success');
+
        // fire refresh parent
        $this->emit('refresh_show_post');
 

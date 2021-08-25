@@ -14,6 +14,7 @@ class ShowPosts extends Component
     use mainHelper;
 
     public $myModel = 'App\Models\Post';
+    public $myPosts;
     public $search = '';
     private $perPage =5;
     protected $paginationTheme = 'bootstrap';
@@ -30,6 +31,10 @@ class ShowPosts extends Component
          $this->listeners = $this->listeners + $this->mainListeners ;
 
          $this->perPage = config('app.perPage');
+    }
+
+    public function mount(){
+
     }
 
     public function updatingSearch()
@@ -50,10 +55,14 @@ class ShowPosts extends Component
 
     public function render()
     {
+        $posts = $this->myModel::where('title', 'like', '%'.$this->search.'%')
+        ->orderByDesc('id')
+        ->paginate($this->perPage);
+
+        $this->myPosts = json_encode($posts) ;
+
         return view('livewire.show-posts',[
-            'posts' => $this->myModel::where('title', 'like', '%'.$this->search.'%')
-            ->orderByDesc('id')
-            ->paginate($this->perPage)
+            'posts' => $posts
             ,
             'posts_count' => $this->myModel::where('title', 'like', '%'.$this->search.'%')->count()
         ]);

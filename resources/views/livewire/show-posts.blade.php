@@ -1,4 +1,26 @@
 <div>
+    {{-- success message  --}}
+    <div
+    id="message"
+    x-data="{show:false}"
+    x-init = "
+         window.addEventListener('save-success' , function () {
+        console.log('save success');
+        show=true;
+        setTimeout(()=>{ show=false; },1500);
+        });
+    "
+    >
+    <div x-show="show"
+    x-transition:enter-start="opacity-0 transform scale-90"
+    x-transition:enter-end="opacity-100 transform scale-100"
+    x-transition:leave="transition ease-in duration-300"
+     style="display: none;" class="alert alert-success mt-3" role="alert">
+        Data saved success
+    </div>
+  </div>
+
+  {{-- form   --}}
     <div id="bar" class="row mt-3 ml-2">
         <form action="" class="form-inline" wire:submit.prevent="">
 
@@ -9,9 +31,11 @@
                 <input wire:model.lazy="search" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
               </div>
 
-                <span class="m-2">
+                <span id="post-count" class="m-2">
                     post count is :
                     <span class="badge badge-pill badge-info">{{$posts_count}}</span>
+                </span>
+
                 </span>
                 <a wire:click="$emit('post_create')" class="btn btn-sm btn-outline-success m-2">
                     <span class="badge badge-success">+</span>
@@ -54,6 +78,23 @@
         {{  $posts->links() }}
 
     </div>
+
+
+
+    <div
+    id="alpine-posts"
+    x-data="{ myModel : $wire.myModel , x : 6 , page:'test page' }"
+    >
+
+    <span x-text="myModel"></span>
+     page is : <span x-text="page"></span>
+    <span x-text="x"></span>
+
+    </div>
+
+
+
+
 
 
 
