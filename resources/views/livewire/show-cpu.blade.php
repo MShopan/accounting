@@ -34,6 +34,13 @@
         });
 
     </script>
+
+    <div id="permission p3">
+        @can('edit post')
+
+        <a class="btn btn-danger">edit post</a>
+        @endcan
+    </div>
 </div>
 
 
