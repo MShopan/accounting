@@ -43,8 +43,8 @@
                         });
                     "
                     >
-                    <div x-show.transition.duration.500ms="show"
-                    x-transition
+                    <div x-show="show"
+                    x-transition.duration.500ms
                     style="display: none; width:180px;" class="alert alert-sm alert-success ml-3 mr-3 " role="alert">
                         Data saved success
                     </div>

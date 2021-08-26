@@ -7,6 +7,7 @@ use App\Http\Livewire\ShowBooks;
 use App\Http\Livewire\ShowUsers;
 use App\Http\Livewire\ShowPosts;
 use App\Http\Livewire\ShowInc;
+use App\Http\Livewire\ShowCpu;
 
 
 /*
@@ -49,7 +50,8 @@ Route::get('/posts', ShowPosts::class)->middleware('auth');
 Route::get('/post/{id}', ShowPost::class)->middleware('auth');
 Route::get('/books', ShowBooks::class)->middleware('auth');
 Route::get('/users', ShowUsers::class)->middleware('auth');
-Route::get('/inc', ShowInc::class);
+Route::get('/inc', ShowInc::class)->middleware('auth');
+Route::get('/cpu', ShowCpu::class)->middleware('auth');
 
 
 
