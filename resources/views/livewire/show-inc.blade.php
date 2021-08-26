@@ -23,26 +23,36 @@
                 Add
             </a>
 
-                {{-- success message  --}}
-                <div
-                id="message"
-                x-data="{show:false}"
-                x-init = "
-                    $on('save-success' ,  () => {
+               {{-- notify success --}}
 
-                        show=true;
-                        setTimeout(()=>{ show=false; },1500);
+               <div id="success-message"
+               x-data="{show:false}"
+               x-on:save-success.window="show=true;setTimeout(()=>{ show=false; },1500);"
 
+               >
 
-                    });
-                "
-                >
-                <div x-show="show" x-transition.duration.500ms
+               <span x-show="show" style="display: none;" x-transition.duration.500ms  class="text-success">Data saved</span>
 
-                style="display: none; width:180px;" class="alert alert-sm alert-success ml-3 mr-3 " role="alert">
-                    Data saved success
-                </div>
             </div>
+
+
+            {{-- end notify success --}}
+
+            <h5
+            style="display: none;"
+             id="help" x-show="show" style="display: none;" x-data="{show:false}"
+             x-init="setTimeout(()=>{show=false},600)"
+             x-transition.duration.500ms>Help
+            </h5>
+
+
+
+            {{-- success message  --}}
+            {{-- <div x-show="show" x-transition.duration.500ms
+            style="display: none; width:180px;" class="alert alert-sm alert-success ml-3 mr-3 " role="alert">
+                Data saved success
+            </div> --}}
+
             {{-- end success message --}}
 
              {{-- loading section  --}}
