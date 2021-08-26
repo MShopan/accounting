@@ -1,27 +1,11 @@
 <div>
-  <div id="posts"
-  x-data="{api : @entangle('myPosts') , posts : '' }"
-  ></div>
-    {{-- success message  --}}
-    <div
-    id="message"
-    x-data="{show:false}"
-    x-init = "
-         $on('save-success' ,  () => {
 
-            show=true;
-            setTimeout(()=>{ show=false; },1500);
+    <div id="myPosts"
+    x-data="{
+       myPosts : @entangle('myPosts')
+    }"
+    ></div>
 
-
-        });
-    "
-    >
-    <div x-show="show"
-    x-transition
-     style="display: none;" class="alert alert-success mt-3 " role="alert">
-        Data saved success
-    </div>
-  </div>
 
   {{-- form   --}}
     <div id="bar" class="row mt-3 ml-2">
@@ -45,7 +29,29 @@
                     Add
                 </a>
 
+                    {{-- success message  --}}
+                    <div
+                    id="message"
+                    x-data="{show:false}"
+                    x-init = "
+                        $on('save-success' ,  () => {
 
+                            show=true;
+                            setTimeout(()=>{ show=false; },1500);
+
+
+                        });
+                    "
+                    >
+                    <div x-show.transition.duration.500ms="show"
+                    x-transition
+                    style="display: none; width:180px;" class="alert alert-sm alert-success ml-3 mr-3 " role="alert">
+                        Data saved success
+                    </div>
+                </div>
+                {{-- end success message --}}
+
+                 {{-- loading section  --}}
                 <span wire:loading class="spinner-border spinner-border-sm ml-3 my-3" role="status">
                   <span class="sr-only">Loading...</span>
                 </span>

@@ -1,4 +1,4 @@
-
+<div>
 <form>
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Post</h5>
@@ -25,3 +25,4 @@
         <button type="button" class="btn btn-primary" wire:click="save()">Save changes</button>
       </div>
 </form>
+</div>

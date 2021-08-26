@@ -19,7 +19,7 @@ class ShowPosts extends Component
     public $perPage =5;
     protected $paginationTheme = 'bootstrap';
 
-    protected $listeners = ['refresh_show_post'=>'$refresh'];
+    protected $listeners = ['refresh_show_post'=>'$refresh' , 'do_delete_element'];
 
     public $viewModal = false ;
 
@@ -27,8 +27,7 @@ class ShowPosts extends Component
 
     public function mount()
     {
-        // !important to add the mainHelper listiner here
-         $this->listeners = $this->listeners + $this->mainListeners ;
+
 
          $this->perPage = config('app.perPage');
     }

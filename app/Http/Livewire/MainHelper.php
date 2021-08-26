@@ -7,10 +7,7 @@ trait mainHelper {
 
 private $mainListeners = ['do_delete_element','case444'];
 
-function __construct()
-{
 
-}
 
 public function deleteElement($id)
 {
