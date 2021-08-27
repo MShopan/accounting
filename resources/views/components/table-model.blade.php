@@ -1,7 +1,7 @@
 
-
+{{-- $type is opotional  --}}
 <table class="table table-striped table-sm">
-    <thead class="thead thead-dark" >
+    <thead class="thead thead-{{$type}}" >
          {{$header}}
     </thead>
     <tbody>

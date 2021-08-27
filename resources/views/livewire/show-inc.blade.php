@@ -61,7 +61,7 @@
 
     >
 
-    <x-table-model type="defulte">
+    <x-table-model >
         <x-slot name="header">
             <tr>
                 <th>title</th>

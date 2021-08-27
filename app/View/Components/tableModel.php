@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class tableModel extends Component
 {
+    public $type;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($type="dark")
     {
-        //
+        $this->type= $type;
     }
 
     /**
