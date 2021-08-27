@@ -1,6 +1,10 @@
 
 <div>
 
+    <x-table-card >
+    <x-slot name="title">Posts inc</x-slot>
+
+
   {{-- form   --}}
   <div id="bar" class="row mt-3 ml-2">
     <form action="" class="form-inline" wire:submit.prevent="">
@@ -23,20 +27,7 @@
                 Add
             </a>
 
-               {{-- notify success --}}
 
-               <div id="success-message"
-               x-data="{show:false}"
-               x-on:save-success.window="show=true;setTimeout(()=>{ show=false; },1500);"
-
-               >
-
-               <span x-show="show" style="display: none;" x-transition.duration.500ms  class="text-success">Data saved</span>
-
-            </div>
-
-
-            {{-- end notify success --}}
 
             <h5
             style="display: none;"
@@ -47,18 +38,7 @@
 
 
 
-            {{-- success message  --}}
-            {{-- <div x-show="show" x-transition.duration.500ms
-            style="display: none; width:180px;" class="alert alert-sm alert-success ml-3 mr-3 " role="alert">
-                Data saved success
-            </div> --}}
 
-            {{-- end success message --}}
-
-             {{-- loading section  --}}
-            <span wire:loading class="spinner-border spinner-border-sm ml-3 my-3" role="status">
-              <span class="sr-only">Loading...</span>
-            </span>
 
 
 
@@ -81,32 +61,33 @@
 
     >
 
-       <table class="table table-striped table-sm">
-           <thead class="thead thead-dark">
-               <tr>
-                   <th>title</th>
-                   <th>description</th>
-                   <th>created at</th>
-                   <th>tools</th>
-               </tr>
-           </thead>
-           <tbody>
+    <x-table-model type="defulte">
+        <x-slot name="header">
+            <tr>
+                <th>title</th>
+                <th>description</th>
+                <th>created at</th>
+                <th>updated at</th>
+                <th>tools</th>
+            </tr>
 
-               <template x-for="post in _myPosts">
-                   <tr>
-                       <td x-text="post.title"></td>
-                       <td x-text="post.description"></td>
-                       <td x-text="post.created_at"></td>
-                       <td>
-                           <a class="btn btn-sm btn-outline-success" x-on:click="$wire.emit('post_update',post.id)" >Edit</a>
-                           <a class="btn btn-sm btn-danger" x-on:click="$wire.deleteElement(post.id)" >Delete</a>
-                       </td>
-                   </tr>
-               </template>
-           </tbody>
+        </x-slot>
+        <x-slot name="body">
+            <template x-for="post in _myPosts">
+                <tr>
+                    <td x-text="post.title"></td>
+                    <td x-text="post.description"></td>
+                    <td x-text="post.created_at"></td>
+                    <td x-text="post.updated_at"></td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-success" x-on:click="$wire.emit('post_update',post.id)" >Edit</a>
+                        <a class="btn btn-sm btn-danger" x-on:click="$wire.deleteElement(post.id)" >Delete</a>
+                    </td>
+                </tr>
+            </template>
 
-        </table>
-
+        </x-slot>
+    </x-table-model>
 
 
     </div>
@@ -116,6 +97,9 @@
     <div class="d-flex justify-content-center">
         {{$posts->links()}}
     </div>
+
+</x-table-card>
+
 
 
 

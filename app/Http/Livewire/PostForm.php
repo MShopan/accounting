@@ -99,12 +99,14 @@ class PostForm extends Component
 
        }else {
 
+            // @deprecated way
+            // update current
+               $post = Post::find($this->currentPost['id'])->update([
+                   'title'=>$current['title'],
+                   'description'=> $current['description'],
+               ]);
 
-           // update current
-           $post = Post::find($this->currentPost['id'])->update([
-               'title'=>$current['title'],
-               'description'=> $current['description'],
-           ]);
+
 
        }
 
