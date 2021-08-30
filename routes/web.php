@@ -10,6 +10,7 @@ use App\Http\Livewire\ShowInc;
 use App\Http\Livewire\ShowCpu;
 use Inertia\Inertia;
 use App\Models\Post;
+use App\Models\User;
 
 
 /*
@@ -55,14 +56,19 @@ Route::get('/users', ShowUsers::class)->middleware('auth');
 Route::get('/inc', ShowInc::class)->middleware('auth');
 Route::get('/cpu', ShowCpu::class)->middleware('auth');
 
+
+// inertia
+
 Route::get('/myposts', function () {
     $message = 'hello inertia';
 
-    $posts= Post::all();
+    $posts= Post::paginate(5);
+    $users= User::paginate(5);
 
     return inertia('posts',[
         'message'=>$message,
         'posts'=>$posts ,
+        'users'=>$users ,
     ]);
 });
 
