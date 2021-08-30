@@ -72,6 +72,19 @@ Route::get('/myposts', function () {
     ]);
 });
 
+Route::get('/myusers', function () {
+    $message = 'hello inertia';
+
+    $users= User::paginate(5);
+
+    return inertia('users',[
+        'message'=>$message,
+        'users'=>$users ,
+    ]);
+});
+
+Route::inertia('/home' ,'home');
+
 
 
 
