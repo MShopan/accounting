@@ -41,6 +41,8 @@
         <a class="btn btn-danger">edit post</a>
         @endcan
     </div>
+
+
 </div>
 
 
