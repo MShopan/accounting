@@ -1,5 +1,37 @@
 <template >
-  <Layout>
+  <Layout >
+      <div id="bar_tools" class="card  glass shadow-xl p-4 m-11 mb-1 flex items-start content-start">
+          <button class="btn btn-sm btn-success" @click="addNewPost()">Add</button>
+      </div>
+
+
+      <div id="post-modal">
+            <input class="modal-toggle" type="checkbox" id="my-modal-2"  v-model="showModal">
+            <div class="modal">
+           <div class="modal-box flex-row content-center items-center">
+             <form @submit.prevent="submit">
+                <div class="flex-1">
+                    Title:
+                    <input type="text" class="input input-success" v-model="form.title" >
+                </div>
+                <div class="flex-1">
+                    Description:
+                    <input type="text" class="input input-success" v-model="form.description">
+                </div>
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <label @click="showModal = false" class="btn">Close</label>
+            </div>
+
+            </form>
+
+
+
+        </div>
+        </div>
+      </div>
+
    <div  class=" card glass shadow-xl p-4 m-11 flex items-center content-center">
 
 
@@ -11,6 +43,7 @@
         <th>id</th>
         <th>title</th>
         <th>description</th>
+        <th>tools</th>
         </tr>
       </thead>
 
@@ -19,6 +52,10 @@
              <td>{{ post.id }}</td>
              <td>{{ post.title }}</td>
              <td>{{ post.description }}</td>
+             <td>
+                 <button class="btn btn-sm btn-success " @click="editPost(post)">edit</button>
+                 <button class="btn btn-sm btn-danger " @click="deletePost(post)">delete</button>
+             </td>
          </tr>
       </tbody>
       </table>
@@ -48,10 +85,91 @@ export default {
     ],
     data: ()=>{
         return {
-
+        showModal : false ,
+        preserve: {preserveScroll: true  } ,
         msg : 'how are',
+        success: false,
+        form : {} ,
         }
 
+    },
+    mounted(){
+
+     this.resetForm();
+
+    },
+    methods : {
+        fireSuccess(){
+            const event = new Event('dataSaved');
+            window.dispatchEvent(event);
+        },
+        resetForm(){
+
+            this.form = {
+                id: -1 ,
+                title : '',
+                description : '',
+                user_id : 1,
+            };
+
+        },
+        deletePost(post){
+             console.log(`delete ${post.id}`);
+
+            this.$inertia.post('/deletepost', { id : post.id} ,{
+                ...this.preserve
+               ,
+               onBefore : event =>{
+                  return confirm('are you sure to delete item');
+               },
+                onSuccess:page=>{
+                    this.fireSuccess() ;
+
+                }
+
+              });
+        },
+        addNewPost(){
+           this.resetForm();
+           this.showModal=true;
+        },
+        editPost(post){
+
+            this.form = JSON.parse(JSON.stringify(post)) ;
+            this.showModal = true;
+        },
+        submit(){
+
+            if (this.form.id==-1) {
+            // do create new
+              this.$inertia.post('/createpost', this.form ,{
+                ...this.preserve
+               ,
+                onSuccess:page=>{
+                    this.fireSuccess() ;
+                    this.resetForm();
+                    this.showModal=false;
+
+                }
+
+              });
+
+            }else{
+            // do update
+              this.$inertia.post('/updatepost', this.form ,{
+                ...this.preserve
+               ,
+                onSuccess:page=>{
+                    this.fireSuccess() ;
+                    this.resetForm();
+                    this.showModal=false;
+                }
+
+              });
+
+            }
+
+        }
     }
 };
 </script>

@@ -18,4 +18,7 @@ mix.js('resources/js/app.js', 'public/js').vue()
     require('autoprefixer'),
 ]);
 
-   
+
+mix.browserSync('http://127.0.0.1:8000');
+
+

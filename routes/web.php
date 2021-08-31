@@ -11,7 +11,7 @@ use App\Http\Livewire\ShowCpu;
 use Inertia\Inertia;
 use App\Models\Post;
 use App\Models\User;
-
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,10 +59,27 @@ Route::get('/cpu', ShowCpu::class)->middleware('auth');
 
 // inertia
 
+
+
+Route::get('/myusers', function () {
+    $message = 'hello inertia';
+
+    $users= User::all()->orderByDesc('id')->paginate(5);
+
+    return inertia('users',[
+        'message'=>$message,
+        'users'=>$users ,
+    ]);
+});
+
+Route::inertia('/home' ,'home');
+
+
+// posts ##############
 Route::get('/myposts', function () {
     $message = 'hello inertia';
 
-    $posts= Post::paginate(5);
+    $posts= Post::orderByDesc('id')->paginate(12);
     $users= User::paginate(5);
 
     return inertia('posts',[
@@ -72,18 +89,57 @@ Route::get('/myposts', function () {
     ]);
 });
 
-Route::get('/myusers', function () {
-    $message = 'hello inertia';
+Route::post('createpost' , function (Request $request)
+{
 
-    $users= User::paginate(5);
 
-    return inertia('users',[
-        'message'=>$message,
-        'users'=>$users ,
-    ]);
+    $post = [
+        'title'=> $request->input('title'),
+        'description'=> $request->input('description'),
+        'user_id'=> $request->input('user_id'),
+    ];
+
+    Post::create($post);
+
+    return redirect('/myposts');
+
+
+});
+// update post
+Route::post('updatepost' , function (Request $request)
+{
+
+
+
+
+    $post = [
+        'title'=> $request->input('title'),
+        'description'=> $request->input('description'),
+        'user_id'=> $request->input('user_id'),
+    ];
+    $id = $request->input('id') ;
+
+    Post::find( $id )->update($post);
+
+    return redirect('/myposts');
+
+
+});
+// delete post
+Route::post('deletepost' , function (Request $request)
+{
+
+
+    $id = $request->input('id') ;
+
+    Post::find( $id )->delete();
+
+    return redirect('/myposts');
+
+
 });
 
-Route::inertia('/home' ,'home');
+
 
 
 
