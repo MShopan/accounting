@@ -8,23 +8,33 @@
       <div id="post-modal">
             <input class="modal-toggle" type="checkbox" id="my-modal-2"  v-model="showModal">
             <div class="modal">
-           <div class="modal-box flex-row content-center items-center">
+           <div class="modal-box ">
+
+               <div id="mycontent" class="flex flex-row content-center items-center">
+
              <form @submit.prevent="submit">
-                <div class="flex-1">
-                    Title:
-                    <input type="text" class="input input-success" v-model="form.title" >
+                <div class="w-11 " >
+
+                    <label>Title :</label>
+
+                    <input  type="text" class="input input-success " v-model="form.title" >
                 </div>
-                <div class="flex-1">
-                    Description:
+                <div class="w-11 ">
+                    <label> Description:</label>
+
                     <input type="text" class="input input-success" v-model="form.description">
                 </div>
 
-            <div class="modal-action">
+            <div class="modal-action flex content-center items-center">
                 <button type="submit" class="btn btn-primary">Save</button>
                 <label @click="showModal = false" class="btn">Close</label>
             </div>
 
             </form>
+
+
+               </div>
+
 
 
 
@@ -75,7 +85,9 @@ import { Link } from '@inertiajs/inertia-vue'
 export default {
   components:{
     Pagination,
-    Layout,
+    Layout
+
+
   },
     props :[
 

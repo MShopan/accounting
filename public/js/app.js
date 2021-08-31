@@ -4909,6 +4909,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -28303,100 +28313,112 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "modal" }, [
-        _c(
-          "div",
-          { staticClass: "modal-box flex-row content-center items-center" },
-          [
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.submit.apply(null, arguments)
+        _c("div", { staticClass: "modal-box " }, [
+          _c(
+            "div",
+            {
+              staticClass: "flex flex-row content-center items-center",
+              attrs: { id: "mycontent" }
+            },
+            [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit.apply(null, arguments)
+                    }
                   }
-                }
-              },
-              [
-                _c("div", { staticClass: "flex-1" }, [
-                  _vm._v("\n                  Title:\n                  "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.title,
-                        expression: "form.title"
-                      }
-                    ],
-                    staticClass: "input input-success",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.form.title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                },
+                [
+                  _c("div", { staticClass: "w-11 " }, [
+                    _c("label", [_vm._v("Title :")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.title,
+                          expression: "form.title"
                         }
-                        _vm.$set(_vm.form, "title", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "flex-1" }, [
-                  _vm._v(
-                    "\n                  Description:\n                  "
-                  ),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.description,
-                        expression: "form.description"
-                      }
-                    ],
-                    staticClass: "input input-success",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.form.description },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      ],
+                      staticClass: "input input-success ",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.form.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "title", $event.target.value)
                         }
-                        _vm.$set(_vm.form, "description", $event.target.value)
                       }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-action" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" }
-                    },
-                    [_vm._v("Save")]
-                  ),
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-11 " }, [
+                    _c("label", [_vm._v(" Description:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.description,
+                          expression: "form.description"
+                        }
+                      ],
+                      staticClass: "input input-success",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.form.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "description", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
                   _vm._v(" "),
                   _c(
-                    "label",
+                    "div",
                     {
-                      staticClass: "btn",
-                      on: {
-                        click: function($event) {
-                          _vm.showModal = false
-                        }
-                      }
+                      staticClass:
+                        "modal-action flex content-center items-center"
                     },
-                    [_vm._v("Close")]
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Save")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "btn",
+                          on: {
+                            click: function($event) {
+                              _vm.showModal = false
+                            }
+                          }
+                        },
+                        [_vm._v("Close")]
+                      )
+                    ]
                   )
-                ])
-              ]
-            )
-          ]
-        )
+                ]
+              )
+            ]
+          )
+        ])
       ])
     ]),
     _vm._v(" "),

@@ -64,7 +64,7 @@ Route::get('/cpu', ShowCpu::class)->middleware('auth');
 Route::get('/myusers', function () {
     $message = 'hello inertia';
 
-    $users= User::all()->orderByDesc('id')->paginate(5);
+    $users= User::orderByDesc('id')->paginate(5);
 
     return inertia('users',[
         'message'=>$message,
