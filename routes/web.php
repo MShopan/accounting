@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,70 +75,12 @@ Route::get('/myusers', function () {
 
 Route::inertia('/home' ,'home');
 
+// post controller
 
-// posts ##############
-Route::get('/myposts', function () {
-    $message = 'hello inertia';
-
-    $posts= Post::orderByDesc('id')->paginate(12);
-    $users= User::paginate(5);
-
-    return inertia('posts',[
-        'message'=>$message,
-        'posts'=>$posts ,
-        'users'=>$users ,
-    ]);
-});
-
-Route::post('createpost' , function (Request $request)
-{
-
-
-    $post = [
-        'title'=> $request->input('title'),
-        'description'=> $request->input('description'),
-        'user_id'=> $request->input('user_id'),
-    ];
-
-    Post::create($post);
-
-    return redirect('/myposts');
-
-
-});
-// update post
-Route::post('updatepost' , function (Request $request)
-{
-
-
-
-
-    $post = [
-        'title'=> $request->input('title'),
-        'description'=> $request->input('description'),
-        'user_id'=> $request->input('user_id'),
-    ];
-    $id = $request->input('id') ;
-
-    Post::find( $id )->update($post);
-
-    return redirect('/myposts');
-
-
-});
-// delete post
-Route::post('deletepost' , function (Request $request)
-{
-
-
-    $id = $request->input('id') ;
-
-    Post::find( $id )->delete();
-
-    return redirect('/myposts');
-
-
-});
+Route::get('/myposts', [PostController::class, 'index']);
+Route::post('/myposts/delete', [PostController::class, 'destroy']);
+Route::post('/myposts/create', [PostController::class, 'create']);
+Route::post('/myposts/edit', [PostController::class, 'edit']);
 
 
 

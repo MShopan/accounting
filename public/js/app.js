@@ -4959,7 +4959,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       console.log("delete ".concat(post.id));
-      this.$inertia.post('/deletepost', {
+      this.$inertia.post("/myposts/delete", {
         id: post.id
       }, _objectSpread(_objectSpread({}, this.preserve), {}, {
         onBefore: function onBefore(event) {
@@ -4983,7 +4983,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.form.id == -1) {
         // do create new
-        this.$inertia.post('/createpost', this.form, _objectSpread(_objectSpread({}, this.preserve), {}, {
+        this.$inertia.post('/myposts/create', this.form, _objectSpread(_objectSpread({}, this.preserve), {}, {
           onSuccess: function onSuccess(page) {
             _this2.fireSuccess();
 
@@ -4994,7 +4994,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }));
       } else {
         // do update
-        this.$inertia.post('/updatepost', this.form, _objectSpread(_objectSpread({}, this.preserve), {}, {
+        this.$inertia.post('/myposts/edit', this.form, _objectSpread(_objectSpread({}, this.preserve), {}, {
           onSuccess: function onSuccess(page) {
             _this2.fireSuccess();
 
@@ -28317,7 +28317,7 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "flex flex-row content-center items-center",
+              staticClass: "flex flex-col content-center items-center",
               attrs: { id: "mycontent" }
             },
             [
@@ -28332,57 +28332,77 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "w-11 " }, [
-                    _c("label", [_vm._v("Title :")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.title,
-                          expression: "form.title"
-                        }
-                      ],
-                      staticClass: "input input-success ",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.form.title },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _c(
+                    "div",
+                    {
+                      staticClass: "flex-row content-between items-center p-4 "
+                    },
+                    [
+                      _c("label", { staticClass: "flex-1" }, [
+                        _vm._v("Title :")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.title,
+                            expression: "form.title"
                           }
-                          _vm.$set(_vm.form, "title", $event.target.value)
+                        ],
+                        staticClass: "flex-1 flex-grow input input-success ",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.form.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "title", $event.target.value)
+                          }
                         }
-                      }
-                    })
-                  ]),
+                      })
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "w-11 " }, [
-                    _c("label", [_vm._v(" Description:")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.description,
-                          expression: "form.description"
-                        }
-                      ],
-                      staticClass: "input input-success",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.form.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                  _c(
+                    "div",
+                    {
+                      staticClass: "flex-row content-between items-center p-4"
+                    },
+                    [
+                      _c("label", { staticClass: "flex-1" }, [
+                        _vm._v(" Description:")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.description,
+                            expression: "form.description"
                           }
-                          _vm.$set(_vm.form, "description", $event.target.value)
+                        ],
+                        staticClass: "flex-1 flex-grow input input-success",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.form.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "description",
+                              $event.target.value
+                            )
+                          }
                         }
-                      }
-                    })
-                  ]),
+                      })
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",

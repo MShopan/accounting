@@ -3,18 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+    public $redirect_url ;
+
+
+    function __construct(Request $request)
+    {
+        $this->redirect_url = '/myposts' ;
+    }
+
     public function index()
     {
-        //
+        $message = 'hello inertia';
+
+        $posts= Post::orderByDesc('id')->paginate(12);
+        $users= User::paginate(5);
+
+        return inertia('posts',[
+            'message'=>$message,
+            'posts'=>$posts ,
+            'users'=>$users ,
+        ]);
     }
 
     /**
@@ -22,9 +38,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $post = [
+            'title'=> $request->input('title'),
+            'description'=> $request->input('description'),
+            'user_id'=> $request->input('user_id'),
+        ];
+
+        Post::create($post);
+
+        return redirect($this->redirect_url);
     }
 
     /**
@@ -55,9 +80,19 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Request $request)
     {
         //
+        $post = [
+            'title'=> $request->input('title'),
+            'description'=> $request->input('description'),
+            'user_id'=> $request->input('user_id'),
+        ];
+        $id = $request->input('id') ;
+
+        Post::find( $id )->update($post);
+
+        return redirect($this->redirect_url);
     }
 
     /**
@@ -67,7 +102,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request)
     {
         //
     }
@@ -78,8 +113,16 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy( Request $request)
     {
         //
+        $id = $request->input('id') ;
+
+
+        Post::find( $id )->delete();
+
+        return redirect($this->redirect_url);
+
+
     }
 }

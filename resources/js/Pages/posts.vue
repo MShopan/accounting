@@ -10,19 +10,19 @@
             <div class="modal">
            <div class="modal-box ">
 
-               <div id="mycontent" class="flex flex-row content-center items-center">
+               <div id="mycontent" class="flex flex-col content-center items-center">
 
              <form @submit.prevent="submit">
-                <div class="w-11 " >
+                <div class="flex-row content-between items-center p-4 " >
 
-                    <label>Title :</label>
+                    <label class="flex-1">Title :</label>
 
-                    <input  type="text" class="input input-success " v-model="form.title" >
+                    <input  type="text" class="flex-1 flex-grow input input-success " v-model="form.title" >
                 </div>
-                <div class="w-11 ">
-                    <label> Description:</label>
+                <div class="flex-row content-between items-center p-4">
+                    <label class="flex-1"> Description:</label>
 
-                    <input type="text" class="input input-success" v-model="form.description">
+                    <input type="text" class="flex-1 flex-grow input input-success" v-model="form.description">
                 </div>
 
             <div class="modal-action flex content-center items-center">
@@ -128,7 +128,7 @@ export default {
         deletePost(post){
              console.log(`delete ${post.id}`);
 
-            this.$inertia.post('/deletepost', { id : post.id} ,{
+            this.$inertia.post(`/myposts/delete`, { id : post.id} ,{
                 ...this.preserve
                ,
                onBefore : event =>{
@@ -154,7 +154,7 @@ export default {
 
             if (this.form.id==-1) {
             // do create new
-              this.$inertia.post('/createpost', this.form ,{
+              this.$inertia.post('/myposts/create', this.form ,{
                 ...this.preserve
                ,
                 onSuccess:page=>{
@@ -168,7 +168,7 @@ export default {
 
             }else{
             // do update
-              this.$inertia.post('/updatepost', this.form ,{
+              this.$inertia.post('/myposts/edit', this.form ,{
                 ...this.preserve
                ,
                 onSuccess:page=>{
