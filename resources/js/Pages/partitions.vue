@@ -1,22 +1,21 @@
 <template >
 <Layout>
 
-<user-comp></user-comp>
+ <partition-comp></partition-comp>
 
 </Layout>
 </template>
 
 <script>
 import Layout from './layout'
-import userComp from '../components/userComp.vue'
+import partitionComp from '../components/partitionComp.vue'
 export default {
   components:{
     Layout ,
-    userComp ,
+    partitionComp ,
   },
     props :[
-    'message',
-    'users',
+
     ],
     data: ()=>{
         return {

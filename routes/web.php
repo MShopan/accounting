@@ -62,15 +62,20 @@ Route::get('/cpu', ShowCpu::class)->middleware('auth');
 
 
 
-Route::get('/myusers', function () {
-    $message = 'hello inertia';
+Route::middleware('auth')->get('/myusers', function () {
 
-    $users= User::orderByDesc('id')->paginate(5);
+    $message = 'hello inertia';
 
     return inertia('users',[
         'message'=>$message,
-        'users'=>$users ,
     ]);
+});
+
+Route::middleware('auth')->get('/customers', function () {
+    return inertia('customers');
+});
+Route::middleware('auth')->get('/partitions', function () {
+    return inertia('partitions');
 });
 
 Route::inertia('/home' ,'home');

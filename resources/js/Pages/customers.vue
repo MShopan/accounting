@@ -1,22 +1,21 @@
 <template >
 <Layout>
 
-<user-comp></user-comp>
+ <customer-comp></customer-comp>
 
 </Layout>
 </template>
 
 <script>
 import Layout from './layout'
-import userComp from '../components/userComp.vue'
+import customerComp from '../components/customerComp.vue'
 export default {
   components:{
     Layout ,
-    userComp ,
+    customerComp ,
   },
     props :[
-    'message',
-    'users',
+
     ],
     data: ()=>{
         return {
