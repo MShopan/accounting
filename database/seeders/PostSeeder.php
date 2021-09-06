@@ -14,21 +14,23 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-       $_posts = range(100,1000);
-       $data = [];
+    //    $_posts = range(100,1000);
+    //    $data = [];
 
-       // looping
-       foreach ($_posts as $key => $val) {
-           $title = "post{$val}" ;
-           $desc= "mydesc{$val}";
-           $data[] = [
-               'user_id'=> 1,
-               'title'=> $title,
-               'description'=> $desc ,
-           ];
-       }
-       // write in db
-       DB::table('posts')->insert($data);
+    //    // looping
+    //    foreach ($_posts as $key => $val) {
+    //        $title = "post{$val}" ;
+    //        $desc= "mydesc{$val}";
+    //        $data[] = [
+    //            'user_id'=> 1,
+    //            'title'=> $title,
+    //            'description'=> $desc ,
+    //        ];
+    //    }
+    //    // write in db
+    //    DB::table('posts')->insert($data);
+
+    dd(31323123123);
 
 
 

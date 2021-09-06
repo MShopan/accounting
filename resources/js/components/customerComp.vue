@@ -4,7 +4,7 @@
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
-            <button class="btn btn-sm btn-success mx-4" @click="getModels()"> search</button>
+            <button class="btn btn-sm btn-success mx-4" v-on:click="getModels()"> search</button>
         </form>
 
         <div id="main-table">
@@ -24,7 +24,9 @@
                       <td>{{ model.name }}</td>
                       <td>{{ model.mobile }}</td>
                       <td>
-                          <button class="btn btn-sm glass" @click="fireAssign(model)">assign</button>
+                         <assign-btn @click="fireAssign(model)"></assign-btn>
+                         <edit-btn></edit-btn>
+                         <delete-btn></delete-btn>
                       </td>
                     </tr>
                 </tbody>
@@ -48,6 +50,9 @@
 <script>
 import paginationApi from './PaginationApi.vue'
 import golbalMix, { globalMix } from '../globalMix'
+import AssignBtn from './assignBtn.vue';
+import EditBtn from './editBtn.vue';
+import DeleteBtn from './deleteBtn.vue';
 
 const lang = {
     'en' :{
@@ -58,8 +63,14 @@ const lang = {
 export default {
     components :{
         paginationApi,
+        AssignBtn,
+        DeleteBtn,
+        EditBtn,
     },
-    mixins :[
+
+
+     mixins
+         :[
        globalMix,
     ],
   data :()=>{

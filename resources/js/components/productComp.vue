@@ -14,8 +14,11 @@
                     <th>id</th>
                     <th>coad</th>
                     <th>name</th>
-                    <th>treat</th>
+                    <th>price</th>
+                    <th>category</th>
+
                     <th>tools</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +27,18 @@
                       <td>{{ model.id }}</td>
                       <td>{{ model.coad }}</td>
                       <td>{{ model.name }}</td>
-                      <td>{{ model.treat }}</td>
+                      <td>
+                          <ul>
+                              <li v-for="price in model.prices" :key="price.id">
+                                  <div class="w-min px-4 mb-2 bg-gray-600 text-white rounded-full shadow-sm">
+                                     {{ getPartitionName(price.partition_id) }} : {{ price.price }}
+
+                                  </div>
+                              </li>
+                          </ul>
+                      </td>
+                      <td>{{ getCatName(model.cat_id) }}</td>
+
                       <td>
                           <button class="btn btn-sm btn-primary" @click="fireAssign(model)">assign</button>
                       </td>
@@ -67,6 +81,8 @@ export default {
   data :()=>{
       return {
           models : Object ,
+          partitions : Object ,
+          cats : Object ,
           search : '',
       }
   },
@@ -77,16 +93,33 @@ export default {
   methods :{
       getModels(page=1){
            this.startLoad();
-			axios.get(`api/partitions?search=${this.search}&page=${page}` )
+			axios.get(`api/products?search=${this.search}&page=${page}` )
 				.then(res => {
-					this.models = res.data.partitions;
+					this.models = res.data.products;
+					this.cats = res.data.cats;
+					this.partitions = res.data.partitions;
                     this.endLoad();
 
 				});
       },
       fireAssign(element){
-           this.$emit('assignPartition' , element );
-      }
+           this.$emit('assignProduct' , element );
+
+      },
+      getPartitionName(id){
+
+           let name = this.partitions.filter(el => el.id == id )[0]['name'] ;
+
+           return name;
+
+      },
+      getCatName(id){
+
+           let name = this.cats.filter(el => el.id == id )[0]['name'] ;
+
+           return name;
+
+      },
   }
 }
 </script>

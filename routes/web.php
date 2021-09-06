@@ -10,9 +10,13 @@ use App\Http\Livewire\ShowInc;
 use App\Http\Livewire\ShowCpu;
 use Inertia\Inertia;
 use App\Models\Post;
+use App\Models\Product;
+use App\Models\Price;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PostController;
+use App\Models\Cat;
+use App\Models\Partition;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,14 +75,21 @@ Route::middleware('auth')->get('/myusers', function () {
     ]);
 });
 
-Route::middleware('auth')->get('/customers', function () {
+Route::get('/customers', function () {
     return inertia('customers');
 });
 Route::middleware('auth')->get('/partitions', function () {
     return inertia('partitions');
 });
 
+Route::inertia('/products' ,'products');
+
+
+
+
 Route::inertia('/home' ,'home');
+Route::inertia('/list' ,'list');
+
 
 // post controller
 
@@ -86,6 +97,44 @@ Route::get('/myposts', [PostController::class, 'index']);
 Route::post('/myposts/delete', [PostController::class, 'destroy']);
 Route::post('/myposts/create', [PostController::class, 'create']);
 Route::post('/myposts/edit', [PostController::class, 'edit']);
+
+
+
+Route::get('/seed', function () {
+    $product = Product::create([
+        'coad'=>12,
+        'name'=>'moca',
+        'cat_id'=>1,
+        'stock'=>0,
+        'min_stock'=>5,
+        'popular'=>true,
+    ]);
+
+    // DB::table('products')->insert([
+
+    // ]);
+
+    $p_arr = [5,8,10,3];
+
+    for ($i=1; $i < 5 ; $i++) {
+
+
+        $price = Price::create([
+            'product_id'=>$product->id,
+            'partition_id'=>$i,
+            'price'=>$p_arr[$i-1],
+
+        ]);
+
+
+
+    }
+
+    echo 'truee';
+
+
+});
+
 
 
 

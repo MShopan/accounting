@@ -30,11 +30,17 @@ setInterval(() => {
     console.log(myZker);
 }, 1000);
 
+
+let $preso = function (loacl_name){
+    return loacl_name * 2 ;
+}
+
 createInertiaApp({
   resolve: name => require(`./Pages/${name}`),
   setup({ el, App, props }) {
     new Vue({
         VueI18n,
+        $preso ,
       render: h => h(App, props),
     }).$mount(el)
   },

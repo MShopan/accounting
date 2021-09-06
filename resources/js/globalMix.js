@@ -20,6 +20,16 @@ export const globalMix =  {
             this.fireEvent('endLoad');
 
         },
+        persist(local_name , defaultVal) {
+            let _local = localStorage.getItem(local_name) ;
+            if ( _local === null) {
+                return defaultVal ;
+            } else {
+                // console.log('local return ',_local);
+                return JSON.parse(_local) ;
+            }
+
+        }
     }
 }
 

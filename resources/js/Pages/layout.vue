@@ -1,6 +1,5 @@
 <template>
   <main>
-
     <header>
         <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
   <div class="flex-none px-2 mx-2">
@@ -16,6 +15,7 @@
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/myusers">Users</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/customers">Customers</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/partitions">Partitions</Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/products">Products</Link>
 
     </div>
   </div>
@@ -23,11 +23,10 @@
         <success-msg></success-msg>
         <load></load>
         <offline></offline>
-    <button class="btn btn-square btn-ghost" @click="setDark()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-      </svg>
-    </button>
+        <!-- here -->
+        <theme-mod></theme-mod>
+
+
   </div>
   <div class="flex-none">
     <button class="btn btn-square btn-ghost">
@@ -52,6 +51,8 @@ import { Link } from '@inertiajs/inertia-vue'
 import successMsg from '../components/successMsg'
 import Load from '../components/Load.vue'
 import offline from '../components/offline.vue'
+import {globalMix} from '../globalMix'
+import ThemeMod from '../components/themeMod.vue'
 
 export default {
   components: {
@@ -59,21 +60,27 @@ export default {
     successMsg,
     Load,
     offline,
+    ThemeMod,
   } ,
+  mixin:
+    [globalMix],
   data : ()=>{
       return {
-          appName : 'Clearance',
-          dark:true,
+          appName : 'Accounting',
+
       }
   },
+  mounted(){
+
+
+
+  },
+  created(){
+
+
+  },
   methods:{
-      setDark (){
-          this.dark = !this.dark;
 
-          let theme = this.dark ? 'dark' : 'light' ;
-
-          document.getElementsByTagName('html')[0].setAttribute('data-theme',theme);
-      }
   }
 }
 </script>

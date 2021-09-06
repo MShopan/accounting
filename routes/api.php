@@ -3,6 +3,8 @@
 use App\Models\Customer;
 use App\Models\Partition;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Cat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -69,5 +71,49 @@ Route::middleware('auth:sanctum')->get('/partitions', function (Request $req) {
     return response()->json( ['partitions' => $partitions  ] );
 });
 
+// delet any model
+
+Route::middleware('auth:sanctum')->post('/delete/model', function (Request $req) {
+
+    $model = $req->input('model') ;
+    $id = $req->input('id') ;
+
+    $delete = "App\\Models\\$model"::find($id)->delete();
+
+    return response()->json( ['deleted' => $delete ] );
+});
 
 
+
+Route::get('/products', function (Request $req) {
+
+    $parameters = $req->all();
+
+    $search = $parameters['search'] ;
+
+    $products = Product::where('name', 'like', '%'.$search.'%')
+                  ->paginate(config('app.perPage'));
+
+
+    $cats = Cat::all();
+
+    $partitions = Partition::all();
+
+
+
+    foreach ($products as $key => $product) {
+
+        $product->prices = $product->prices()->get();
+
+    }
+
+    return response()->json(
+        [
+            'partitions'=> $partitions ,
+            'cats'=>$cats ,
+            'products'=>$products ,
+
+        ]
+    ) ;
+
+});
