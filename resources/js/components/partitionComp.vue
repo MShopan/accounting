@@ -96,6 +96,12 @@ export default {
        this.getModels();
   }
   ,
+  watch:{
+      search : function(_old,_new ){
+          const live = false ;
+          if(live){this.getModels()}
+      }
+  },
   methods :{
       getModels(page=1){
            this.startLoad();
@@ -112,7 +118,8 @@ export default {
       resetForm(){
         this.formData = {
             id : -1 ,
-            name:''
+            name:'',
+            treat:''
         }
       },
       addNew(){

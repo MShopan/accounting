@@ -5619,6 +5619,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _globalMix_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../globalMix.js */ "./resources/js/globalMix.js");
 //
 //
 //
@@ -5656,12 +5657,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['show', 'formData'],
+  mixins: [_globalMix_js__WEBPACK_IMPORTED_MODULE_0__.globalMix],
   data: function data() {
     return {
       form: {
-        name: ''
+        id: -1,
+        name: '',
+        treat: ''
       }
     };
   },
@@ -5674,6 +5688,38 @@ __webpack_require__.r(__webpack_exports__);
       handler: function handler(val, oldVal) {
         // console.log(this.formData);
         this.form = JSON.parse(JSON.stringify(this.formData));
+      }
+    }
+  },
+  methods: {
+    save: function save() {
+      var _this = this;
+
+      this.startLoad();
+      var id = this.form.id;
+
+      if (id == -1) {
+        //create new
+        axios.post('/partition/create', this.form).then(function () {
+          _this.$emit('modelReload');
+
+          _this.$emit('modelCreated', _this.form);
+
+          _this.endLoad();
+
+          _this.fireEvent('dataSaved');
+        });
+      } else {
+        // edit -> update current
+        axios.post('/partition/edit', this.form).then(function () {
+          _this.$emit('modelReload');
+
+          _this.$emit('modelUpdated', _this.form);
+
+          _this.endLoad();
+
+          _this.fireEvent('dataSaved');
+        });
       }
     }
   }
@@ -5827,6 +5873,15 @@ var lang = {
     this.resetForm();
     this.getModels();
   },
+  watch: {
+    search: function search(_old, _new) {
+      var live = false;
+
+      if (live) {
+        this.getModels();
+      }
+    }
+  },
   methods: {
     getModels: function getModels() {
       var _this = this;
@@ -5845,7 +5900,8 @@ var lang = {
     resetForm: function resetForm() {
       this.formData = {
         id: -1,
-        name: ''
+        name: '',
+        treat: ''
       };
     },
     addNew: function addNew() {
@@ -34753,6 +34809,32 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "form-control" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.treat,
+                    expression: "form.treat"
+                  }
+                ],
+                staticClass: "input input-success ",
+                attrs: { type: "text" },
+                domProps: { value: _vm.form.treat },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "treat", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "modal-action flex content-center items-center" },
@@ -34790,6 +34872,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "label" }, [
       _c("span", { staticClass: "label-text" }, [_vm._v("Name")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _c("span", { staticClass: "label-text" }, [_vm._v("Treat")])
     ])
   }
 ]

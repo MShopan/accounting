@@ -117,3 +117,8 @@ Route::get('/products', function (Request $req) {
     ) ;
 
 });
+
+
+
+Route::post('/partition/create', [PostController::class, 'create']);
+Route::post('/partition/edit', [PostController::class, 'edit']);
