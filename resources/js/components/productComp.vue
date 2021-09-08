@@ -23,7 +23,12 @@
                 </thead>
                 <tbody>
 
-                    <tr class="hover:text-accent" v-for="model in models.data" :key="model.id">
+                    <tr class="move hover:text-accent"
+                    v-for="(model , key) in models.data" :key="model.id"
+                    :tabindex="model.id"
+                    :id="`el${key}`"
+                    @click="fireAssign(model)"
+                    v-on:keyup.enter="fireAssign(model)" >
                       <td>{{ model.id }}</td>
                       <td>{{ model.coad }}</td>
                       <td>{{ model.name }}</td>
@@ -88,6 +93,7 @@ export default {
   },
   mounted(){
        this.getModels();
+       this.setMove();
   }
   ,
   methods :{
@@ -120,6 +126,20 @@ export default {
            return name;
 
       },
+      setMove(){
+          window.addEventListener('keyup',function(e){
+                if (e.keyCode == 39) {
+                    console.log(39);
+                    window.document.querySelector(".move").next().focus();
+
+                }
+                if (e.keyCode == 37) {
+                    console.log(37);
+                    window.document.querySelector(".move").prev().focus();
+
+                }
+          })
+      }
   }
 }
 </script>

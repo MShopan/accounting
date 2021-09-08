@@ -1,10 +1,15 @@
 <template>
 
     <div class="container m-auto ">
+
+     <partition-form :formData="formData" :show="showForm" @closeForm="showForm=false"> </partition-form>
+
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
             <button class="btn btn-sm btn-success mx-4" @click="getModels()"> search</button>
+
+            <add-btn @click="addNew()"></add-btn>
         </form>
 
         <div id="main-table">
@@ -26,7 +31,10 @@
                       <td>{{ model.name }}</td>
                       <td>{{ model.treat }}</td>
                       <td>
-                          <button class="btn btn-sm btn-primary" @click="fireAssign(model)">assign</button>
+
+                          <assign-btn @click="fireAssign(model)"></assign-btn>
+                          <edit-btn @click="editModel(model)"></edit-btn>
+                          <delete-btn></delete-btn>
                       </td>
                     </tr>
                 </tbody>
@@ -50,6 +58,11 @@
 <script>
 import paginationApi from './PaginationApi.vue'
 import golbalMix, { globalMix } from '../globalMix'
+import AddBtn from './btns/addBtn.vue';
+import EditBtn from './btns/editBtn.vue';
+import AssignBtn from './btns/assignBtn.vue';
+import DeleteBtn from './btns/deleteBtn.vue';
+import PartitionForm from './forms/partitionForm.vue';
 
 const lang = {
     'en' :{
@@ -60,17 +73,26 @@ const lang = {
 export default {
     components :{
         paginationApi,
+        AddBtn,
+        EditBtn,
+        AssignBtn,
+        DeleteBtn,
+        PartitionForm,
     },
-    mixins :[
+    mixins
+        :[
        globalMix,
     ],
   data :()=>{
       return {
           models : Object ,
           search : '',
+          showForm : false ,
+          formData : Object
       }
   },
   mounted(){
+       this.resetForm();
        this.getModels();
   }
   ,
@@ -86,6 +108,20 @@ export default {
       },
       fireAssign(element){
            this.$emit('assignPartition' , element );
+      },
+      resetForm(){
+        this.formData = {
+            id : -1 ,
+            name:''
+        }
+      },
+      addNew(){
+          this.resetForm()
+          this.showForm = true;
+      },
+       editModel(model) {
+           this.formData = model
+           this.showForm = true
       }
   }
 }

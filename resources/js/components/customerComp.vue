@@ -50,9 +50,9 @@
 <script>
 import paginationApi from './PaginationApi.vue'
 import golbalMix, { globalMix } from '../globalMix'
-import AssignBtn from './assignBtn.vue';
-import EditBtn from './editBtn.vue';
-import DeleteBtn from './deleteBtn.vue';
+import AssignBtn from './btns/assignBtn.vue';
+import EditBtn from './btns/editBtn.vue';
+import DeleteBtn from './btns/deleteBtn.vue';
 
 const lang = {
     'en' :{
