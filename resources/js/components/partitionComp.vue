@@ -2,7 +2,12 @@
 
     <div class="container m-auto ">
 
-     <partition-form :formData="formData" :show="showForm" @closeForm="showForm=false"> </partition-form>
+     <partition-form
+     :formData="formData"
+     :show="showForm"
+     @closeForm="showForm=false"
+     @modelChanged="getModels()"
+     > </partition-form>
 
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
@@ -34,7 +39,7 @@
 
                           <assign-btn @click="fireAssign(model)"></assign-btn>
                           <edit-btn @click="editModel(model)"></edit-btn>
-                          <delete-btn></delete-btn>
+                          <delete-btn @click="deleteModel(modelName,model.id,getModels)"></delete-btn>
                       </td>
                     </tr>
                 </tbody>
@@ -86,6 +91,7 @@ export default {
   data :()=>{
       return {
           models : Object ,
+          modelName : 'Partition',
           search : '',
           showForm : false ,
           formData : Object
@@ -119,7 +125,8 @@ export default {
         this.formData = {
             id : -1 ,
             name:'',
-            treat:''
+            treat:'',
+            coad:'',
         }
       },
       addNew(){

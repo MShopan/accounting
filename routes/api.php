@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PartitionController;
 use App\Models\Customer;
 use App\Models\Partition;
 use App\Models\User;
@@ -78,7 +79,17 @@ Route::middleware('auth:sanctum')->post('/delete/model', function (Request $req)
     $model = $req->input('model') ;
     $id = $req->input('id') ;
 
-    $delete = "App\\Models\\$model"::find($id)->delete();
+    $modelPath = "App\\Models\\$model" ;
+
+    // var_dump([
+    //     'model'=>$model ,
+    //     'id'=>$id ,
+    //     'path'=> $modelPath ,
+    // ]);
+
+
+
+    $delete = $modelPath::where('id', $id)->first()->delete();
 
     return response()->json( ['deleted' => $delete ] );
 });
@@ -120,5 +131,6 @@ Route::get('/products', function (Request $req) {
 
 
 
-Route::post('/partition/create', [PostController::class, 'create']);
-Route::post('/partition/edit', [PostController::class, 'edit']);
+Route::post('/partition/create', [PartitionController::class, 'create']);
+Route::post('/partition/edit', [PartitionController::class, 'edit']);
+

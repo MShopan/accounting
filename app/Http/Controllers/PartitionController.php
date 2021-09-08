@@ -20,6 +20,7 @@ class PartitionController extends Controller
         $partition = [
             'name'=> $request->input('name'),
             'treat'=> $request->input('treat'),
+            'coad'=> $request->input('coad'),
         ];
 
         $part = Partition::create($partition);
@@ -48,6 +49,8 @@ class PartitionController extends Controller
         $partition = [
             'name'=> $request->input('name'),
             'treat'=> $request->input('treat'),
+            'coad'=> $request->input('coad'),
+
         ];
 
         $part = Partition::find($id)->update($partition);

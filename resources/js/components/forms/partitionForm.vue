@@ -5,7 +5,7 @@
            <div class="modal-box ">
 
 
-             <form @submit.prevent="submit">
+             <form @submit.prevent="save">
                 <div class="form-control" >
 
                       <label class="label">
@@ -13,6 +13,15 @@
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.name" >
+
+                </div>
+                <div class="form-control" >
+
+                      <label class="label">
+                            <span class="label-text">Coad</span>
+                        </label>
+
+                    <input  type="text" class="input input-success " v-model="form.coad" >
 
                 </div>
                 <div class="form-control" >
@@ -62,6 +71,7 @@ export default {
                 id : -1 ,
                 name : '',
                 treat:'',
+                coad:'',
             } ,
 
         }
@@ -71,8 +81,13 @@ export default {
     },
     watch  :{
         formData : {immediate : true , handler(val , oldVal){
-            // console.log(this.formData);
-            this.form = JSON.parse(JSON.stringify(this.formData)) ;
+            //  console.log(`my form data ${this.formData}`);
+            if(this.formData instanceof Function){
+                // function
+            }
+            else{
+                this.form = JSON.parse(JSON.stringify(this.formData)) ;
+            }
         }}
     },
     methods:{
@@ -81,20 +96,22 @@ export default {
             let id = this.form.id ;
             if(id==-1){
                 //create new
-                axios.post('/partition/create', this.form )
+                axios.post('/api/partition/create', this.form )
                 .then(()=>{
-                    this.$emit('modelReload');
+                    this.$emit('modelChanged');
                     this.$emit('modelCreated' , this.form );
+                    this.$emit('closeForm');
                     this.endLoad();
                     this.fireEvent('dataSaved');
 
                 })
             } else {
                 // edit -> update current
-               axios.post('/partition/edit', this.form )
+               axios.post('/api/partition/edit', this.form )
                 .then(()=>{
-                    this.$emit('modelReload');
+                    this.$emit('modelChanged');
                     this.$emit('modelUpdated' , this.form );
+                    this.$emit('closeForm');
                     this.endLoad();
                     this.fireEvent('dataSaved');
 
