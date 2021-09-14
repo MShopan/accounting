@@ -17,11 +17,17 @@ class PartitionController extends Controller
     public function create(Request $request)
     {
 
-        $partition = [
-            'name'=> $request->input('name'),
-            'treat'=> $request->input('treat'),
-            'coad'=> $request->input('coad'),
-        ];
+        $partition = $request->validate([
+            'name' => 'required|max:20',
+            'treat' => 'required',
+            'coad' => 'required'
+        ]);
+
+        // $partition = [
+        //     'name'=> $request->input('name'),
+        //     'treat'=> $request->input('treat'),
+        //     'coad'=> $request->input('coad'),
+        // ];
 
         $part = Partition::create($partition);
 
@@ -46,12 +52,13 @@ class PartitionController extends Controller
         //
         $id = $request->input('id') ;
 
-        $partition = [
-            'name'=> $request->input('name'),
-            'treat'=> $request->input('treat'),
-            'coad'=> $request->input('coad'),
+        $partition = $request->validate([
+            'name' => 'required|max:20',
+            'treat' => 'required',
+            'coad' => 'required'
+        ]);
 
-        ];
+
 
         $part = Partition::find($id)->update($partition);
 

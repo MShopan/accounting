@@ -5683,6 +5683,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['show', 'formData'],
@@ -5694,7 +5700,8 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         treat: '',
         coad: ''
-      }
+      },
+      errors: null
     };
   },
   mounted: function mounted() {
@@ -5708,6 +5715,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.formData instanceof Function) {// function
         } else {
           this.form = JSON.parse(JSON.stringify(this.formData));
+          this.errors = null;
         }
       }
     }
@@ -5721,7 +5729,9 @@ __webpack_require__.r(__webpack_exports__);
 
       if (id == -1) {
         //create new
-        axios.post('/api/partition/create', this.form).then(function () {
+        axios.post('/api/partition/create', this.form).then(function (res) {
+          console.log(res.data);
+
           _this.$emit('modelChanged');
 
           _this.$emit('modelCreated', _this.form);
@@ -5731,6 +5741,9 @@ __webpack_require__.r(__webpack_exports__);
           _this.endLoad();
 
           _this.fireEvent('dataSaved');
+        })["catch"](function (e) {
+          _this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
         });
       } else {
         // edit -> update current
@@ -5744,6 +5757,9 @@ __webpack_require__.r(__webpack_exports__);
           _this.endLoad();
 
           _this.fireEvent('dataSaved');
+        })["catch"](function (e) {
+          _this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
         });
       }
     }
@@ -35299,7 +35315,18 @@ var render = function() {
                     _vm.$set(_vm.form, "name", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.name
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "text-red-600 transition duration-500 ease-in-out -translate-y-1 scale-110"
+                    },
+                    [_vm._v(_vm._s(_vm.errors.name[0]))]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-control" }, [
@@ -35325,7 +35352,18 @@ var render = function() {
                     _vm.$set(_vm.form, "coad", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.coad
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "text-red-600 transition duration-500 ease-in-out"
+                    },
+                    [_vm._v(_vm._s(_vm.errors.coad[0]))]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-control" }, [
@@ -35351,7 +35389,18 @@ var render = function() {
                     _vm.$set(_vm.form, "treat", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.treat
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "text-red-600 transition duration-500 ease-in-out"
+                    },
+                    [_vm._v(_vm._s(_vm.errors.treat[0]))]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c(

@@ -14,6 +14,8 @@
 
                     <input  type="text" class="input input-success " v-model="form.name" >
 
+                    <span v-if="errors && errors.name" class="text-red-600 transition duration-500 ease-in-out -translate-y-1 scale-110">{{ errors.name[0] }}</span>
+
                 </div>
                 <div class="form-control" >
 
@@ -22,6 +24,8 @@
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.coad" >
+                 <span v-if="errors && errors.coad" class="text-red-600 transition duration-500 ease-in-out">{{ errors.coad[0] }}</span>
+
 
                 </div>
                 <div class="form-control" >
@@ -31,6 +35,8 @@
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.treat" >
+                    <span v-if="errors && errors.treat" class="text-red-600 transition duration-500 ease-in-out">{{ errors.treat[0] }}</span>
+
 
                 </div>
 
@@ -73,6 +79,7 @@ export default {
                 treat:'',
                 coad:'',
             } ,
+            errors : null,
 
         }
     },
@@ -87,6 +94,7 @@ export default {
             }
             else{
                 this.form = JSON.parse(JSON.stringify(this.formData)) ;
+                this.errors= null ;
             }
         }}
     },
@@ -97,12 +105,18 @@ export default {
             if(id==-1){
                 //create new
                 axios.post('/api/partition/create', this.form )
-                .then(()=>{
+                .then((res)=>{
+                    console.log(res.data);
                     this.$emit('modelChanged');
                     this.$emit('modelCreated' , this.form );
                     this.$emit('closeForm');
                     this.endLoad();
                     this.fireEvent('dataSaved');
+
+                })
+                .catch((e)=>{
+                    this.errors = e.response.data.errors;
+                    console.log( e.response.data.errors);
 
                 })
             } else {
@@ -114,6 +128,11 @@ export default {
                     this.$emit('closeForm');
                     this.endLoad();
                     this.fireEvent('dataSaved');
+
+                })
+                .catch((e)=>{
+                    this.errors = e.response.data.errors;
+                    console.log( e.response.data.errors);
 
                 })
 
