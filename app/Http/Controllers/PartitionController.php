@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class PartitionController extends Controller
 {
+    private $rules = [
+        'name' => 'required|max:20',
+        'treat' => 'required',
+        'coad' => 'required'
+        //'coad' => 'nullable' use this for nullable fields
+
+    ];
+
+
 
     public function index(Request $req)
     {
@@ -17,17 +26,7 @@ class PartitionController extends Controller
     public function create(Request $request)
     {
 
-        $partition = $request->validate([
-            'name' => 'required|max:20',
-            'treat' => 'required',
-            'coad' => 'required'
-        ]);
-
-        // $partition = [
-        //     'name'=> $request->input('name'),
-        //     'treat'=> $request->input('treat'),
-        //     'coad'=> $request->input('coad'),
-        // ];
+        $partition = $request->validate($this->rules);
 
         $part = Partition::create($partition);
 
@@ -52,11 +51,7 @@ class PartitionController extends Controller
         //
         $id = $request->input('id') ;
 
-        $partition = $request->validate([
-            'name' => 'required|max:20',
-            'treat' => 'required',
-            'coad' => 'required'
-        ]);
+        $partition = $request->validate($this->rules);
 
 
 

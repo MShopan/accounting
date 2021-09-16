@@ -1,11 +1,11 @@
 <template>
-          <div id="post-modal">
+          <div class="">
             <input class="modal-toggle" type="checkbox" id="my-modal-2"  v-model="show">
-            <div class="modal">
+            <div class="modal overflow-auto">
            <div class="modal-box ">
 
 
-             <form @submit.prevent="save">
+             <form @submit.prevent="save" class="pt-16">
                 <div class="form-control" >
 
                       <label class="label">
@@ -22,7 +22,7 @@
                 <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">Coad</span>
+                            <span class="label-text">coad</span>
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.coad" >
@@ -32,19 +32,46 @@
                       </error-label>
 
                 </div>
-                <div class="form-control" >
+
+
+                <div class="form-control"  >
 
                       <label class="label">
-                            <span class="label-text">Treat</span>
+                            <span class="label-text">category</span>
                         </label>
 
-                    <input  type="text" class="input input-success " v-model="form.treat" >
+                    <select class="select select-success select-bordered w-full" v-model="form.cat_id">
+                    <option disabled="" selected="">Choose your category</option>
+                    <option v-for="cat in cats" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
 
-                      <error-label v-if="errors && errors.treat" >
-                          {{errors.treat[0]}}
-                      </error-label>
+                    </select>
+
+
+
+
 
                 </div>
+
+                <!-- prices -->
+
+                <h3 class="pt-2">prices</h3>
+
+                <div class="form-control" v-for="(partition) in partitions" :key="partition.id">
+
+                      <label class="label">
+                            <span class="label-text">{{ partition.name }}</span>
+                      </label>
+
+                    <input  type="text" class="input input-info " :value="getCurrentPrice(partition.id)">
+
+                    <!-- form.prices[0].price -->
+
+
+                </div>
+
+                <!-- end prices  -->
+
+
 
 
             <div class="modal-action flex content-center items-center">
@@ -76,6 +103,9 @@ export default {
     props :[
         'show' ,
         'formData' ,
+        'cats' ,
+        'partitions' ,
+
     ],
     mixins: [
         globalMix ,
@@ -86,8 +116,9 @@ export default {
             form : {
                 id : -1 ,
                 name : '',
-                treat:'',
+                cat:'',
                 coad:'',
+                price:'',
             } ,
             errors : null,
 
@@ -109,6 +140,13 @@ export default {
         }}
     },
     methods:{
+        getCurrentPrice(partition_id){
+            let prices =  this.form.prices ;
+            console.log(prices);
+            let current_price = prices.filter((price)=>{ price.partition_id == partition_id  })
+            console.log(` curr ${current_price}`);
+            return current_price.price ;
+        },
         save(){
             this.startLoad();
             let id = this.form.id ;

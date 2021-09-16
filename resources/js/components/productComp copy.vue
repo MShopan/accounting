@@ -1,22 +1,10 @@
 <template>
 
     <div class="container m-auto ">
-             <product-form
-     :formData="formData"
-     :show="showForm"
-     @closeForm="showForm=false"
-     @modelChanged="getModels()"
-     :partitions="partitions"
-     :cats="cats"
-     > </product-form>
-
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
             <button class="btn btn-sm btn-success mx-4" @click="getModels()"> search</button>
-
-            <add-btn @click="addNew()"></add-btn>
-
         </form>
 
         <div id="main-table">
@@ -57,9 +45,7 @@
                       <td>{{ getCatName(model.cat_id) }}</td>
 
                       <td>
-                          <assign-btn @click="fireAssign(model)"></assign-btn>
-                          <edit-btn @click="editModel(model)"></edit-btn>
-                          <delete-btn @click="deleteModel(modelName,model.id,getModels)"></delete-btn>
+                          <button class="btn btn-sm btn-primary" @click="fireAssign(model)">assign</button>
                       </td>
                     </tr>
                 </tbody>
@@ -82,12 +68,7 @@
 
 <script>
 import paginationApi from './PaginationApi.vue'
-import  { globalMix } from '../globalMix'
-import AddBtn from './btns/addBtn.vue';
-import EditBtn from './btns/editBtn.vue';
-import AssignBtn from './btns/assignBtn.vue';
-import DeleteBtn from './btns/deleteBtn.vue';
-import productForm from './forms/productForm.vue';
+import golbalMix, { globalMix } from '../globalMix'
 
 const lang = {
     'en' :{
@@ -98,11 +79,6 @@ const lang = {
 export default {
     components :{
         paginationApi,
-        AddBtn,
-        EditBtn,
-        AssignBtn,
-        DeleteBtn,
-        productForm,
     },
     mixins :[
        globalMix,
@@ -111,17 +87,11 @@ export default {
       return {
           models : Object ,
           partitions : Object ,
-          modelName : 'Product',
-
           cats : Object ,
           search : '',
-          showForm : false ,
-          formData : Object
       }
   },
   mounted(){
-       this.resetForm();
-
        this.getModels();
        this.setMove();
   }
@@ -155,23 +125,6 @@ export default {
 
            return name;
 
-      },
-      resetForm(){
-        this.formData = {
-            id : -1 ,
-            name:'',
-            cat:'',
-            coad:'',
-            price : '' ,
-        }
-      },
-      addNew(){
-          this.resetForm()
-          this.showForm = true;
-      },
-       editModel(model) {
-           this.formData = model
-           this.showForm = true
       },
       setMove(){
           window.addEventListener('keyup',function(e){
