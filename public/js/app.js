@@ -5915,6 +5915,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5932,13 +5949,28 @@ __webpack_require__.r(__webpack_exports__);
         coad: '',
         price: ''
       },
+      prices_new: null,
+      old_prices_fullfilled: false,
       errors: null
     };
   },
   mounted: function mounted() {
     this.form = this.formData;
   },
+  created: function created() {},
   watch: {
+    partitions: {
+      immediate: true,
+      handler: function handler(val, oldVal) {
+        if (this.partitions instanceof Function) {// function
+        } else {
+          this.addNewPriceObj(); // console.log(this.partitions);
+          // if (this.prices_new==null) {
+          //     this.addNewPriceObj();
+          // }
+        }
+      }
+    },
     formData: {
       immediate: true,
       handler: function handler(val, oldVal) {
@@ -5946,23 +5978,73 @@ __webpack_require__.r(__webpack_exports__);
         if (this.formData instanceof Function) {// function
         } else {
           this.form = JSON.parse(JSON.stringify(this.formData));
+          this.addNewPriceObj();
           this.errors = null;
         }
       }
     }
   },
   methods: {
-    getCurrentPrice: function getCurrentPrice(partition_id) {
-      var prices = this.form.prices;
-      console.log(prices);
-      var current_price = prices.filter(function (price) {
-        price.partition_id == partition_id;
+    addNewPriceObj: function addNewPriceObj() {
+      var _this = this;
+
+      // make price new as array and make it empty
+      this.prices_new = []; // add a price for every partitions
+
+      if (this.partitions instanceof Function) {// function
+      } else {
+        this.partitions.forEach(function (partition) {
+          _this.prices_new.push({
+            id: partition.id,
+            partition_id: partition.id,
+            price: null
+          });
+        }); //end for each
+      }
+    },
+    getOldPrice: function getOldPrice(price) {
+      // this price send by template loop
+      var partition_id = price.partition_id;
+
+      if (this.form && this.form.prices) {
+        var prices = this.form.prices;
+        var current_price = prices.filter(function (el) {
+          return el.partition_id == partition_id;
+        });
+
+        if (current_price.length > 0) {
+          return current_price[0].price;
+        } else {
+          return 0;
+        }
+      }
+    },
+    setOldPrice: function setOldPrice(price) {
+      var oldPrice = this.getOldPrice(price);
+      price.price = oldPrice;
+    },
+    setAllOldPrices: function setAllOldPrices() {
+      var _this2 = this;
+
+      var oldPrice = 0;
+      this.prices_new.forEach(function (price) {
+        _this2.setOldPrice(price);
       });
-      console.log(" curr ".concat(current_price));
-      return current_price.price;
+    },
+    getPartitionName: function getPartitionName(id) {
+      var name = this.partitions.filter(function (el) {
+        return el.id == id;
+      })[0]['name'];
+      return name;
+    },
+    getCatName: function getCatName(id) {
+      var name = this.cats.filter(function (el) {
+        return el.id == id;
+      })[0]['name'];
+      return name;
     },
     save: function save() {
-      var _this = this;
+      var _this3 = this;
 
       this.startLoad();
       var id = this.form.id;
@@ -5971,37 +6053,37 @@ __webpack_require__.r(__webpack_exports__);
         //create new
         axios.post('/api/partition/create', this.form).then(function (res) {
           //console.log(res.data);
-          _this.$emit('modelChanged');
+          _this3.$emit('modelChanged');
 
-          _this.$emit('modelCreated', _this.form);
+          _this3.$emit('modelCreated', _this3.form);
 
-          _this.$emit('closeForm');
+          _this3.$emit('closeForm');
 
-          _this.endLoad();
+          _this3.endLoad();
 
-          _this.fireEvent('dataSaved');
+          _this3.fireEvent('dataSaved');
         })["catch"](function (e) {
-          _this.errors = e.response.data.errors;
+          _this3.errors = e.response.data.errors;
 
-          _this.endLoad(); // console.log( e.response.data.errors);
+          _this3.endLoad(); // console.log( e.response.data.errors);
 
         });
       } else {
         // edit -> update current
         axios.post('/api/partition/edit', this.form).then(function () {
-          _this.$emit('modelChanged');
+          _this3.$emit('modelChanged');
 
-          _this.$emit('modelUpdated', _this.form);
+          _this3.$emit('modelUpdated', _this3.form);
 
-          _this.$emit('closeForm');
+          _this3.$emit('closeForm');
 
-          _this.endLoad();
+          _this3.endLoad();
 
-          _this.fireEvent('dataSaved');
+          _this3.fireEvent('dataSaved');
         })["catch"](function (e) {
-          _this.errors = e.response.data.errors;
+          _this3.errors = e.response.data.errors;
 
-          _this.endLoad(); //console.log( e.response.data.errors);
+          _this3.endLoad(); //console.log( e.response.data.errors);
 
         });
       }
@@ -6219,13 +6301,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaginationApi.vue */ "./resources/js/components/PaginationApi.vue");
-/* harmony import */ var _globalMix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../globalMix */ "./resources/js/globalMix.js");
-/* harmony import */ var _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./btns/addBtn.vue */ "./resources/js/components/btns/addBtn.vue");
-/* harmony import */ var _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./btns/editBtn.vue */ "./resources/js/components/btns/editBtn.vue");
-/* harmony import */ var _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./btns/assignBtn.vue */ "./resources/js/components/btns/assignBtn.vue");
-/* harmony import */ var _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./btns/deleteBtn.vue */ "./resources/js/components/btns/deleteBtn.vue");
-/* harmony import */ var _forms_productForm_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./forms/productForm.vue */ "./resources/js/components/forms/productForm.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaginationApi.vue */ "./resources/js/components/PaginationApi.vue");
+/* harmony import */ var _globalMix__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../globalMix */ "./resources/js/globalMix.js");
+/* harmony import */ var _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./btns/addBtn.vue */ "./resources/js/components/btns/addBtn.vue");
+/* harmony import */ var _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./btns/editBtn.vue */ "./resources/js/components/btns/editBtn.vue");
+/* harmony import */ var _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./btns/assignBtn.vue */ "./resources/js/components/btns/assignBtn.vue");
+/* harmony import */ var _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./btns/deleteBtn.vue */ "./resources/js/components/btns/deleteBtn.vue");
+/* harmony import */ var _forms_productForm_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./forms/productForm.vue */ "./resources/js/components/forms/productForm.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6322,14 +6470,14 @@ var lang = {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    paginationApi: _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    AddBtn: _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    EditBtn: _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    AssignBtn: _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    DeleteBtn: _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    productForm: _forms_productForm_vue__WEBPACK_IMPORTED_MODULE_6__.default
+    paginationApi: _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    AddBtn: _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    EditBtn: _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    AssignBtn: _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    DeleteBtn: _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    productForm: _forms_productForm_vue__WEBPACK_IMPORTED_MODULE_7__.default
   },
-  mixins: [_globalMix__WEBPACK_IMPORTED_MODULE_1__.globalMix],
+  mixins: [_globalMix__WEBPACK_IMPORTED_MODULE_2__.globalMix],
   data: function data() {
     return {
       models: Object,
@@ -6338,30 +6486,85 @@ var lang = {
       cats: Object,
       search: '',
       showForm: false,
-      formData: Object
+      formData: Object,
+      showHeaders: {
+        id: true,
+        name: true,
+        coad: true,
+        price: true,
+        category: true,
+        popular: true,
+        stock: true,
+        min_stock: true,
+        created_at: false,
+        updated_at: false,
+        notes: true
+      },
+      showOptions: {
+        addBtn: true,
+        editBtn: true,
+        deleteBtn: true,
+        assignBtn: true
+      }
     };
   },
   mounted: function mounted() {
-    this.resetForm();
-    this.getModels();
-    this.setMove();
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.getModels();
+
+            case 2:
+              _this.resetForm();
+
+              _this.setMove();
+
+              _this.loadShowHeaders();
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   methods: {
     getModels: function getModels() {
-      var _this = this;
+      var _this2 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.startLoad();
       axios.get("api/products?search=".concat(this.search, "&page=").concat(page)).then(function (res) {
-        _this.models = res.data.products;
-        _this.cats = res.data.cats;
-        _this.partitions = res.data.partitions;
+        _this2.models = res.data.products;
+        _this2.cats = res.data.cats;
+        _this2.partitions = res.data.partitions;
 
-        _this.endLoad();
+        _this2.endLoad();
       });
     },
     fireAssign: function fireAssign(element) {
       this.$emit('assignProduct', element);
+    },
+    saveHeaders: function saveHeaders() {
+      var _this3 = this;
+
+      setTimeout(function () {
+        localStorage.setItem('productHeader', JSON.stringify(_this3.showHeaders));
+      }, 1000);
+    },
+    loadShowHeaders: function loadShowHeaders() {
+      var localHeaders = localStorage.getItem('productHeader');
+
+      if (localHeaders != null) {
+        this.showHeaders = JSON.parse(localHeaders);
+      } else {// do nothing because show header alredy declared in data
+      }
     },
     getPartitionName: function getPartitionName(id) {
       var name = this.partitions.filter(function (el) {
@@ -6381,7 +6584,7 @@ var lang = {
         name: '',
         cat: '',
         coad: '',
-        price: ''
+        prices: []
       };
     },
     addNew: function addNew() {
@@ -36010,7 +36213,7 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "modal overflow-auto" }, [
+    _c("div", { staticClass: "modal overflow-auto pt-40" }, [
       _c("div", { staticClass: "modal-box " }, [
         _c(
           "form",
@@ -36158,26 +36361,74 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("h3", { staticClass: "pt-2" }, [_vm._v("prices")]),
+            _c("label", { staticClass: "label" }, [
+              _c("span", [_vm._v("Prices")]),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "bg-gray-500 shadow-sm flex justify-center\n                       items-center w-auto h-8 px-2 rounded-full text-white\n                       hover:bg-green-600\n                       ",
+                  on: {
+                    click: function($event) {
+                      return _vm.setAllOldPrices()
+                    }
+                  }
+                },
+                [_vm._v("set old prices")]
+              )
+            ]),
             _vm._v(" "),
-            _vm._l(_vm.partitions, function(partition) {
-              return _c(
-                "div",
-                { key: partition.id, staticClass: "form-control" },
-                [
-                  _c("label", { staticClass: "label" }, [
-                    _c("span", { staticClass: "label-text" }, [
-                      _vm._v(_vm._s(partition.name))
-                    ])
+            _vm._l(_vm.prices_new, function(price) {
+              return _c("div", { key: price.id, staticClass: "form-control" }, [
+                _c("label", { staticClass: "label" }, [
+                  _c("span", { staticClass: "label-text" }, [
+                    _vm._v(_vm._s(_vm.getPartitionName(price.partition_id)))
                   ]),
                   _vm._v(" "),
-                  _c("input", {
-                    staticClass: "input input-info ",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.getCurrentPrice(partition.id) }
-                  })
-                ]
-              )
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "bg-gray-500 shadow-sm flex justify-center\n                       items-center w-auto h-8 px-2 rounded-full text-white\n                       hover:bg-green-600\n                       ",
+                      on: {
+                        click: function($event) {
+                          return _vm.setOldPrice(price)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                           " +
+                          _vm._s(_vm.getOldPrice(price)) +
+                          "\n                       "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: price.price,
+                      expression: "price.price"
+                    }
+                  ],
+                  staticClass: "input input-info",
+                  attrs: { type: "text" },
+                  domProps: { value: price.price },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(price, "price", $event.target.value)
+                    }
+                  }
+                })
+              ])
             }),
             _vm._v(" "),
             _c(
@@ -36531,6 +36782,87 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _c("div", { staticClass: "dropdown mx-12" }, [
+        _c(
+          "div",
+          { staticClass: "m-1 btn btn-sm btn-info", attrs: { tabindex: "0" } },
+          [_vm._v("Headers")]
+        ),
+        _vm._v(" "),
+        _c("div", {}, [
+          _c(
+            "ul",
+            {
+              staticClass:
+                " p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52",
+              attrs: { tabindex: "0" }
+            },
+            _vm._l(_vm.showHeaders, function(head, key) {
+              return _c("li", { key: key }, [
+                _c(
+                  "span",
+                  { staticClass: "flex justify-between items-center" },
+                  [
+                    _vm._v(
+                      "\n                 " + _vm._s(key) + "\n\n            "
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.showHeaders[key],
+                          expression: "showHeaders[key]"
+                        }
+                      ],
+                      staticClass: "checkbox checkbox-primary",
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.showHeaders[key])
+                          ? _vm._i(_vm.showHeaders[key], null) > -1
+                          : _vm.showHeaders[key]
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.saveHeaders()
+                        },
+                        change: function($event) {
+                          var $$a = _vm.showHeaders[key],
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.showHeaders,
+                                  key,
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.showHeaders,
+                                  key,
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.showHeaders, key, $$c)
+                          }
+                        }
+                      }
+                    })
+                  ]
+                )
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -36587,144 +36919,241 @@ var render = function() {
                 [_vm._v(" search")]
               ),
               _vm._v(" "),
-              _c("add-btn", {
-                on: {
-                  click: function($event) {
-                    return _vm.addNew()
-                  }
-                }
-              })
+              _vm.showOptions.addBtn
+                ? _c("add-btn", {
+                    on: {
+                      click: function($event) {
+                        return _vm.addNew()
+                      }
+                    }
+                  })
+                : _vm._e()
             ],
             1
           ),
           _vm._v(" "),
-          _c("div", { attrs: { id: "main-table" } }, [
-            _c("table", { staticClass: "table  table-sm w-full" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.models.data, function(model, key) {
-                  return _c(
-                    "tr",
-                    {
-                      key: model.id,
-                      staticClass: "move hover:text-accent",
-                      attrs: { tabindex: model.id, id: "el" + key },
-                      on: {
-                        click: function($event) {
-                          return _vm.fireAssign(model)
-                        },
-                        keyup: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
+          _c(
+            "div",
+            { staticClass: "overflow-x-auto", attrs: { id: "main-table" } },
+            [
+              _c("table", { staticClass: "table  table-sm w-full " }, [
+                _c("thead", [
+                  _c("tr", [
+                    _vm.showHeaders.id ? _c("th", [_vm._v("id")]) : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.coad
+                      ? _c("th", [_vm._v("coad")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.name
+                      ? _c("th", [_vm._v("name")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.price
+                      ? _c("th", [_vm._v("price")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.category
+                      ? _c("th", [_vm._v("category")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.popular
+                      ? _c("th", [_vm._v("popular")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.stock
+                      ? _c("th", [_vm._v("stock")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.min_stock
+                      ? _c("th", [_vm._v("min stock")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.created_at
+                      ? _c("th", [_vm._v("created_at")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.updated_at
+                      ? _c("th", [_vm._v("updated_at")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.showHeaders.notes
+                      ? _c("th", [_vm._v("notes")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("tools")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.models.data, function(model, key) {
+                    return _c(
+                      "tr",
+                      {
+                        key: model.id,
+                        staticClass: "move hover:text-accent",
+                        attrs: { tabindex: model.id, id: "el" + key },
+                        on: {
+                          click: function($event) {
+                            return _vm.fireAssign(model)
+                          },
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.fireAssign(model)
                           }
-                          return _vm.fireAssign(model)
                         }
-                      }
-                    },
-                    [
-                      _c("td", [_vm._v(_vm._s(model.id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(model.coad))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(model.name))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "ul",
-                          _vm._l(model.prices, function(price) {
-                            return _c("li", { key: price.id }, [
+                      },
+                      [
+                        _vm.showHeaders.id
+                          ? _c("td", [_vm._v(_vm._s(model.id))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.coad
+                          ? _c("td", [_vm._v(_vm._s(model.coad))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.name
+                          ? _c("td", [_vm._v(_vm._s(model.name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.price
+                          ? _c("td", [
                               _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "w-min px-4 mb-2 bg-gray-600 text-white rounded-full shadow-sm"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                 " +
-                                      _vm._s(
-                                        _vm.getPartitionName(price.partition_id)
-                                      ) +
-                                      " : " +
-                                      _vm._s(price.price) +
-                                      "\n\n                              "
-                                  )
-                                ]
+                                "ul",
+                                _vm._l(model.prices, function(price) {
+                                  return _c("li", { key: price.id }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "w-min px-4 mb-2 bg-gray-600 text-white rounded-full shadow-sm"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                 " +
+                                            _vm._s(
+                                              _vm.getPartitionName(
+                                                price.partition_id
+                                              )
+                                            ) +
+                                            " : " +
+                                            _vm._s(price.price) +
+                                            "\n\n                              "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                0
                               )
                             ])
-                          }),
-                          0
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.category
+                          ? _c("td", [
+                              _vm._v(_vm._s(_vm.getCatName(model.cat_id)))
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.popular
+                          ? _c("td", [_vm._v(_vm._s(model.popular))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.stock
+                          ? _c("td", [_vm._v(_vm._s(model.stock))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.min_stock
+                          ? _c("td", [_vm._v(_vm._s(model.min_stock))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.created_at
+                          ? _c("td", [_vm._v(_vm._s(model.created_at))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.updated_at
+                          ? _c("td", [_vm._v(_vm._s(model.updated_at))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.showHeaders.notes
+                          ? _c("td", [_vm._v(_vm._s(model.notes))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "w-auto" },
+                          [
+                            _vm.showOptions.assignBtn
+                              ? _c("assign-btn", {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.fireAssign(model)
+                                    }
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.showOptions.editBtn
+                              ? _c("edit-btn", {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.editModel(model)
+                                    }
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.showOptions.deleteBtn
+                              ? _c("delete-btn", {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteModel(
+                                        _vm.modelName,
+                                        model.id,
+                                        _vm.getModels
+                                      )
+                                    }
+                                  }
+                                })
+                              : _vm._e()
+                          ],
+                          1
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm.getCatName(model.cat_id)))]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c("assign-btn", {
-                            on: {
-                              click: function($event) {
-                                return _vm.fireAssign(model)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("edit-btn", {
-                            on: {
-                              click: function($event) {
-                                return _vm.editModel(model)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("delete-btn", {
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteModel(
-                                  _vm.modelName,
-                                  model.id,
-                                  _vm.getModels
-                                )
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                }),
-                0
-              )
-            ]),
-            _vm._v(" "),
-            _vm.models.data
-              ? _c("div", [
-                  _vm.models.data.length == 0
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "flex w-full content-center justify-center items-center  bg-blue-300 "
-                        },
-                        [_c("div", [_vm._v("no data")])]
-                      )
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ]),
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _vm.models.data
+                ? _c("div", [
+                    _vm.models.data.length == 0
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex w-full content-center justify-center items-center  bg-blue-300 "
+                          },
+                          [_c("div", [_vm._v("no data")])]
+                        )
+                      : _vm._e()
+                  ])
+                : _vm._e()
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -36743,28 +37172,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("coad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("price")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("category")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("tools")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

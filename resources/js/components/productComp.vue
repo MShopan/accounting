@@ -10,24 +10,61 @@
      :cats="cats"
      > </product-form>
 
+                 <!-- show header dorp down  -->
+            <div class="dropdown mx-12">
+            <div tabindex="0" class="m-1 btn btn-sm btn-info">Headers</div>
+            <div class="">
+            <ul tabindex="0" class=" p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                <li v-for="(head , key) in showHeaders" :key="key" >
+                 <span class="flex justify-between items-center">
+                     {{key}}
+
+                <input type="checkbox"  class="checkbox checkbox-primary"
+                v-model="showHeaders[key]"
+                @click="saveHeaders()"
+                >
+
+                </span>
+
+                </li>
+
+
+
+            </ul>
+            </div>
+            </div>
+
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
             <button class="btn btn-sm btn-success mx-4" @click="getModels()"> search</button>
 
-            <add-btn @click="addNew()"></add-btn>
+            <add-btn
+            v-if="showOptions.addBtn"
+
+            @click="addNew()"></add-btn>
+
+
+
 
         </form>
 
-        <div id="main-table">
-            <table class="table  table-sm w-full">
+        <div id="main-table" class="overflow-x-auto">
+            <table class="table  table-sm w-full ">
                 <thead>
                     <tr>
-                    <th>id</th>
-                    <th>coad</th>
-                    <th>name</th>
-                    <th>price</th>
-                    <th>category</th>
+
+                    <th v-if="showHeaders.id">id</th>
+                    <th v-if="showHeaders.coad">coad</th>
+                    <th v-if="showHeaders.name">name</th>
+                    <th v-if="showHeaders.price">price</th>
+                    <th v-if="showHeaders.category">category</th>
+                    <th v-if="showHeaders.popular">popular</th>
+                    <th v-if="showHeaders.stock">stock</th>
+                    <th v-if="showHeaders.min_stock">min stock</th>
+                    <th v-if="showHeaders.created_at">created_at</th>
+                    <th v-if="showHeaders.updated_at">updated_at</th>
+                    <th v-if="showHeaders.notes">notes</th>
 
                     <th>tools</th>
 
@@ -41,10 +78,13 @@
                     :id="`el${key}`"
                     @click="fireAssign(model)"
                     v-on:keyup.enter="fireAssign(model)" >
-                      <td>{{ model.id }}</td>
-                      <td>{{ model.coad }}</td>
-                      <td>{{ model.name }}</td>
-                      <td>
+
+
+                      <td v-if="showHeaders.id">{{ model.id }}</td>
+                      <td v-if="showHeaders.coad">{{ model.coad }}</td>
+                      <td v-if="showHeaders.name">{{ model.name }}</td>
+                      <!-- price  -->
+                      <td v-if="showHeaders.price">
                           <ul>
                               <li v-for="price in model.prices" :key="price.id">
                                   <div class="w-min px-4 mb-2 bg-gray-600 text-white rounded-full shadow-sm">
@@ -54,13 +94,31 @@
                               </li>
                           </ul>
                       </td>
-                      <td>{{ getCatName(model.cat_id) }}</td>
 
-                      <td>
-                          <assign-btn @click="fireAssign(model)"></assign-btn>
-                          <edit-btn @click="editModel(model)"></edit-btn>
-                          <delete-btn @click="deleteModel(modelName,model.id,getModels)"></delete-btn>
+                      <td v-if="showHeaders.category">{{ getCatName(model.cat_id) }}</td>
+
+                      <td v-if="showHeaders.popular">{{ model.popular }}</td>
+                      <td v-if="showHeaders.stock">{{ model.stock }}</td>
+                      <td v-if="showHeaders.min_stock">{{ model.min_stock }}</td>
+                      <td v-if="showHeaders.created_at">{{ model.created_at }}</td>
+                      <td v-if="showHeaders.updated_at">{{ model.updated_at }}</td>
+                      <td v-if="showHeaders.notes">{{ model.notes }}</td>
+
+                       <!-- tools  -->
+                      <td class="w-auto">
+                          <assign-btn
+                          v-if="showOptions.assignBtn"
+                           @click="fireAssign(model)"></assign-btn>
+
+                          <edit-btn
+                          v-if="showOptions.editBtn"
+                          @click="editModel(model)"></edit-btn>
+
+                          <delete-btn
+                          v-if="showOptions.deleteBtn"
+                          @click="deleteModel(modelName,model.id,getModels)"></delete-btn>
                       </td>
+
                     </tr>
                 </tbody>
             </table>
@@ -116,14 +174,39 @@ export default {
           cats : Object ,
           search : '',
           showForm : false ,
-          formData : Object
+          formData : Object,
+
+          showHeaders : {
+              id :true,
+              name :true  ,
+              coad :true  ,
+              price :true  ,
+              category :true  ,
+              popular :true  ,
+              stock :true  ,
+              min_stock :true  ,
+              created_at :false  ,
+              updated_at :false  ,
+              notes :true  ,
+          } ,
+          showOptions :{
+              addBtn : true,
+              editBtn :true ,
+              deleteBtn : true ,
+              assignBtn : true,
+          }
+
+
       }
   },
-  mounted(){
-       this.resetForm();
+  async mounted(){
 
-       this.getModels();
+       await this.getModels();
+       this.resetForm();
        this.setMove();
+
+       this.loadShowHeaders();
+
   }
   ,
   methods :{
@@ -141,6 +224,19 @@ export default {
       fireAssign(element){
            this.$emit('assignProduct' , element );
 
+      },
+      saveHeaders(){
+          setTimeout(() => {
+              localStorage.setItem('productHeader',JSON.stringify(this.showHeaders));
+          }, 1000);
+      },
+      loadShowHeaders(){
+          let localHeaders = localStorage.getItem('productHeader') ;
+          if(localHeaders!=null){
+             this.showHeaders = JSON.parse(localHeaders) ;
+          } else {
+              // do nothing because show header alredy declared in data
+          }
       },
       getPartitionName(id){
 
@@ -162,8 +258,12 @@ export default {
             name:'',
             cat:'',
             coad:'',
-            price : '' ,
+            prices : [
+
+            ] ,
         }
+
+
       },
       addNew(){
           this.resetForm()
