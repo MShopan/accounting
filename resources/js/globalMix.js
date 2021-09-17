@@ -8,6 +8,14 @@ export const globalMix =  {
         }
     },
     methods:{
+        formateDatetime(datetime){
+            let phase1 = datetime.split(".")[0];
+            let phase2 = phase1.split("T");
+
+            let final = `${phase2[0]} ${phase2[1]}`
+
+          return final ;
+        },
         fireEvent(name){
             const event = new Event(name);
             window.dispatchEvent(event);

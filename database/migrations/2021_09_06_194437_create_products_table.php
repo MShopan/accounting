@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('coad')->nullable();
             $table->string('name');
             $table->string('cat_id'); // relation
-            $table->decimal('stock');
+            $table->decimal('stock')->nullable();
             $table->decimal('min_stock');
             $table->boolean('popular');
             $table->string('notes')->nullable();

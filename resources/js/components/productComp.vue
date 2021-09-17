@@ -100,8 +100,8 @@
                       <td v-if="showHeaders.popular">{{ model.popular }}</td>
                       <td v-if="showHeaders.stock">{{ model.stock }}</td>
                       <td v-if="showHeaders.min_stock">{{ model.min_stock }}</td>
-                      <td v-if="showHeaders.created_at">{{ model.created_at }}</td>
-                      <td v-if="showHeaders.updated_at">{{ model.updated_at }}</td>
+                      <td v-if="showHeaders.created_at">{{ formateDatetime(model.created_at) }}</td>
+                      <td v-if="showHeaders.updated_at">{{ formateDatetime(model.updated_at) }}</td>
                       <td v-if="showHeaders.notes">{{ model.notes }}</td>
 
                        <!-- tools  -->
@@ -261,6 +261,9 @@ export default {
             prices : [
 
             ] ,
+            popular : 0 ,
+            min_stock : 0,
+
         }
 
 

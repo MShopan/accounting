@@ -5932,6 +5932,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5951,6 +5984,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       prices_new: null,
       old_prices_fullfilled: false,
+      popularList: [0, 1],
       errors: null
     };
   },
@@ -6047,11 +6081,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.startLoad();
-      var id = this.form.id;
+      var id = this.form.id; // add prices new to the form before send to api
+
+      this.form.prices_new = this.prices_new;
 
       if (id == -1) {
         //create new
-        axios.post('/api/partition/create', this.form).then(function (res) {
+        axios.post('/api/product/create', this.form).then(function (res) {
           //console.log(res.data);
           _this3.$emit('modelChanged');
 
@@ -6070,7 +6106,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         // edit -> update current
-        axios.post('/api/partition/edit', this.form).then(function () {
+        axios.post('/api/product/edit', this.form).then(function () {
           _this3.$emit('modelChanged');
 
           _this3.$emit('modelUpdated', _this3.form);
@@ -6584,7 +6620,9 @@ var lang = {
         name: '',
         cat: '',
         coad: '',
-        prices: []
+        prices: [],
+        popular: 0,
+        min_stock: 0
       };
     },
     addNew: function addNew() {
@@ -6937,6 +6975,14 @@ var globalMix = {
     };
   },
   methods: {
+    formateDatetime: function formateDatetime(datetime) {
+      var phase1 = datetime.split(".")[0];
+      var phase2 = phase1.split("T");
+
+      var _final = "".concat(phase2[0], " ").concat(phase2[1]);
+
+      return _final;
+    },
     fireEvent: function fireEvent(name) {
       var event = new Event(name);
       window.dispatchEvent(event);
@@ -36213,8 +36259,8 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "modal overflow-auto pt-40" }, [
-      _c("div", { staticClass: "modal-box " }, [
+    _c("div", { staticClass: "modal overflow-auto " }, [
+      _c("div", { staticClass: "modal-box mt-96" }, [
         _c(
           "form",
           {
@@ -36361,6 +36407,93 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "form-control" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.popular,
+                      expression: "form.popular"
+                    }
+                  ],
+                  staticClass: "select select-success select-bordered w-full",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.form,
+                        "popular",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.popularList, function(popular, key) {
+                  return _c(
+                    "option",
+                    { key: key, domProps: { value: popular } },
+                    [_vm._v(_vm._s(popular))]
+                  )
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-control" },
+              [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.min_stock,
+                      expression: "form.min_stock"
+                    }
+                  ],
+                  staticClass: "input input-success ",
+                  attrs: { type: "number" },
+                  domProps: { value: _vm.form.min_stock },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "min_stock", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.min_stock
+                  ? _c("error-label", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.errors.min_stock[0]) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("label", { staticClass: "label" }, [
               _c("span", [_vm._v("Prices")]),
               _vm._v(" "),
@@ -36417,7 +36550,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "input input-info",
-                  attrs: { type: "text" },
+                  attrs: { type: "number" },
                   domProps: { value: price.price },
                   on: {
                     input: function($event) {
@@ -36485,6 +36618,22 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "label" }, [
       _c("span", { staticClass: "label-text" }, [_vm._v("category")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _c("span", { staticClass: "label-text" }, [_vm._v("popular")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _c("span", { staticClass: "label-text" }, [_vm._v("min_stock")])
     ])
   }
 ]
@@ -37080,11 +37229,19 @@ var render = function() {
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.showHeaders.created_at
-                          ? _c("td", [_vm._v(_vm._s(model.created_at))])
+                          ? _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.formateDatetime(model.created_at))
+                              )
+                            ])
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.showHeaders.updated_at
-                          ? _c("td", [_vm._v(_vm._s(model.updated_at))])
+                          ? _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.formateDatetime(model.updated_at))
+                              )
+                            ])
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.showHeaders.notes

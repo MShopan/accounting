@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PartitionController;
+use App\Http\Controllers\ProductController;
 use App\Models\Customer;
 use App\Models\Partition;
 use App\Models\User;
@@ -133,4 +134,7 @@ Route::get('/products', function (Request $req) {
 
 Route::post('/partition/create', [PartitionController::class, 'create']);
 Route::post('/partition/edit', [PartitionController::class, 'edit']);
+
+Route::post('/product/create', [ProductController::class, 'create']);
+Route::post('/product/edit', [ProductController::class, 'edit']);
 

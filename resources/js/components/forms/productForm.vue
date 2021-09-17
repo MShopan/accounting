@@ -1,8 +1,8 @@
 <template>
           <div class="">
             <input class="modal-toggle" type="checkbox" id="my-modal-2"  v-model="show">
-            <div class="modal overflow-auto pt-40">
-           <div class="modal-box ">
+            <div class="modal overflow-auto ">
+           <div class="modal-box mt-96">
 
 
              <form @submit.prevent="save" class="pt-16">
@@ -33,7 +33,7 @@
 
                 </div>
 
-
+               <!-- category  -->
                 <div class="form-control"  >
 
                       <label class="label">
@@ -49,6 +49,39 @@
 
 
 
+                </div>
+
+                <!-- popular  -->
+                  <div class="form-control" >
+
+                      <label class="label">
+                            <span class="label-text">popular</span>
+                        </label>
+
+
+                    <select class="select select-success select-bordered w-full" v-model="form.popular">
+
+                    <option v-for="(popular , key) in popularList" :key="key" :value="popular">{{ popular }}</option>
+
+                    </select>
+
+
+
+                </div>
+
+
+               <!-- min stock  -->
+               <div class="form-control" >
+
+                      <label class="label">
+                            <span class="label-text">min_stock</span>
+                        </label>
+
+                    <input  type="number" class="input input-success " v-model="form.min_stock" >
+
+                      <error-label v-if="errors && errors.min_stock" >
+                          {{errors.min_stock[0]}}
+                      </error-label>
 
                 </div>
 
@@ -79,7 +112,7 @@
                       </label>
 
 
-                    <input  type="text" class="input input-info"
+                    <input  type="number" class="input input-info"
                      v-model="price.price">
 
 
@@ -139,6 +172,7 @@ export default {
             } ,
             prices_new : null,
             old_prices_fullfilled: false,
+            popularList : [0,1],
             errors : null,
 
         }
@@ -260,9 +294,11 @@ export default {
         save(){
             this.startLoad();
             let id = this.form.id ;
+            // add prices new to the form before send to api
+            this.form.prices_new = this.prices_new ;
             if(id==-1){
                 //create new
-                axios.post('/api/partition/create', this.form )
+                axios.post('/api/product/create', this.form )
                 .then((res)=>{
                     //console.log(res.data);
                     this.$emit('modelChanged');
@@ -280,7 +316,7 @@ export default {
                 })
             } else {
                 // edit -> update current
-               axios.post('/api/partition/edit', this.form )
+               axios.post('/api/product/edit', this.form )
                 .then(()=>{
                     this.$emit('modelChanged');
                     this.$emit('modelUpdated' , this.form );
