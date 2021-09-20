@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PartitionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CatController;
 use App\Models\Customer;
 use App\Models\Partition;
 use App\Models\User;
@@ -137,4 +138,8 @@ Route::post('/partition/edit', [PartitionController::class, 'edit']);
 
 Route::post('/product/create', [ProductController::class, 'create']);
 Route::post('/product/edit', [ProductController::class, 'edit']);
+
+Route::get('/cats', [CatController::class, 'index']);
+Route::post('/cat/create', [CatController::class, 'create']);
+Route::post('/cat/edit', [CatController::class, 'edit']);
 

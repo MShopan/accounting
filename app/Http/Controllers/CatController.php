@@ -7,77 +7,65 @@ use Illuminate\Http\Request;
 
 class CatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    private $rules = [
+        'name' => 'required' ,
+        'coad' => 'required' ,
+    ];
+
+    public function index(Request $req)
     {
-        //
+        $parameters = $req->all();
+
+        $search = $parameters['search'] ;
+
+
+        $cats = Cat::where('name', 'like', '%'.$search.'%')->paginate(5);
+
+
+        return response()->json( ['cats' => $cats  ] );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+
+    public function create(Request $request)
     {
-        //
+        $frontend_cat = $request->validate($this->rules);
+        $cat = Cat::create($frontend_cat);
+
+        return response()->json($cat);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cat  $cat
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Cat $cat)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cat  $cat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cat $cat)
+
+    public function edit(Request $request)
     {
-        //
+        $frontend_cat = $request->validate($this->rules);
+        $id = $request->input('id');
+
+        $cat = Cat::find($id)->update($frontend_cat);
+
+        return response()->json($cat);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cat  $cat
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Cat $cat)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cat  $cat
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Cat $cat)
     {
         //

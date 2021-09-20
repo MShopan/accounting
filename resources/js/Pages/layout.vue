@@ -15,6 +15,7 @@
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/myusers">Users</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/customers">Customers</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/partitions">Partitions</Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/cats">Category</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/products">Products</Link>
 
     </div>

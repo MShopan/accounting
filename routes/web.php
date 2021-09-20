@@ -82,6 +82,7 @@ Route::middleware('auth')->get('/partitions', function () {
     return inertia('partitions');
 });
 
+Route::inertia('/cats' ,'cats');
 Route::inertia('/products' ,'products');
 
 
