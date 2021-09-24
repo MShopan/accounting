@@ -3,6 +3,8 @@
 use App\Http\Controllers\PartitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CatController;
+use App\Http\Controllers\BillController;
+use App\Http\Controllers\StockController;
 use App\Models\Customer;
 use App\Models\Partition;
 use App\Models\User;
@@ -142,4 +144,14 @@ Route::post('/product/edit', [ProductController::class, 'edit']);
 Route::get('/cats', [CatController::class, 'index']);
 Route::post('/cat/create', [CatController::class, 'create']);
 Route::post('/cat/edit', [CatController::class, 'edit']);
+
+
+Route::get('/sections', [SectionController::class, 'index']);
+Route::post('/section/create', [SectionController::class, 'create']);
+Route::post('/section/edit', [SectionController::class, 'edit']);
+
+
+Route::post('/stock/create', [StockController::class, 'create']);
+
+Route::get('/mybills/sections', [BillController::class, 'get_sections']);
 

@@ -12,7 +12,7 @@
 
                  <!-- show header dorp down  -->
             <div class="dropdown mx-12">
-            <div tabindex="0" class="m-1 btn btn-sm btn-info">Headers</div>
+            <div v-if="showOptions.HeadersDropdown" tabindex="0" class="m-1 btn btn-sm btn-info">Headers</div>
             <div class="">
             <ul tabindex="0" class=" p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
                 <li v-for="(head , key) in showHeaders" :key="key" >
@@ -154,6 +154,7 @@ const lang = {
 };
 
 export default {
+    props : ['mode'],
     components :{
         paginationApi,
         AddBtn,
@@ -194,6 +195,7 @@ export default {
               editBtn :true ,
               deleteBtn : true ,
               assignBtn : true,
+              HeadersDropdown : true ,
           }
 
 
@@ -201,11 +203,37 @@ export default {
   },
   async mounted(){
 
+      if (this.mode == 'assign') {
+            this.showOptions = {
+              addBtn : false,
+              editBtn :false ,
+              deleteBtn : false ,
+              assignBtn : true,
+              HeadersDropdown : false ,
+          };
+
+           this.showHeaders = {
+              id :true,
+              name :true  ,
+              coad :true  ,
+              price :true  ,
+              category :false  ,
+              popular :false  ,
+              stock :true  ,
+              min_stock :false  ,
+              created_at :false  ,
+              updated_at :false  ,
+              notes :false  ,
+           };
+      }
+
        await this.getModels();
        this.resetForm();
        this.setMove();
 
        this.loadShowHeaders();
+
+
 
   }
   ,
@@ -231,12 +259,15 @@ export default {
           }, 1000);
       },
       loadShowHeaders(){
-          let localHeaders = localStorage.getItem('productHeader') ;
-          if(localHeaders!=null){
-             this.showHeaders = JSON.parse(localHeaders) ;
-          } else {
-              // do nothing because show header alredy declared in data
+          if (this.mode=='basic') {
+                        let localHeaders = localStorage.getItem('productHeader') ;
+                        if(localHeaders!=null){
+                            this.showHeaders = JSON.parse(localHeaders) ;
+                        } else {
+                            // do nothing because show header alredy declared in data
+                        }
           }
+
       },
       getPartitionName(id){
 

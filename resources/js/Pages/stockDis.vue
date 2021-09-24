@@ -1,18 +1,18 @@
 <template >
 <Layout>
 
-<product-comp mode="basic"></product-comp>
+<stock-per type="dis"></stock-per>
 
 </Layout>
 </template>
 
 <script>
-import ProductComp from '../components/productComp.vue';
 import Layout from './layout'
+import stockPer from '../components/stockPer.vue'
 export default {
   components:{
-    Layout,
-    ProductComp ,
+    Layout ,
+    stockPer ,
   },
     props :[
 

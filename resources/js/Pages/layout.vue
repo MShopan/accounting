@@ -17,6 +17,9 @@
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/partitions">Partitions</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/cats">Category</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/products">Products</Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock_add">stock_add  </Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock_dis">stock_dis  </Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/mybills">mybills  </Link>
 
     </div>
   </div>

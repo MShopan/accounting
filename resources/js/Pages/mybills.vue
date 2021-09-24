@@ -1,18 +1,18 @@
 <template >
 <Layout>
 
-<product-comp mode="basic"></product-comp>
+<mybills-comp></mybills-comp>
 
 </Layout>
 </template>
 
 <script>
-import ProductComp from '../components/productComp.vue';
+import mybillsComp from '../components/mybillsComp.vue';
 import Layout from './layout'
 export default {
   components:{
     Layout,
-    ProductComp ,
+    mybillsComp ,
   },
     props :[
 

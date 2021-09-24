@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Price;
+use App\Models\Section;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PostController;
@@ -90,6 +91,9 @@ Route::inertia('/products' ,'products');
 
 Route::inertia('/home' ,'home');
 Route::inertia('/list' ,'list');
+Route::inertia('/stock_add' ,'stockAdd')->middleware('auth');
+Route::inertia('/stock_dis' ,'stockDis')->middleware('auth');
+Route::inertia('/mybills' ,'mybills')->middleware('auth');
 
 
 // post controller
@@ -137,7 +141,25 @@ Route::get('/seed', function () {
 });
 
 
+Route::get('seed/sections', function () {
+     $section = Section::create([
+        'name' => 's1' ,
+        'partition_id' => 1 ,
+        'employee_id'=> 1,
+    ]);
+     $section = Section::create([
+        'name' => 'b1' ,
+        'partition_id' => 2 ,
+        'employee_id'=> 1,
+    ]);
+     $section = Section::create([
+        'name' => 'c1' ,
+        'partition_id' => 3 ,
+        'employee_id'=> 1,
+    ]);
 
+    return 'seed success' ;
+});
 
 
 
