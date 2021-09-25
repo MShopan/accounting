@@ -7,6 +7,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\StockController;
 use App\Models\Customer;
 use App\Models\Partition;
+use App\Models\mainVar;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cat;
@@ -155,3 +156,15 @@ Route::post('/stock/create', [StockController::class, 'create']);
 
 Route::get('/mybills/sections', [BillController::class, 'get_sections']);
 
+Route::get('bill_counter', function () {
+
+    // the value defult value is zero
+    $counter = mainVar::where('name','bill_counter' )->first();
+    $counter->value++ ;
+    $counter->save();
+    return $counter;
+
+});
+
+Route::post('add_product_with_new_bill_id', [BillController::class, 'add_product_with_new_bill_id'] );
+Route::post('refresh_section', [BillController::class, 'refresh_section'] );

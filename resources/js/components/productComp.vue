@@ -154,7 +154,7 @@ const lang = {
 };
 
 export default {
-    props : ['mode'],
+    props : ['mode' , 'billing'],
     components :{
         paginationApi,
         AddBtn,
@@ -249,8 +249,30 @@ export default {
 
 				});
       },
-      fireAssign(element){
-           this.$emit('assignProduct' , element );
+      async fireAssign(element){
+          console.log('fire is running');
+          if (this.billing == true) {
+              console.log('billing is running');
+
+
+                const { value: quant } = await this.$swal.fire({
+                title:'quantitly',
+                input: 'number',
+                inputLabel: 'enter quantitiy',
+                inputPlaceholder: 'enter quantity '
+                })
+
+                if (quant) {
+                    element.quant = quant ;
+                    this.$emit('assignProduct' , element );
+                }
+
+
+          } else {
+              // else if billing mode not used in component
+
+              this.$emit('assignProduct' , element );
+          }
 
       },
       saveHeaders(){

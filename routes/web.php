@@ -11,6 +11,7 @@ use App\Http\Livewire\ShowCpu;
 use Inertia\Inertia;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\mainVar;
 use App\Models\Price;
 use App\Models\Section;
 use App\Models\User;
@@ -103,7 +104,14 @@ Route::post('/myposts/delete', [PostController::class, 'destroy']);
 Route::post('/myposts/create', [PostController::class, 'create']);
 Route::post('/myposts/edit', [PostController::class, 'edit']);
 
-
+Route::get('seed/var', function () {
+    mainVar::create([
+        'name' => 'bill_counter' ,
+        'type'=> 'integer',
+        'value'=> 1 ,
+    ]);
+    return 0 ;
+});
 
 Route::get('/seed', function () {
     $product = Product::create([
