@@ -167,4 +167,7 @@ Route::get('bill_counter', function () {
 });
 
 Route::post('add_product_with_new_bill_id', [BillController::class, 'add_product_with_new_bill_id'] );
+Route::post('add_product_to_bill_id', [BillController::class, 'add_product_to_bill_id'] );
 Route::post('refresh_section', [BillController::class, 'refresh_section'] );
+Route::post('assign_customer_to_bill_id', [BillController::class, 'assign_customer_to_bill_id'] );
+Route::post('get_bill_header', [BillController::class, 'get_bill_header'] );

@@ -5912,6 +5912,7 @@ var lang = {
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['mode'],
   components: {
     paginationApi: _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     AssignBtn: _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_2__.default,
@@ -6602,6 +6603,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _productComp_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./productComp.vue */ "./resources/js/components/productComp.vue");
+/* harmony import */ var _customerComp_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customerComp.vue */ "./resources/js/components/customerComp.vue");
 //
 //
 //
@@ -6701,17 +6703,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    productComp: _productComp_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    productComp: _productComp_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    customerComp: _customerComp_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   data: function data() {
     return {
       current_section: {},
+      bill_header: {},
       sections: {},
-      show_products: false
+      show_products: false,
+      show_customers: false
     };
   },
   mounted: function mounted() {
@@ -6730,12 +6766,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     current_section: {
       deep: true,
+      immediate: true,
       handler: function handler(_old, _new) {
         var big_total = 0;
-        this.current_section.rows.forEach(function (row) {
-          return big_total = big_total + row.total;
-        });
-        this.current_section.big_total = big_total;
+
+        if (this.current_section.rows) {
+          this.current_section.rows.forEach(function (row) {
+            return big_total = big_total + row.total;
+          });
+          this.current_section.big_total = big_total;
+        }
       }
     }
   },
@@ -6756,16 +6796,38 @@ __webpack_require__.r(__webpack_exports__);
       //   this.show_products = false;
 
     },
+    handleAssignCustomer: function handleAssignCustomer(e) {
+      if (this.current_section.name == undefined) {
+        this.$swal('choise section first');
+      } else {
+        this.add_customer_to_bill(e);
+      }
+    },
+    add_customer_to_bill: function add_customer_to_bill(e) {
+      var _this2 = this;
+
+      var form = {
+        section_id: this.current_section.id,
+        customer: e
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/assign_customer_to_bill_id', form).then(function (res) {
+        _this2.$swal(res.data);
+
+        _this2.show_customers = false;
+      });
+    },
     add_product_to_bill: function add_product_to_bill(e) {
       if (this.current_section.bill_id == -1) {
         // open the section and get new bill id form db
         //    let new_bill_id = await axios.get('api/bill_counter');
         this.add_product_with_new_bill_id(e);
-      } else if (this.current_section.bill_id > 0) {// add produt to bill id in the temp footer
+      } else if (this.current_section.bill_id > 0) {
+        // add produt to bill id in the temp footer
+        this.add_product_to_bill_id(e);
       }
     },
     add_product_with_new_bill_id: function add_product_with_new_bill_id(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       var form = {
         section_id: 0,
@@ -6778,15 +6840,44 @@ __webpack_require__.r(__webpack_exports__);
       console.log("form is : ".concat(form));
       console.log(form);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/add_product_with_new_bill_id', form).then(function () {
-        _this2.refresh_section();
+        _this3.refresh_section();
+      });
+    },
+    add_product_to_bill_id: function add_product_to_bill_id(e) {
+      var _this4 = this;
+
+      var form = {
+        section_id: 0,
+        product: Object,
+        partition_id: 0
+      };
+      form.section_id = this.current_section.id;
+      form.partition_id = this.current_section.partition_id;
+      form.product = e;
+      console.log("form is : ".concat(form));
+      console.log(form);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/add_product_to_bill_id', form).then(function () {
+        _this4.refresh_section();
       });
     },
     refresh_section: function refresh_section() {
-      var _this3 = this;
+      var _this5 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/refresh_section', this.current_section).then(function (res) {
-        console.log(res.data);
-        _this3.current_section.rows = res.data;
+        //    console.log(res.data);
+        _this5.current_section.rows = res.data;
+      });
+      this.get_bill_header();
+    },
+    get_bill_header: function get_bill_header() {
+      var _this6 = this;
+
+      var form = {
+        section_id: this.current_section.id
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/get_bill_header', form).then(function (res) {
+        _this6.bill_header = res.data;
+        console.log('get header success is donme ');
       });
     },
     assign_current_section: function assign_current_section(section) {
@@ -38898,12 +38989,35 @@ var render = function() {
           }
         },
         [_vm._v("add product")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-info",
+          on: {
+            click: function($event) {
+              _vm.show_customers = true
+            }
+          }
+        },
+        [_vm._v("add customer")]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "bill_header" } }, [
+      _vm._v(
+        "\n        id : " +
+          _vm._s(_vm.bill_header.bill_id) +
+          "\n        customer : " +
+          _vm._s(_vm.bill_header.customer_name) +
+          "\n     "
       )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "m-8", attrs: { id: "bill_section" } }, [
       _vm.current_section.rows && _vm.current_section.rows.length > 0
-        ? _c("table", { staticClass: "table table-sm" }, [
+        ? _c("table", { staticClass: "table table-sm w-full" }, [
             _vm._m(0),
             _vm._v(" "),
             _c(
@@ -38913,7 +39027,7 @@ var render = function() {
                   return _c("tr", { key: key }, [
                     _c("td", [_vm._v(_vm._s(key + 1))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(row.porduct_id))]),
+                    _c("td", [_vm._v(_vm._s(row.product_data.name))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(row.quant))]),
                     _vm._v(" "),
@@ -38938,7 +39052,9 @@ var render = function() {
               2
             )
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._m(1)
     ]),
     _vm._v(" "),
     _c("div", { attrs: { id: "product-modal" } }, [
@@ -39009,6 +39125,76 @@ var render = function() {
           1
         )
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "customer-modal" } }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.show_customers,
+            expression: "show_customers"
+          }
+        ],
+        staticClass: "modal-toggle",
+        attrs: { type: "checkbox", id: "my-modal-cusomerss" },
+        domProps: {
+          checked: Array.isArray(_vm.show_customers)
+            ? _vm._i(_vm.show_customers, null) > -1
+            : _vm.show_customers
+        },
+        on: {
+          change: function($event) {
+            var $$a = _vm.show_customers,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = null,
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 && (_vm.show_customers = $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  (_vm.show_customers = $$a
+                    .slice(0, $$i)
+                    .concat($$a.slice($$i + 1)))
+              }
+            } else {
+              _vm.show_customers = $$c
+            }
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "modal overflow-auto mt-12 mx-4" }, [
+        _c(
+          "div",
+          { staticClass: "modal-box w-full h-full my-box" },
+          [
+            _c("customer-comp", {
+              attrs: { mode: "assign" },
+              on: { assignCustomer: _vm.handleAssignCustomer }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-success ",
+                  on: {
+                    click: function($event) {
+                      _vm.show_customers = false
+                    }
+                  }
+                },
+                [_vm._v("Close")]
+              )
+            ])
+          ],
+          1
+        )
+      ])
     ])
   ])
 }
@@ -39029,6 +39215,18 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("total")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "closse_bill" } }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-info btn-sm", attrs: { id: "close_bill_btn" } },
+        [_vm._v("close bill")]
+      )
     ])
   }
 ]

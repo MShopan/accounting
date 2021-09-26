@@ -61,6 +61,7 @@ const lang = {
 };
 
 export default {
+    props : ['mode'] ,
     components :{
         paginationApi,
         AssignBtn,

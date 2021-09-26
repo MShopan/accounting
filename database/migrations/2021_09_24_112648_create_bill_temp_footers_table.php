@@ -16,7 +16,7 @@ class CreateBillTempFootersTable extends Migration
         Schema::create('bill_temp_footers', function (Blueprint $table) {
             $table->id();
             $table->integer('bill_id');    // relation with bills
-            $table->integer('porduct_id');   // relation with the product
+            $table->integer('product_id');   // relation with the product
             $table->float('quant')->nullable();
             $table->float('price')->nullable();
             $table->float('total')->nullable();
