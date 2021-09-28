@@ -19,7 +19,10 @@
                 </thead>
                 <tbody>
 
-                    <tr class="hover:text-accent" v-for="model in models.data" :key="model.id">
+                    <tr
+                    class="hover:text-accent" v-for="model in models.data" :key="model.id"
+                     @click="fireAssign(model)"
+                    >
                       <td>{{ model.id }}</td>
                       <td>{{ model.name }}</td>
                       <td>{{ model.mobile }}</td>

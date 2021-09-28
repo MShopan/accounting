@@ -171,3 +171,5 @@ Route::post('add_product_to_bill_id', [BillController::class, 'add_product_to_bi
 Route::post('refresh_section', [BillController::class, 'refresh_section'] );
 Route::post('assign_customer_to_bill_id', [BillController::class, 'assign_customer_to_bill_id'] );
 Route::post('get_bill_header', [BillController::class, 'get_bill_header'] );
+Route::post('close_bill', [BillController::class, 'close_bill'] );
+Route::post('close_section', [BillController::class, 'close_section'] );

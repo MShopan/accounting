@@ -11,9 +11,23 @@ import { intersection, random } from 'lodash';
 
 Vue.use(VueI18n)
 
-export default new VueI18n({
-    locale: 'en',
+const messages = {
+    en: {
+      acc: {
+        hello: 'hello world'
+      }
+    },
+    ar: {
+      acc: {
+        hello: 'مرحبا بك '
+      }
+    }
+  }
 
+  // Create VueI18n instance with options
+  const i18n = new VueI18n({
+    locale: 'ar', // set locale
+    messages, // set locale messages
   })
 
   import VueSweetalert2 from 'vue-sweetalert2';
@@ -46,7 +60,7 @@ createInertiaApp({
   resolve: name => require(`./Pages/${name}`),
   setup({ el, App, props }) {
     new Vue({
-        VueI18n,
+        i18n,
         $preso ,
       render: h => h(App, props),
     }).$mount(el)

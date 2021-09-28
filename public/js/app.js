@@ -5901,6 +5901,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6733,6 +6736,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6752,6 +6768,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.get_sections();
+    this.addEscapeEvent();
   },
   watch: {
     sections: {
@@ -6780,11 +6797,52 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    get_sections: function get_sections() {
+    addEscapeEvent: function addEscapeEvent() {
       var _this = this;
 
+      window.addEventListener('keydown', function (e) {
+        if (e.key == "Escape") {
+          _this.show_products = false;
+          _this.show_customers = false;
+        }
+      });
+    },
+    close_section: function close_section() {
+      var _this2 = this;
+
+      if (this.current_section.status == 'opened') {
+        this.$swal('close bill first', '', 'warning');
+      } else if (this.current_section.status == 'paied') {
+        console.log('paied');
+        var form = {
+          section_id: this.current_section.id
+        };
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/close_section', form).then(function (res) {
+          _this2.refresh_section();
+
+          _this2.get_sections();
+
+          console.log('close section succcess');
+        });
+      }
+    },
+    close_bill: function close_bill() {
+      var _this3 = this;
+
+      var form = {
+        section_id: this.current_section.id
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/close_bill', form).then(function (res) {
+        _this3.refresh_section();
+
+        _this3.get_sections();
+      });
+    },
+    get_sections: function get_sections() {
+      var _this4 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('api/mybills/sections').then(function (res) {
-        _this.sections = res.data; //   console.log(res.data);
+        _this4.sections = res.data; //   console.log(res.data);
       });
     },
     handleAssignProduct: function handleAssignProduct(e) {
@@ -6804,30 +6862,49 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     add_customer_to_bill: function add_customer_to_bill(e) {
-      var _this2 = this;
+      var _this5 = this;
 
       var form = {
         section_id: this.current_section.id,
         customer: e
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/assign_customer_to_bill_id', form).then(function (res) {
-        _this2.$swal(res.data);
+        _this5.show_customers = false;
 
-        _this2.show_customers = false;
+        _this5.get_bill_header();
       });
     },
     add_product_to_bill: function add_product_to_bill(e) {
-      if (this.current_section.bill_id == -1) {
+      if (this.current_section.status == 'closed' && this.current_section.bill_id == -1) {
         // open the section and get new bill id form db
         //    let new_bill_id = await axios.get('api/bill_counter');
         this.add_product_with_new_bill_id(e);
-      } else if (this.current_section.bill_id > 0) {
+      } else if (this.current_section.status == 'paied') {
+        this.confirm_close_section(e);
+      } else if (this.current_section.status == 'opened') {
         // add produt to bill id in the temp footer
         this.add_product_to_bill_id(e);
       }
     },
+    confirm_close_section: function confirm_close_section(e) {
+      var _this6 = this;
+
+      this.$swal.fire({
+        title: 'Are you sure to close section',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this6.add_product_with_new_bill_id(e);
+        }
+      });
+    },
     add_product_with_new_bill_id: function add_product_with_new_bill_id(e) {
-      var _this3 = this;
+      var _this7 = this;
 
       var form = {
         section_id: 0,
@@ -6840,11 +6917,13 @@ __webpack_require__.r(__webpack_exports__);
       console.log("form is : ".concat(form));
       console.log(form);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/add_product_with_new_bill_id', form).then(function () {
-        _this3.refresh_section();
+        _this7.refresh_section();
+
+        _this7.get_sections();
       });
     },
     add_product_to_bill_id: function add_product_to_bill_id(e) {
-      var _this4 = this;
+      var _this8 = this;
 
       var form = {
         section_id: 0,
@@ -6857,26 +6936,27 @@ __webpack_require__.r(__webpack_exports__);
       console.log("form is : ".concat(form));
       console.log(form);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/add_product_to_bill_id', form).then(function () {
-        _this4.refresh_section();
+        _this8.refresh_section();
       });
     },
     refresh_section: function refresh_section() {
-      var _this5 = this;
+      var _this9 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/refresh_section', this.current_section).then(function (res) {
-        //    console.log(res.data);
-        _this5.current_section.rows = res.data;
+        _this9.current_section = res.data.section; // assign section first like above
+
+        _this9.current_section.rows = res.data.rows;
       });
       this.get_bill_header();
     },
     get_bill_header: function get_bill_header() {
-      var _this6 = this;
+      var _this10 = this;
 
       var form = {
         section_id: this.current_section.id
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/get_bill_header', form).then(function (res) {
-        _this6.bill_header = res.data;
+        _this10.bill_header = res.data;
         console.log('get header success is donme ');
       });
     },
@@ -7861,9 +7941,6 @@ var lang = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
@@ -7881,9 +7958,25 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default({
-  locale: 'en'
-}));
+var messages = {
+  en: {
+    acc: {
+      hello: 'hello world'
+    }
+  },
+  ar: {
+    acc: {
+      hello: 'مرحبا بك '
+    }
+  }
+}; // Create VueI18n instance with options
+
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default({
+  locale: 'ar',
+  // set locale
+  messages: messages // set locale messages
+
+});
  // If you don't need the styles, do not connect
 
 
@@ -7907,7 +8000,7 @@ var $preso = function $preso(loacl_name) {
         App = _ref.App,
         props = _ref.props;
     new vue__WEBPACK_IMPORTED_MODULE_2__.default({
-      VueI18n: vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default,
+      i18n: i18n,
       $preso: $preso,
       render: function render(h) {
         return h(App, props);
@@ -37928,7 +38021,15 @@ var render = function() {
               _vm._l(_vm.models.data, function(model) {
                 return _c(
                   "tr",
-                  { key: model.id, staticClass: "hover:text-accent" },
+                  {
+                    key: model.id,
+                    staticClass: "hover:text-accent",
+                    on: {
+                      click: function($event) {
+                        return _vm.fireAssign(model)
+                      }
+                    }
+                  },
                   [
                     _c("td", [_vm._v(_vm._s(model.id))]),
                     _vm._v(" "),
@@ -38988,7 +39089,36 @@ var render = function() {
             }
           }
         },
-        [_vm._v("add product")]
+        [
+          _c(
+            "svg",
+            {
+              staticClass: "mx-2 h-5 w-5",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 20 20",
+                fill: "currentColor"
+              }
+            },
+            [
+              _c("path", { attrs: { d: "M13 7H7v6h6V7z" } }),
+              _vm._v(" "),
+              _c("path", {
+                attrs: {
+                  "fill-rule": "evenodd",
+                  d:
+                    "M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z",
+                  "clip-rule": "evenodd"
+                }
+              })
+            ]
+          ),
+          _vm._v(
+            "\n            add product " +
+              _vm._s(_vm.$t("acc.hello")) +
+              "\n        "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -39001,7 +39131,42 @@ var render = function() {
             }
           }
         },
-        [_vm._v("add customer")]
+        [
+          _c(
+            "svg",
+            {
+              staticClass: "h-5 w-5 mx-2",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 20 20",
+                fill: "currentColor"
+              }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  "fill-rule": "evenodd",
+                  d: "M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z",
+                  "clip-rule": "evenodd"
+                }
+              })
+            ]
+          ),
+          _vm._v("\n            add customer\n        ")
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn bg-red-500 rounded-full mx-2",
+          on: {
+            click: function($event) {
+              return _vm.close_section()
+            }
+          }
+        },
+        [_vm._v("close section")]
       )
     ]),
     _vm._v(" "),
@@ -39054,7 +39219,17 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { attrs: { id: "closse_bill" } }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-info btn-sm",
+            attrs: { id: "close_bill_btn" },
+            on: { click: _vm.close_bill }
+          },
+          [_vm._v("close bill")]
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("div", { attrs: { id: "product-modal" } }, [
@@ -39215,18 +39390,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("total")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "closse_bill" } }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-info btn-sm", attrs: { id: "close_bill_btn" } },
-        [_vm._v("close bill")]
-      )
     ])
   }
 ]

@@ -33,8 +33,20 @@
 
     <!-- page part for products  -->
     <div id="product_area">
-        <button class="btn btn-success" @click="show_products=true">add product</button>
-        <button class="btn btn-info" @click="show_customers=true">add customer</button>
+        <button class="btn btn-success" @click="show_products=true">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M13 7H7v6h6V7z" />
+            <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd" />
+            </svg>
+            add product {{ $t("acc.hello")   }}
+        </button>
+        <button class="btn btn-info" @click="show_customers=true">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-2" viewBox="0 0 20 20" fill="currentColor">
+             <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            add customer
+        </button>
+        <button class="btn bg-red-500 rounded-full mx-2" @click="close_section()">close section</button>
 
      </div>
 
@@ -79,7 +91,8 @@
              </tbody>
          </table>
          <div id="closse_bill">
-             <button id="close_bill_btn" class="btn btn-info btn-sm">close bill</button>
+             <button id="close_bill_btn" class="btn btn-info btn-sm"
+             @click="close_bill">close bill</button>
          </div>
      </div>
         <!-- product modal   -->
@@ -148,6 +161,8 @@ export default {
    },
    mounted(){
        this.get_sections();
+       this.addEscapeEvent();
+
    },
    watch:{
        sections : {
@@ -173,6 +188,38 @@ export default {
        }}
    },
    methods:{
+       addEscapeEvent(){
+           window.addEventListener('keydown',(e)=> {
+               if (e.key=="Escape") {
+                   this.show_products = false ;
+                   this.show_customers = false ;
+               }
+           })
+       },
+       close_section(){
+
+           if (this.current_section.status == 'opened') {
+              this.$swal('close bill first','','warning');
+
+           } else if (this.current_section.status == 'paied'){
+               console.log('paied');
+                    let form = {  section_id : this.current_section.id };
+
+                    axios.post('api/close_section' , form).then((res)=>{
+                        this.refresh_section();
+                        this.get_sections();
+                        console.log('close section succcess');
+                    })
+           }
+
+       },
+       close_bill(){
+           let form = {  section_id : this.current_section.id }
+           axios.post('api/close_bill' ,form ).then((res)=>{
+               this.refresh_section();
+               this.get_sections();
+           });
+       },
       get_sections(){
           axios.get('api/mybills/sections').then((res)=>{
               this.sections = res.data ;
@@ -204,20 +251,40 @@ export default {
               customer : e ,
            } ;
            axios.post('api/assign_customer_to_bill_id', form ).then((res)=>{
-                this.$swal(res.data);
                 this.show_customers = false;
+                this.get_bill_header();
            })
       },
       add_product_to_bill(e){
-          if (this.current_section.bill_id == -1) {
+          if (this.current_section.status == 'closed' && this.current_section.bill_id == -1) {
               // open the section and get new bill id form db
              //    let new_bill_id = await axios.get('api/bill_counter');
                this.add_product_with_new_bill_id(e);
 
-          } else if ( this.current_section.bill_id > 0 ){
-              // add produt to bill id in the temp footer
-              this.add_product_to_bill_id(e);
+          } else if ( this.current_section.status == 'paied' ){
+
+                this.confirm_close_section(e);
+
+          } else if (this.current_section.status == 'opened' ){
+               // add produt to bill id in the temp footer
+               this.add_product_to_bill_id(e);
           }
+      },
+      confirm_close_section(e){
+                    this.$swal.fire({
+                    title: 'Are you sure to close section',
+                    text: "",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.add_product_with_new_bill_id(e);
+
+                    }
+                    })
       },
       add_product_with_new_bill_id(e){
 
@@ -230,6 +297,7 @@ export default {
           axios.post('api/add_product_with_new_bill_id' , form ).then(()=>{
 
               this.refresh_section();
+              this.get_sections();
           }  );
 
       },
@@ -249,8 +317,9 @@ export default {
       },
       refresh_section(){
           axios.post('api/refresh_section' , this.current_section ).then( res =>{
-            //    console.log(res.data);
-              this.current_section.rows = res.data ;
+              this.current_section = res.data.section ;
+              // assign section first like above
+              this.current_section.rows = res.data.rows ;
            }
           );
 

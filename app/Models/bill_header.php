@@ -5,18 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class bill_temp_footer extends Model
+class bill_header extends Model
 {
     use HasFactory;
     protected $fillable = [
         'bill_id',
-        'product_id',
-        'quant',
-        'price',
-        'total',
+        'customer_id',
+        'employee_id',
+        'chairs',
+        'tables',
+        'prepaid',
+        'big_total',
+        'discount',
+        'pure_total',
         'creator',
-        'tree',
         'created_at',
-        'updated_at'
-    ] ;
+        'updated_at',
+    ];
 }
