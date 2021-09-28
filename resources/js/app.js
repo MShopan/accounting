@@ -14,19 +14,67 @@ Vue.use(VueI18n)
 const messages = {
     en: {
       acc: {
-        hello: 'hello world'
+        hello: 'hello world',
+        search: 'search',
+        id: 'id',
+        name: 'name',
+        mobile: 'mobile',
+        tools: 'tools',
+        add: 'Add',
+        edit: 'Edit',
+        delete: 'Delete',
+        assign: 'Assign',
+        next: 'Next',
+        previous: 'Previous',
+
+        home : 'Home',
+        posts : 'Posts',
+        users : 'Users',
+        customers : 'customers',
+        category : 'category',
+        partitions : 'partitions',
+        stock_add : 'stock_add',
+        stock_dis : 'stock_dis',
+        my_bills : 'my_bills',
+        products : 'products'
+
       }
     },
     ar: {
       acc: {
-        hello: 'مرحبا بك '
+        hello: 'مرحبا بك ',
+        search: 'بحث',
+        id: 'م',
+        name: 'الاسم',
+        mobile: 'الموبايل',
+        tools: 'الأدوات',
+        add: 'إضافة',
+        edit: 'تعديل',
+        delete: 'حذف',
+        assign: 'اسناد',
+        next: 'التالي',
+        previous: 'السابق',
+
+        home : 'الرئيسية',
+        posts : 'المنشورات ',
+        users : 'المستخدمسن',
+        customers : 'العملاء',
+        category : 'السمات ',
+        partitions : 'الأجزاء',
+        stock_add : 'إذن إضافة ',
+        stock_dis : 'إذن خصم',
+        my_bills : 'الفواتير',
+        products : 'المنتجات'
+
+
+
       }
     }
   }
 
   // Create VueI18n instance with options
   const i18n = new VueI18n({
-    locale: 'ar', // set locale
+    locale: localStorage.getItem('lang') || 'en', // set locale
     messages, // set locale messages
   })
 

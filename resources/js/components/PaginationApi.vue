@@ -13,9 +13,10 @@
          leading-4 border rounded hover:bg-white
           focus:border-indigo-500 focus:text-indigo-500"
         :class="{ 'bg-blue-700 text-white': link.active }"
-        :href="link.url" v-html="link.label"
+        :href="link.url"
         @click="firePage(link)"
         >
+        {{labeling(link.label)}}
         </button>
 
       </template>
@@ -42,6 +43,16 @@ export default {
 
   },
   methods:{
+      labeling(label){
+        if (label.includes('Next')) {
+            return this.$t('acc.next')
+        } else if (label.includes('Previous')){
+            return this.$t('acc.previous')
+
+        } else {
+            return label
+        }
+      },
     firePage(link){
         let split = link.url.split("page=");
         let page = split[1] ;

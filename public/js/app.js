@@ -4890,6 +4890,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4912,7 +4934,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   created: function created() {},
-  methods: {}
+  methods: {
+    assign_lang: function assign_lang(lang) {
+      localStorage.setItem('lang', lang);
+      location.reload();
+    }
+  }
 });
 
 /***/ }),
@@ -5547,6 +5574,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   props: {
@@ -5557,6 +5585,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
+    labeling: function labeling(label) {
+      if (label.includes('Next')) {
+        return this.$t('acc.next');
+      } else if (label.includes('Previous')) {
+        return this.$t('acc.previous');
+      } else {
+        return label;
+      }
+    },
     firePage: function firePage(link) {
       var split = link.url.split("page=");
       var page = split[1];
@@ -5852,6 +5889,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./btns/assignBtn.vue */ "./resources/js/components/btns/assignBtn.vue");
 /* harmony import */ var _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./btns/editBtn.vue */ "./resources/js/components/btns/editBtn.vue");
 /* harmony import */ var _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./btns/deleteBtn.vue */ "./resources/js/components/btns/deleteBtn.vue");
+//
 //
 //
 //
@@ -7961,18 +7999,60 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_i18n__WEBPACK_IMPORTED_MODULE_3
 var messages = {
   en: {
     acc: {
-      hello: 'hello world'
+      hello: 'hello world',
+      search: 'search',
+      id: 'id',
+      name: 'name',
+      mobile: 'mobile',
+      tools: 'tools',
+      add: 'Add',
+      edit: 'Edit',
+      "delete": 'Delete',
+      assign: 'Assign',
+      next: 'Next',
+      previous: 'Previous',
+      home: 'Home',
+      posts: 'Posts',
+      users: 'Users',
+      customers: 'customers',
+      category: 'category',
+      partitions: 'partitions',
+      stock_add: 'stock_add',
+      stock_dis: 'stock_dis',
+      my_bills: 'my_bills',
+      products: 'products'
     }
   },
   ar: {
     acc: {
-      hello: 'مرحبا بك '
+      hello: 'مرحبا بك ',
+      search: 'بحث',
+      id: 'م',
+      name: 'الاسم',
+      mobile: 'الموبايل',
+      tools: 'الأدوات',
+      add: 'إضافة',
+      edit: 'تعديل',
+      "delete": 'حذف',
+      assign: 'اسناد',
+      next: 'التالي',
+      previous: 'السابق',
+      home: 'الرئيسية',
+      posts: 'المنشورات ',
+      users: 'المستخدمسن',
+      customers: 'العملاء',
+      category: 'السمات ',
+      partitions: 'الأجزاء',
+      stock_add: 'إذن إضافة ',
+      stock_dis: 'إذن خصم',
+      my_bills: 'الفواتير',
+      products: 'المنتجات'
     }
   }
 }; // Create VueI18n instance with options
 
 var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default({
-  locale: 'ar',
+  locale: localStorage.getItem('lang') || 'en',
   // set locale
   messages: messages // set locale messages
 
@@ -36645,7 +36725,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/home" }
                   },
-                  [_vm._v("Home")]
+                  [_vm._v(_vm._s(_vm.$t("acc.home")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36654,7 +36734,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/myposts" }
                   },
-                  [_vm._v("Posts")]
+                  [_vm._v(_vm._s(_vm.$t("acc.posts")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36663,7 +36743,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/myusers" }
                   },
-                  [_vm._v("Users")]
+                  [_vm._v(_vm._s(_vm.$t("acc.users")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36672,7 +36752,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/customers" }
                   },
-                  [_vm._v("Customers")]
+                  [_vm._v(_vm._s(_vm.$t("acc.customers")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36681,7 +36761,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/partitions" }
                   },
-                  [_vm._v("Partitions")]
+                  [_vm._v(_vm._s(_vm.$t("acc.partitions")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36690,7 +36770,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/cats" }
                   },
-                  [_vm._v("Category")]
+                  [_vm._v(_vm._s(_vm.$t("acc.category")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36699,7 +36779,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/products" }
                   },
-                  [_vm._v("Products")]
+                  [_vm._v(_vm._s(_vm.$t("acc.products")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36708,7 +36788,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/stock_add" }
                   },
-                  [_vm._v("stock_add  ")]
+                  [_vm._v(_vm._s(_vm.$t("acc.stock_add")) + "  ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36717,7 +36797,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/stock_dis" }
                   },
-                  [_vm._v("stock_dis  ")]
+                  [_vm._v(_vm._s(_vm.$t("acc.stock_dis")) + "  ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -36726,7 +36806,7 @@ var render = function() {
                     staticClass: "btn btn-ghost btn-sm rounded-btn",
                     attrs: { href: "/mybills" }
                   },
-                  [_vm._v("mybills  ")]
+                  [_vm._v(_vm._s(_vm.$t("acc.my_bills")) + "  ")]
                 )
               ],
               1
@@ -36742,6 +36822,70 @@ var render = function() {
               _c("load"),
               _vm._v(" "),
               _c("offline"),
+              _vm._v(" "),
+              _c("div", { staticClass: "dropdown" }, [
+                _c("button", [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "h-5 w-5",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 20 20",
+                        fill: "currentColor"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          "fill-rule": "evenodd",
+                          d:
+                            "M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z",
+                          "clip-rule": "evenodd"
+                        }
+                      })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass:
+                      "p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52",
+                    attrs: { tabindex: "0" }
+                  },
+                  [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.assign_lang("ar")
+                            }
+                          }
+                        },
+                        [_vm._v(" العربية ")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.assign_lang("en")
+                            }
+                          }
+                        },
+                        [_vm._v(" en ")]
+                      )
+                    ])
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("theme-mod")
             ],
@@ -37437,23 +37581,32 @@ var render = function() {
                               "mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded",
                             domProps: { innerHTML: _vm._s(link.label) }
                           })
-                        : _c("button", {
-                            key: k,
-                            staticClass:
-                              "mr-1 mb-1 px-4 py-3 text-sm\n         leading-4 border rounded hover:bg-white\n          focus:border-indigo-500 focus:text-indigo-500",
-                            class: { "bg-blue-700 text-white": link.active },
-                            attrs: {
-                              "preserve-state": "",
-                              "preserve-scroll": "",
-                              href: link.url
-                            },
-                            domProps: { innerHTML: _vm._s(link.label) },
-                            on: {
-                              click: function($event) {
-                                return _vm.firePage(link)
+                        : _c(
+                            "button",
+                            {
+                              key: k,
+                              staticClass:
+                                "mr-1 mb-1 px-4 py-3 text-sm\n         leading-4 border rounded hover:bg-white\n          focus:border-indigo-500 focus:text-indigo-500",
+                              class: { "bg-blue-700 text-white": link.active },
+                              attrs: {
+                                "preserve-state": "",
+                                "preserve-scroll": "",
+                                href: link.url
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.firePage(link)
+                                }
                               }
-                            }
-                          })
+                            },
+                            [
+                              _vm._v(
+                                "\n        " +
+                                  _vm._s(_vm.labeling(link.label)) +
+                                  "\n        "
+                              )
+                            ]
+                          )
                     ]
                   })
                 ],
@@ -37520,7 +37673,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("span", { staticClass: "hidden md:inline" }, [_vm._v("\n    Add\n")])
+      _c("span", { staticClass: "hidden md:inline" }, [
+        _vm._v("\n    " + _vm._s(_vm.$t("acc.add")) + "\n")
+      ])
     ]
   )
 }
@@ -37581,7 +37736,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("span", { staticClass: "hidden md:inline" }, [
-        _vm._v("\n    assign\n")
+        _vm._v("\n    " + _vm._s(_vm.$t("acc.assign")) + "\n")
       ])
     ]
   )
@@ -37643,7 +37798,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("span", { staticClass: "hidden md:inline" }, [
-        _vm._v("\n    delete\n")
+        _vm._v("\n    " + _vm._s(_vm.$t("acc.delete")) + "\n")
       ])
     ]
   )
@@ -37712,7 +37867,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("span", { staticClass: "hidden md:inline" }, [
-        _vm._v("\n        edit\n    ")
+        _vm._v("\n        " + _vm._s(_vm.$t("acc.edit")) + "\n    ")
       ])
     ]
   )
@@ -38007,14 +38162,24 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v(" search")]
+              [_vm._v(" " + _vm._s(_vm.$t("acc.search")))]
             )
           ]
         ),
         _vm._v(" "),
         _c("div", { attrs: { id: "main-table" } }, [
           _c("table", { staticClass: "table  table-sm w-full" }, [
-            _vm._m(0),
+            _c("thead", [
+              _c("tr", [
+                _c("th", [_vm._v(_vm._s(_vm.$t("acc.id")))]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(_vm.$t("acc.name")))]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(_vm.$t("acc.mobile")))]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(_vm.$t("acc.tools")))])
+              ])
+            ]),
             _vm._v(" "),
             _c(
               "tbody",
@@ -38092,24 +38257,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("mobile")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("tools")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39113,11 +39261,7 @@ var render = function() {
               })
             ]
           ),
-          _vm._v(
-            "\n            add product " +
-              _vm._s(_vm.$t("acc.hello")) +
-              "\n        "
-          )
+          _vm._v("\n            add product\n        ")
         ]
       ),
       _vm._v(" "),

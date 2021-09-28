@@ -7,7 +7,7 @@
 
 
     <span class="hidden md:inline">
-        edit
+        {{$t('acc.edit')}}
     </span>
     </button>
 </template>
