@@ -9,7 +9,7 @@
                 <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">Name</span>
+                            <span class="label-text">{{$t('acc.name')}}</span>
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.name" >
@@ -22,7 +22,7 @@
                 <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">Coad</span>
+                            <span class="label-text">{{$t('acc.coad')}}</span>
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.coad" >
@@ -35,7 +35,7 @@
                 <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">Treat</span>
+                            <span class="label-text">{{$t('acc.treat')}}</span>
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.treat" >
@@ -48,8 +48,8 @@
 
 
             <div class="modal-action flex content-center items-center">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <label @click="$emit('closeForm')" class="btn">Close</label>
+                <button type="submit" class="btn btn-primary">{{$t('acc.Save')}}</button>
+                <label @click="$emit('closeForm')" class="btn">{{$t('acc.Close')}}</label>
             </div>
 
             </form>

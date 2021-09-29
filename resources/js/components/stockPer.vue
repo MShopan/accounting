@@ -3,37 +3,37 @@
         <div id="card1" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form  @submit.prevent="">
              <div class="form-control" >
-                 <label for="id">id</label>
+                 <label for="id">{{$t('acc.id')}}</label>
                  <input type="number" v-model="form.product_id" disabled class="input input-success input-sm ">
 
              </div>
                  <div class="form-control">
-                   <label for="">name</label>
+                   <label for="">{{$t('acc.name')}}</label>
                  <input  type="text" v-model="form.name" disabled class="input input-sm " id="product_name">
                  </div>
 
                  <div class="form-control">
-                     <label for="">quant</label>
+                     <label for="">{{$t('acc.quant')}}</label>
                  <input type="number" v-model="form.quant" id="quant" class="input input-sm">
                  </div>
 
                 <div class="form-control">
-                <label for="">find product</label>
-                 <button id="find_product" class="btn-info btn btn-sm" @click="show_products = true">find</button>
+                <label for="">{{$t('acc.find_product')}}</label>
+                 <button id="find_product" class="btn-info btn btn-sm" @click="show_products = true">{{$t('acc.search')}}</button>
                  </div>
 
                 <div class="form-control">
-                     <label for="">parchase price</label>
+                     <label for="">{{$t('acc.parchase_price')}}</label>
                      <input type="number" class="input input-sm" v-model="form.parchase_price">
                  </div>
 
                 <div class="form-control">
-                     <label for="">notes</label>
+                     <label for="">{{$t('acc.notes')}}</label>
                      <input type="text" class="input input-sm" v-model="form.notes">
                  </div>
 
                  <div class="form-control">
-                     <button class="btn btn-success mt-4" type="button" @click="save">save</button>
+                     <button class="btn btn-success mt-4" type="button" @click="save">{{$t('acc.Save')}}</button>
                  </div>
         </form>
 
@@ -46,8 +46,8 @@
         <table class="table table-sm w-full" v-if="stocks.length > 0">
             <thead>
                 <tr>
-                <th>name</th>
-                <th>quant</th>
+                <th>{{$t('acc.name')}}</th>
+                <th>{{$t('acc.quant')}}</th>
 
                 </tr>
             </thead>
@@ -71,7 +71,7 @@
                <product-comp mode="assign" @assignProduct="handleAssignProduct"></product-comp>
 
                <div class="form-control">
-                    <button class="btn btn-sm btn-success " @click="show_products = false ">Close</button>
+                    <button class="btn btn-sm btn-success " @click="show_products = false ">{{$t('acc.Close')}}</button>
                </div>
 
            </div>

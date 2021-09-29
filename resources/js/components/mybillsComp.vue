@@ -38,23 +38,23 @@
             <path d="M13 7H7v6h6V7z" />
             <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd" />
             </svg>
-            add product
+            {{$t('acc.add_product')}}
         </button>
         <button class="btn btn-info" @click="show_customers=true">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-2" viewBox="0 0 20 20" fill="currentColor">
              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
-            add customer
+            {{$t('acc.add_customer')}}
         </button>
-        <button class="btn bg-red-500 rounded-full mx-2" @click="close_section()">close section</button>
+        <button class="btn bg-red-500 rounded-full mx-2" @click="close_section()">{{$t('acc.close_section')}}</button>
 
      </div>
 
      <!-- bill header section  -->
 
      <div id="bill_header">
-        id : {{ bill_header.bill_id }}
-        customer : {{ bill_header.customer_name }}
+        {{$t('acc.id')}} : {{ bill_header.bill_id }}
+        {{$t('acc.customer')}} : {{ bill_header.customer_name }}
      </div>
 
      <!-- row bill footer section  -->
@@ -64,11 +64,11 @@
              class="table table-sm w-full">
              <thead>
                  <tr>
-                     <th>id</th>
-                     <th>product</th>
-                     <th>quantity</th>
-                     <th>price</th>
-                     <th>total</th>
+                     <th>{{$t('acc.id')}}</th>
+                     <th>{{$t('acc.product')}}</th>
+                     <th>{{$t('acc.quant')}}</th>
+                     <th>{{$t('acc.price')}}</th>
+                     <th>{{$t('acc.total')}}</th>
                  </tr>
              </thead>
              <tbody>
@@ -82,7 +82,7 @@
 
                  <!-- pure total  -->
                  <tr>
-                     <td>big total</td>
+                     <td>{{$t('acc.big_total')}}</td>
                      <td></td>
                      <td></td>
                      <td></td>
@@ -92,7 +92,7 @@
          </table>
          <div id="closse_bill">
              <button id="close_bill_btn" class="btn btn-info btn-sm"
-             @click="close_bill">close bill</button>
+             @click="close_bill">{{$t('acc.close_bill')}}</button>
          </div>
      </div>
         <!-- product modal   -->
@@ -105,7 +105,7 @@
                <product-comp mode="assign" :billing="true" @assignProduct="handleAssignProduct"></product-comp>
 
                <div class="form-control">
-                    <button class="btn btn-sm btn-success " @click="show_products = false ">Close</button>
+                    <button class="btn btn-sm btn-success " @click="show_products = false ">{{$t('acc.Close')}}</button>
                </div>
 
            </div>
@@ -123,7 +123,7 @@
                <customer-comp mode="assign"  @assignCustomer="handleAssignCustomer"></customer-comp>
 
                <div class="form-control">
-                    <button class="btn btn-sm btn-success " @click="show_customers = false ">Close</button>
+                    <button class="btn btn-sm btn-success " @click="show_customers = false ">{{$t('acc.Close')}}</button>
                </div>
 
            </div>
@@ -199,7 +199,7 @@ export default {
        close_section(){
 
            if (this.current_section.status == 'opened') {
-              this.$swal('close bill first','','warning');
+              this.$swal(this.$t('acc.close_bill_first'),'','warning');
 
            } else if (this.current_section.status == 'paied'){
                console.log('paied');
@@ -229,7 +229,7 @@ export default {
       },
       handleAssignProduct(e){
           if (this.current_section.name == undefined ) {
-              this.$swal('choise section first');
+              this.$swal(this.$t('acc.choise_section_first'));
           } else {
 
               this.add_product_to_bill(e);
@@ -239,7 +239,7 @@ export default {
       },
       handleAssignCustomer(e){
           if (this.current_section.name == undefined ) {
-              this.$swal('choise section first');
+              this.$swal(this.$t('acc.choise_section_first'));
           } else {
 
               this.add_customer_to_bill(e);
@@ -272,13 +272,14 @@ export default {
       },
       confirm_close_section(e){
                     this.$swal.fire({
-                    title: 'Are you sure to close section',
+                    title:this.$t('acc.sure_close_section'),
                     text: "",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
+                    confirmButtonText: this.$t('acc.yes') ,
+                    cancelButtonText: this.$t('acc.no')
                     }).then((result) => {
                     if (result.isConfirmed) {
                         this.add_product_with_new_bill_id(e);

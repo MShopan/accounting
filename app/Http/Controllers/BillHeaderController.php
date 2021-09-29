@@ -3,25 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Models\bill_header;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class BillHeaderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $req)
     {
-        //
+        $parameters = $req->all();
+
+        $search = $parameters['search'] ;
+
+        if (strlen($search)>0) {
+            // do search
+
+
+            $searching = bill_header::where('bill_id', $search)->first();
+
+
+            if ($searching==null) {
+                return response()->json( ['msg' => 'no data' ] );
+            }
+
+            $data = array();
+
+            array_push($data,$searching );
+
+            $bills['data'] = $data ;
+
+
+
+
+        } else {
+            $bills = bill_header::orderBy('id', 'DESC')->paginate(config('app.perPage'));
+
+        }
+
+
+        return response()->json( ['bills' => $bills  ] );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //

@@ -4,14 +4,14 @@
         <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
   <div class="flex-none px-2 mx-2">
     <span class="text-lg font-bold">
-            {{ appName }}
+            <Link href="/">{{ appName }} </Link>
           </span>
   </div>
   <div class="flex-1 px-2 mx-2">
     <div class="items-stretch hidden lg:flex">
 
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/home">{{$t('acc.home')}}</Link>
-      <Link class="btn btn-ghost btn-sm rounded-btn" href="/myposts">{{$t('acc.posts')}}</Link>
+      <!-- <Link class="btn btn-ghost btn-sm rounded-btn" href="/myposts">{{$t('acc.posts')}}</Link> -->
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/myusers">{{$t('acc.users')}}</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/customers">{{$t('acc.customers')}}</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/partitions">{{$t('acc.partitions')}}</Link>
@@ -20,6 +20,7 @@
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock_add">{{$t('acc.stock_add')}}  </Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock_dis">{{$t('acc.stock_dis')}}  </Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/mybills">{{$t('acc.my_bills')}}  </Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/bills">{{$t('acc.view_bills')}}  </Link>
 
 
 
@@ -51,6 +52,13 @@
 
                 <!-- end dropdown lang  -->
         <theme-mod></theme-mod>
+
+       <!-- user  -->
+        <Link href="/login">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+        </Link>
 
 
   </div>

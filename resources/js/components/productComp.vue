@@ -12,7 +12,7 @@
 
                  <!-- show header dorp down  -->
             <div class="dropdown mx-12">
-            <div v-if="showOptions.HeadersDropdown" tabindex="0" class="m-1 btn btn-sm btn-info">Headers</div>
+            <div v-if="showOptions.HeadersDropdown" tabindex="0" class="m-1 btn btn-sm btn-info">{{$t('acc.Headers')}}</div>
             <div class="">
             <ul tabindex="0" class=" p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
                 <li v-for="(head , key) in showHeaders" :key="key" >
@@ -37,7 +37,7 @@
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
-            <button class="btn btn-sm btn-success mx-4" @click="getModels()"> search</button>
+            <button class="btn btn-sm btn-success mx-4" @click="getModels()"> {{$t('acc.search')}}</button>
 
             <add-btn
             v-if="showOptions.addBtn"
@@ -54,19 +54,19 @@
                 <thead>
                     <tr>
 
-                    <th v-if="showHeaders.id">id</th>
-                    <th v-if="showHeaders.coad">coad</th>
-                    <th v-if="showHeaders.name">name</th>
-                    <th v-if="showHeaders.price">price</th>
-                    <th v-if="showHeaders.category">category</th>
-                    <th v-if="showHeaders.popular">popular</th>
-                    <th v-if="showHeaders.stock">stock</th>
-                    <th v-if="showHeaders.min_stock">min stock</th>
-                    <th v-if="showHeaders.created_at">created_at</th>
-                    <th v-if="showHeaders.updated_at">updated_at</th>
-                    <th v-if="showHeaders.notes">notes</th>
+                    <th v-if="showHeaders.id">{{$t('acc.id')}}</th>
+                    <th v-if="showHeaders.coad">{{$t('acc.coad')}}</th>
+                    <th v-if="showHeaders.name">{{$t('acc.name')}}</th>
+                    <th v-if="showHeaders.price">{{$t('acc.price')}}</th>
+                    <th v-if="showHeaders.category">{{$t('acc.category')}}</th>
+                    <th v-if="showHeaders.popular">{{$t('acc.popular')}}</th>
+                    <th v-if="showHeaders.stock">{{$t('acc.stock')}}</th>
+                    <th v-if="showHeaders.min_stock">{{$t('acc.min_stock')}}</th>
+                    <th v-if="showHeaders.created_at">{{$t('acc.created_at')}}</th>
+                    <th v-if="showHeaders.updated_at">{{$t('acc.updated_at')}}</th>
+                    <th v-if="showHeaders.notes">{{$t('acc.notes')}}</th>
 
-                    <th>tools</th>
+                    <th>{{$t('acc.tools')}}</th>
 
                     </tr>
                 </thead>
@@ -256,10 +256,11 @@ export default {
 
 
                 const { value: quant } = await this.$swal.fire({
-                title:'quantitly',
+                title:this.$t('acc.quant'),
                 input: 'number',
-                inputLabel: 'enter quantitiy',
-                inputPlaceholder: 'enter quantity '
+                inputLabel: this.$t('acc.enter_quant'),
+                inputPlaceholder: this.$t('acc.enter_quant'),
+                confirmButtonText : this.$t('acc.ok')
                 })
 
                 if (quant) {

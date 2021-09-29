@@ -32,13 +32,14 @@ export const globalMix =  {
         deleteModel(model,id,updateFunction){
 
            this.$swal.fire({
-            title: 'Are you sure?',
-            text: `delete ${model} no. ${id}`,
+            title: this.$t('acc.sure'),
+            text: `${this.$t('acc.delete')} ${model} ${this.$t('acc.no')} ${id}`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: this.$t('acc.yes'),
+            cancelButtonText: this.$t('acc.refuse')
           }).then((result) => {
             if (result.isConfirmed) {
                 // do delete here

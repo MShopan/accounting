@@ -12,7 +12,7 @@
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
-            <button class="btn btn-sm btn-success mx-4" @click="getModels()"> {{$t('acc.search')}}</button>
+            <button class="btn btn-sm btn-success mx-4" @click.once="getModels()"> {{$t('acc.search')}}</button>
 
             <add-btn @click="addNew()"></add-btn>
         </form>
@@ -21,27 +21,48 @@
             <table class="table  table-sm w-full">
                 <thead>
                     <tr>
-                    <th>{{$t('acc.id')}}</th>
-                    <th>{{$t('acc.coad')}}</th>
-                    <th>{{$t('acc.name')}}</th>
-                    <th>{{$t('acc.treat')}}</th>
-                    <th>{{$t('acc.tools')}}</th>
+                         <th>bill id</th>
+                         <th>cusomer_id</th>
+                         <th>prepaid</th>
+                         <th>total</th>
+                         <th>discount</th>
+                         <th>pure_total</th>
+                         <th>creator</th>
+                         <th>created_at</th>
+                         <th>tools</th>
+
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="models && models.data && models.data.length > 0">
 
                     <tr class="hover:text-accent" v-for="model in models.data" :key="model.id">
-                      <td>{{ model.id }}</td>
-                      <td>{{ model.coad }}</td>
-                      <td>{{ model.name }}</td>
-                      <td>{{ model.treat }}</td>
+                         <td>{{model.bill_id}}</td>
+                         <td>{{model.customer_id}}</td>
+                         <td>{{model.prepaid}}</td>
+                         <td>{{model.big_total}}</td>
+                         <td>{{model.discount}}</td>
+                         <td>{{model.pure_total}}</td>
+                         <td>{{model.creator}}</td>
+                         <td>{{model.created_at}}</td>
                       <td>
 
-                          <assign-btn @click="fireAssign(model)"></assign-btn>
-                          <edit-btn @click="editModel(model)"></edit-btn>
-                          <delete-btn @click="deleteModel(modelName,model.id,getModels)"></delete-btn>
+
+                          <!-- <delete-btn @click="deleteModel(modelName,model.id,getModels)"></delete-btn> -->
                       </td>
                     </tr>
+
+                    <!-- total  -->
+                <tr class="bg-green-500">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{all_big_total}}</td>
+                            <td></td>
+                            <td>{{all_pure_total}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                </tr>
                 </tbody>
             </table>
                     <div v-if="models.data">
@@ -69,11 +90,7 @@ import AssignBtn from './btns/assignBtn.vue';
 import DeleteBtn from './btns/deleteBtn.vue';
 import PartitionForm from './forms/partitionForm.vue';
 
-const lang = {
-    'en' :{
-       'search' : 'searcho'
-    }
-};
+
 
 export default {
     components :{
@@ -91,10 +108,12 @@ export default {
   data :()=>{
       return {
           models : Object ,
-          modelName : 'Partition',
+          modelName : 'bill_header',
           search : '',
           showForm : false ,
-          formData : Object
+          formData : Object ,
+          all_big_total : 0 ,
+            all_pure_total : 0,
       }
   },
   mounted(){
@@ -111,12 +130,33 @@ export default {
   methods :{
       getModels(page=1){
            this.startLoad();
-			axios.get(`api/partitions?search=${this.search}&page=${page}` )
+			axios.get(`api/bill_header?search=${this.search}&page=${page}` )
 				.then(res => {
-					this.models = res.data.partitions;
-                    this.endLoad();
+                    // console.log(res.data);
+                    if (res.data.msg && res.data.msg == 'no data') {
+
+                        this.$swal('no bill founded ');
+                    } else {
+                        this.models = res.data.bills;
+                        this.endLoad();
+                        this.set_totals();
+                    }
+
 
 				});
+      },
+      set_totals (){
+
+                let bills = this.models.data ;
+
+                this.all_big_total = 0 ;
+                this.all_pure_total = 0 ;
+
+               bills.forEach(bill => {
+                   this.all_big_total += bill.big_total ;
+                   this.all_pure_total += bill.pure_total ;
+               });
+
       },
       fireAssign(element){
            this.$emit('assignPartition' , element );

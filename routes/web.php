@@ -32,7 +32,7 @@ use App\Models\Partition;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return inertia('home');
 });
 
 Route::get('/dashboard', function () {
@@ -95,6 +95,7 @@ Route::inertia('/list' ,'list');
 Route::inertia('/stock_add' ,'stockAdd')->middleware('auth');
 Route::inertia('/stock_dis' ,'stockDis')->middleware('auth');
 Route::inertia('/mybills' ,'mybills')->middleware('auth');
+Route::inertia('/bills' ,'bills')->middleware('auth');
 
 
 // post controller

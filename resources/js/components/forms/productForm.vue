@@ -9,7 +9,7 @@
                 <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">Name</span>
+                            <span class="label-text">{{$t('acc.name')}}</span>
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.name" >
@@ -22,7 +22,7 @@
                 <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">coad</span>
+                            <span class="label-text">{{$t('acc.coad')}}</span>
                         </label>
 
                     <input  type="text" class="input input-success " v-model="form.coad" >
@@ -37,11 +37,11 @@
                 <div class="form-control"  >
 
                       <label class="label">
-                            <span class="label-text">category</span>
+                            <span class="label-text">{{$t('acc.category')}}</span>
                         </label>
 
                     <select class="select select-success select-bordered w-full" v-model="form.cat_id">
-                    <option disabled="" selected="">Choose your category</option>
+                    <!-- <option disabled="" selected="">Choose your category</option> -->
                     <option v-for="cat in cats" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
 
                     </select>
@@ -55,7 +55,7 @@
                   <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">popular</span>
+                            <span class="label-text">{{$t('acc.popular')}}</span>
                         </label>
 
 
@@ -74,7 +74,7 @@
                <div class="form-control" >
 
                       <label class="label">
-                            <span class="label-text">min_stock</span>
+                            <span class="label-text">{{$t('acc.min_stock')}}</span>
                         </label>
 
                     <input  type="number" class="input input-success " v-model="form.min_stock" >
@@ -95,7 +95,7 @@
                              items-center w-auto h-8 px-2 rounded-full text-white
                              hover:bg-green-600
                              "
-                            @click="setAllOldPrices()" >set old prices</span>
+                            @click="setAllOldPrices()" >{{$t('acc.set_old_prices')}}</span>
                 </label>
 
                 <div class="form-control" v-for="(price) in prices_new" :key="price.id">
@@ -125,8 +125,11 @@
 
 
             <div class="modal-action flex content-center items-center">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <label @click="$emit('closeForm')" class="btn">Close</label>
+                <button type="submit" class="btn btn-primary">{{$t('acc.Save')}}</button>
+                <label @click="$emit('closeForm')" class="btn">{{$t('acc.Close')}}</label>
+
+
+
             </div>
 
             </form>

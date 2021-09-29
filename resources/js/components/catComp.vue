@@ -12,7 +12,7 @@
         <div id="card" class="card shadow-sm m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getModels" class="m-4">
             <input type="text" class="input input-sm input-success" v-model="search" />
-            <button class="btn btn-sm btn-success mx-4" @click="getModels()"> search</button>
+            <button class="btn btn-sm btn-success mx-4" @click="getModels()"> {{$t('acc.search')}}</button>
 
             <add-btn @click="addNew()"></add-btn>
         </form>
@@ -21,11 +21,11 @@
             <table class="table  table-sm w-full">
                 <thead>
                     <tr>
-                    <th>id</th>
-                    <th>coad</th>
-                    <th>name</th>
+                    <th>{{$t('acc.id')}}</th>
+                    <th>{{$t('acc.coad')}}</th>
+                    <th>{{$t('acc.name')}}</th>
 
-                    <th>tools</th>
+                    <th>{{$t('acc.tools')}}</th>
                     </tr>
                 </thead>
                 <tbody>

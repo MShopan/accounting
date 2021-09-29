@@ -4,6 +4,7 @@ use App\Http\Controllers\PartitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\BillHeaderController;
 use App\Http\Controllers\StockController;
 use App\Models\Customer;
 use App\Models\Partition;
@@ -173,3 +174,8 @@ Route::post('assign_customer_to_bill_id', [BillController::class, 'assign_custom
 Route::post('get_bill_header', [BillController::class, 'get_bill_header'] );
 Route::post('close_bill', [BillController::class, 'close_bill'] );
 Route::post('close_section', [BillController::class, 'close_section'] );
+
+
+Route::get('bill_header', [BillHeaderController::class, 'index'] );
+
+
