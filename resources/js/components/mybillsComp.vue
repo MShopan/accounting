@@ -53,6 +53,45 @@
      <!-- bill header section  -->
 
      <div id="bill_header">
+         <div class="w-full shadow stats">
+
+
+  <div class="stat">
+    <div class="stat-figure text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.243 3.03a1 1 0 01.727 1.213L9.53 6h2.94l.56-2.243a1 1 0 111.94.486L14.53 6H17a1 1 0 110 2h-2.97l-1 4H15a1 1 0 110 2h-2.47l-.56 2.242a1 1 0 11-1.94-.485L10.47 14H7.53l-.56 2.242a1 1 0 11-1.94-.485L5.47 14H3a1 1 0 110-2h2.97l1-4H5a1 1 0 110-2h2.47l.56-2.243a1 1 0 011.213-.727zM9.03 8l-1 4h2.938l1-4H9.031z" clip-rule="evenodd" />
+        </svg>
+    </div>
+    <div class="stat-title">{{$t('acc.bill_id')}}</div>
+    <div class="stat-value text-primary">{{ bill_header.bill_id }}</div>
+    <div class="stat-desc"></div>
+  </div>
+
+
+
+  <div class="stat">
+    <div class="stat-figure text-info">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+    </div>
+    <div class="stat-title">{{$t('acc.customer')}}</div>
+    <div class="stat-value text-info">  {{ bill_header.customer_name }}</div>
+    <div class="stat-desc"></div>
+  </div>
+  <div class="stat">
+    <div class="stat-figure text-info">
+      <div class="avatar">
+        <div class="w-16 h-16 p-1 mask mask-squircle bg-base-100">
+        </div>
+      </div>
+    </div>
+    <div class="stat-value">{{current_section.big_total}}</div>
+    <div class="stat-title">{{$t('acc.total')}} $</div>
+    <div class="stat-desc text-info"></div>
+  </div>
+</div>
+
         {{$t('acc.id')}} : {{ bill_header.bill_id }}
         {{$t('acc.customer')}} : {{ bill_header.customer_name }}
      </div>

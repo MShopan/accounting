@@ -1,17 +1,33 @@
-# Default root layout 
+# Accounting system alpha version
 
-We use app.root as the defulat layout for live wire 
+this project emplymented with 
 
-# send swal Message to the user 
+- laraval 8
+- php 8
+- inertia vue js
+- vue 2 js
 
-```php
-// send message 
 
-// we use cutom trait in 
+- inertia js used only for make routing will replaced with vue router in the future 
 
-$this->success_swal($msg ,$options = [] );
+- all vue js component use rest api 
 
-// $option is opotional 
+# installation
 
+run command 
+
+```bash
+ php artisan migrate
 ```
+
+then seed the test data
+
+# seed the test data 
+
+to seed the test database data go to this route '/seed/test'
+
+# create new user 
+
+to create new user go to route '/register'
+
 

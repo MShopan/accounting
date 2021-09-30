@@ -3,7 +3,7 @@
     <div class="container m-auto ">
         <div id="card" class="card m-8 p-8 glass flex content-center justify-center">
         <form id="search-form" @submit.prevent="getUsers" class="m-4">
-            <input type="text" class="input input-success" v-model="search" />
+            <input type="text" class="input input-sm input-success" v-model="search" />
             <button class="btn btn-sm btn-success mx-4" @click="getUsers()"> {{$t('acc.search')}}</button>
         </form>
 

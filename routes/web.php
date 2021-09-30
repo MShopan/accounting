@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\mySeederController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\ShowPost;
@@ -30,6 +31,9 @@ use App\Models\Partition;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('seed/test', [mySeederController::class, 'index'] );
+
 
 Route::get('/', function () {
     return inertia('home');

@@ -5507,6 +5507,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5753,6 +5757,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5773,8 +5797,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       models: Object,
-      modelName: 'bill_header',
-      search: '',
+      modelName: "bill_header",
+      search: "",
       showForm: false,
       formData: Object,
       all_big_total: 0,
@@ -5802,8 +5826,8 @@ __webpack_require__.r(__webpack_exports__);
       this.startLoad();
       axios.get("api/bill_header?search=".concat(this.search, "&page=").concat(page)).then(function (res) {
         // console.log(res.data);
-        if (res.data.msg && res.data.msg == 'no data') {
-          _this.$swal('no bill founded ');
+        if (res.data.msg && res.data.msg == "no data") {
+          _this.$swal(_this.$t('acc.no_bill_founded'));
         } else {
           _this.models = res.data.bills;
 
@@ -5825,14 +5849,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     fireAssign: function fireAssign(element) {
-      this.$emit('assignPartition', element);
+      this.$emit("assignPartition", element);
     },
     resetForm: function resetForm() {
       this.formData = {
         id: -1,
-        name: '',
-        treat: '',
-        coad: ''
+        name: "",
+        treat: "",
+        coad: ""
       };
     },
     addNew: function addNew() {
@@ -6888,6 +6912,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _productComp_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./productComp.vue */ "./resources/js/components/productComp.vue");
 /* harmony import */ var _customerComp_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customerComp.vue */ "./resources/js/components/customerComp.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8224,18 +8287,16 @@ var lang = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
-/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
+/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/vue-sweetalert.umd.js");
-/* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
-var _acc, _acc2;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _lang_en_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lang/en.js */ "./resources/js/lang/en.js");
+/* harmony import */ var _lang_ar_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lang/ar.js */ "./resources/js/lang/ar.js");
+/* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/vue-sweetalert.umd.js");
+/* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
@@ -8244,83 +8305,19 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default);
+
+
+vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vue_i18n__WEBPACK_IMPORTED_MODULE_5__.default);
 var messages = {
   en: {
-    acc: (_acc = {
-      welcome: 'wlecome to our accounting system',
-      search: 'search',
-      id: 'id',
-      name: 'name',
-      mobile: 'mobile',
-      tools: 'tools',
-      add: 'Add',
-      edit: 'Edit',
-      "delete": 'Delete',
-      assign: 'Assign',
-      next: 'Next',
-      previous: 'Previous',
-      email: 'email',
-      treat: 'treat',
-      home: 'Home',
-      posts: 'Posts',
-      users: 'Users',
-      customers: 'customers',
-      category: 'category',
-      partitions: 'partitions',
-      stock_add: 'stock_add',
-      stock_dis: 'stock_dis',
-      my_bills: 'my_bills',
-      products: 'products',
-      product: 'product',
-      coad: 'coad',
-      Save: 'Save',
-      Close: 'Close',
-      sure: 'Are you sure?',
-      refuse: 'no',
-      yes: 'yes',
-      no: 'no'
-    }, _defineProperty(_acc, "coad", 'coad'), _defineProperty(_acc, "price", 'price'), _defineProperty(_acc, "popular", 'popular'), _defineProperty(_acc, "stock", 'stock'), _defineProperty(_acc, "min_stock", 'min stock'), _defineProperty(_acc, "created_at", 'created at'), _defineProperty(_acc, "updated_at", 'updated at'), _defineProperty(_acc, "notes", 'notes'), _defineProperty(_acc, "set_old_prices", 'set old prices'), _defineProperty(_acc, "parchase_price", 'Parchase Price'), _defineProperty(_acc, "find_product", 'Find Product'), _defineProperty(_acc, "quant", 'quantity'), _defineProperty(_acc, "customer", 'Customer'), _defineProperty(_acc, "add_customer", 'Add Customer'), _defineProperty(_acc, "add_product", 'Add Product'), _defineProperty(_acc, "close_bill", 'Close Bill'), _defineProperty(_acc, "close_section", 'Close Section'), _defineProperty(_acc, "close_bill_first", 'Close Bill first '), _defineProperty(_acc, "enter_quant", 'Enter Quantity'), _defineProperty(_acc, "ok", 'ok'), _defineProperty(_acc, "choise_section_first", 'Choise section first'), _defineProperty(_acc, "sure_close_section", 'Are you sure to close section ?'), _defineProperty(_acc, "big_total", 'Total'), _defineProperty(_acc, "pure_total", 'Pure Total'), _defineProperty(_acc, "discount", 'Discount'), _defineProperty(_acc, "view_bills", 'View Bills'), _acc)
+    acc: _lang_en_js__WEBPACK_IMPORTED_MODULE_2__.en
   },
   ar: {
-    acc: (_acc2 = {
-      welcome: 'مرحبا بك في برنامجنا المحاسبي',
-      search: 'بحث',
-      id: 'م',
-      name: 'الاسم',
-      mobile: 'الموبايل',
-      tools: 'الأدوات',
-      add: 'إضافة',
-      edit: 'تعديل',
-      "delete": 'حذف',
-      assign: 'اسناد',
-      next: 'التالي',
-      previous: 'السابق',
-      email: 'البريد الإلكتروني',
-      treat: 'المعاملة',
-      home: 'الرئيسية',
-      posts: 'المنشورات ',
-      users: 'المستخدمين',
-      customers: 'العملاء',
-      category: 'السمات ',
-      partitions: 'الأجزاء',
-      stock_add: 'إذن إضافة ',
-      stock_dis: 'إذن خصم',
-      my_bills: 'الفواتير',
-      products: 'المنتجات',
-      product: 'المنتج',
-      coad: 'الكود',
-      Save: 'حفظ',
-      Close: 'إغلاق',
-      sure: 'هل أنت متأكد ؟',
-      refuse: 'لا',
-      yes: 'نعم',
-      no: 'رقم'
-    }, _defineProperty(_acc2, "coad", 'الكود'), _defineProperty(_acc2, "price", 'السعر'), _defineProperty(_acc2, "popular", 'المشهورة'), _defineProperty(_acc2, "stock", 'الرصيد'), _defineProperty(_acc2, "min_stock", 'أقل رصيد'), _defineProperty(_acc2, "created_at", 'تاريخ الإنشاء'), _defineProperty(_acc2, "updated_at", 'تاريخ التحديث'), _defineProperty(_acc2, "notes", 'الملاحظات'), _defineProperty(_acc2, "set_old_prices", 'اضافة الاسعار القديمة'), _defineProperty(_acc2, "parchase_price", 'سعر الشراء'), _defineProperty(_acc2, "find_product", 'بحث المنتجات'), _defineProperty(_acc2, "quant", 'الكمية'), _defineProperty(_acc2, "customer", 'العميل'), _defineProperty(_acc2, "add_customer", 'إضافة عميل'), _defineProperty(_acc2, "add_product", 'إضافة منتج'), _defineProperty(_acc2, "close_bill", 'إغلاق الفاتورة'), _defineProperty(_acc2, "close_section", 'إغلاق القسم'), _defineProperty(_acc2, "close_bill_first", 'أغلق الفاتورة أولاً'), _defineProperty(_acc2, "enter_quant", 'أدخل الكمية  '), _defineProperty(_acc2, "ok", 'موافق'), _defineProperty(_acc2, "choise_section_first", 'اختر القسم أولاً '), _defineProperty(_acc2, "sure_close_section", 'هل أنت متأكد من أغلاق القسم ؟ '), _defineProperty(_acc2, "big_total", 'المجموع'), _defineProperty(_acc2, "pure_total", 'الصافي'), _defineProperty(_acc2, "discount", 'الخصم'), _defineProperty(_acc2, "view_bills", 'عرض الفواتير'), _acc2)
+    acc: _lang_ar_js__WEBPACK_IMPORTED_MODULE_3__.ar
   }
 }; // Create VueI18n instance with options
 
-var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default({
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_5__.default({
   locale: localStorage.getItem('lang') || 'en',
   // set locale
   messages: messages // set locale messages
@@ -8329,7 +8326,7 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_3__.default({
  // If you don't need the styles, do not connect
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use((vue_sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()));
+vue__WEBPACK_IMPORTED_MODULE_4__.default.use((vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6___default()));
 var zekr = ['استغفر الله ', 'سبحان الله ', 'لا إله الا الله ', 'الله أكبر ', 'لا حول ولا قوة الا بالله  '];
 var myZker = zekr[parseInt(Math.random() * zekr.length)];
 setInterval(function () {
@@ -8348,7 +8345,7 @@ var $preso = function $preso(loacl_name) {
     var el = _ref.el,
         App = _ref.App,
         props = _ref.props;
-    new vue__WEBPACK_IMPORTED_MODULE_2__.default({
+    new vue__WEBPACK_IMPORTED_MODULE_4__.default({
       i18n: i18n,
       $preso: $preso,
       render: function render(h) {
@@ -8559,6 +8556,110 @@ var help = /*#__PURE__*/function () {
 
   return help;
 }();
+
+/***/ }),
+
+/***/ "./resources/js/lang/ar.js":
+/*!*********************************!*\
+  !*** ./resources/js/lang/ar.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ar": () => (/* binding */ ar)
+/* harmony export */ });
+var _ar;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ar = (_ar = {
+  welcome: 'مرحبا بك في برنامجنا المحاسبي',
+  search: 'بحث',
+  id: 'م',
+  name: 'الاسم',
+  mobile: 'الموبايل',
+  tools: 'الأدوات',
+  add: 'إضافة',
+  edit: 'تعديل',
+  "delete": 'حذف',
+  assign: 'اسناد',
+  next: 'التالي',
+  previous: 'السابق',
+  email: 'البريد الإلكتروني',
+  treat: 'المعاملة',
+  home: 'الرئيسية',
+  posts: 'المنشورات ',
+  users: 'المستخدمين',
+  customers: 'العملاء',
+  category: 'السمات ',
+  partitions: 'الأجزاء',
+  stock_add: 'إذن إضافة ',
+  stock_dis: 'إذن خصم',
+  my_bills: 'الفواتير',
+  products: 'المنتجات',
+  product: 'المنتج',
+  coad: 'الكود',
+  Save: 'حفظ',
+  Close: 'إغلاق',
+  sure: 'هل أنت متأكد ؟',
+  refuse: 'لا',
+  yes: 'نعم',
+  no: 'رقم'
+}, _defineProperty(_ar, "coad", 'الكود'), _defineProperty(_ar, "price", 'السعر'), _defineProperty(_ar, "popular", 'المشهورة'), _defineProperty(_ar, "stock", 'الرصيد'), _defineProperty(_ar, "min_stock", 'أقل رصيد'), _defineProperty(_ar, "created_at", 'تاريخ الإنشاء'), _defineProperty(_ar, "updated_at", 'تاريخ التحديث'), _defineProperty(_ar, "notes", 'الملاحظات'), _defineProperty(_ar, "set_old_prices", 'اضافة الاسعار القديمة'), _defineProperty(_ar, "parchase_price", 'سعر الشراء'), _defineProperty(_ar, "find_product", 'بحث المنتجات'), _defineProperty(_ar, "quant", 'الكمية'), _defineProperty(_ar, "customer", 'العميل'), _defineProperty(_ar, "add_customer", 'إضافة عميل'), _defineProperty(_ar, "add_product", 'إضافة منتج'), _defineProperty(_ar, "close_bill", 'إغلاق الفاتورة'), _defineProperty(_ar, "close_section", 'إغلاق القسم'), _defineProperty(_ar, "close_bill_first", 'أغلق الفاتورة أولاً'), _defineProperty(_ar, "enter_quant", 'أدخل الكمية  '), _defineProperty(_ar, "ok", 'موافق'), _defineProperty(_ar, "choise_section_first", 'اختر القسم أولاً '), _defineProperty(_ar, "sure_close_section", 'هل أنت متأكد من أغلاق القسم ؟ '), _defineProperty(_ar, "big_total", 'المجموع'), _defineProperty(_ar, "pure_total", 'الصافي'), _defineProperty(_ar, "discount", 'الخصم'), _defineProperty(_ar, "view_bills", 'عرض الفواتير'), _defineProperty(_ar, "bill_id", 'رقم الفاتورة'), _defineProperty(_ar, "cusomer_id", 'رقم العميل'), _defineProperty(_ar, "prepaid", 'المقدم'), _defineProperty(_ar, "total", 'المجموع'), _defineProperty(_ar, "discount", 'الخصم'), _defineProperty(_ar, "pure_total", ' الصافي '), _defineProperty(_ar, "creator", 'المنئأ'), _defineProperty(_ar, "created_at", 'تاريخ الإنشائ'), _defineProperty(_ar, "updated_at", 'تاريح التحديث'), _defineProperty(_ar, "no_bill_founded", 'لم يتم إيجاد فاتورة'), _ar);
+
+/***/ }),
+
+/***/ "./resources/js/lang/en.js":
+/*!*********************************!*\
+  !*** ./resources/js/lang/en.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "en": () => (/* binding */ en)
+/* harmony export */ });
+var _en;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var en = (_en = {
+  welcome: 'wlecome to our accounting system',
+  search: 'search',
+  id: 'id',
+  name: 'name',
+  mobile: 'mobile',
+  tools: 'tools',
+  add: 'Add',
+  edit: 'Edit',
+  "delete": 'Delete',
+  assign: 'Assign',
+  next: 'Next',
+  previous: 'Previous',
+  email: 'email',
+  treat: 'treat',
+  home: 'Home',
+  posts: 'Posts',
+  users: 'Users',
+  customers: 'customers',
+  category: 'category',
+  partitions: 'partitions',
+  stock_add: 'stock_add',
+  stock_dis: 'stock_dis',
+  my_bills: 'my_bills',
+  products: 'products',
+  product: 'product',
+  coad: 'coad',
+  Save: 'Save',
+  Close: 'Close',
+  sure: 'Are you sure?',
+  refuse: 'no',
+  yes: 'yes',
+  no: 'no'
+}, _defineProperty(_en, "coad", 'coad'), _defineProperty(_en, "price", 'price'), _defineProperty(_en, "popular", 'popular'), _defineProperty(_en, "stock", 'stock'), _defineProperty(_en, "min_stock", 'min stock'), _defineProperty(_en, "created_at", 'created at'), _defineProperty(_en, "updated_at", 'updated at'), _defineProperty(_en, "notes", 'notes'), _defineProperty(_en, "set_old_prices", 'set old prices'), _defineProperty(_en, "parchase_price", 'Parchase Price'), _defineProperty(_en, "find_product", 'Find Product'), _defineProperty(_en, "quant", 'quantity'), _defineProperty(_en, "customer", 'Customer'), _defineProperty(_en, "add_customer", 'Add Customer'), _defineProperty(_en, "add_product", 'Add Product'), _defineProperty(_en, "close_bill", 'Close Bill'), _defineProperty(_en, "close_section", 'Close Section'), _defineProperty(_en, "close_bill_first", 'Close Bill first '), _defineProperty(_en, "enter_quant", 'Enter Quantity'), _defineProperty(_en, "ok", 'ok'), _defineProperty(_en, "choise_section_first", 'Choise section first'), _defineProperty(_en, "sure_close_section", 'Are you sure to close section ?'), _defineProperty(_en, "big_total", 'Total'), _defineProperty(_en, "pure_total", 'Pure Total'), _defineProperty(_en, "discount", 'Discount'), _defineProperty(_en, "view_bills", 'View Bills'), _defineProperty(_en, "bill_id", 'Bill Id'), _defineProperty(_en, "cusomer_id", 'Cusomer Id'), _defineProperty(_en, "prepaid", 'Prepaid'), _defineProperty(_en, "total", 'Total'), _defineProperty(_en, "discount", 'Discount'), _defineProperty(_en, "pure_total", 'Pure Total'), _defineProperty(_en, "creator", 'Creator'), _defineProperty(_en, "created_at", 'Created at'), _defineProperty(_en, "updated_at", 'Updated at'), _defineProperty(_en, "no_bill_founded", 'No bill founded'), _en);
 
 /***/ }),
 
@@ -37959,7 +38060,42 @@ var render = function() {
       ],
       staticClass: "text-red-300 mx-4"
     },
-    [_vm._v("\n    Loading...\n")]
+    [
+      _c(
+        "svg",
+        {
+          staticClass:
+            "animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block",
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            fill: "none",
+            viewBox: "0 0 24 24"
+          }
+        },
+        [
+          _c("circle", {
+            staticClass: "opacity-25",
+            attrs: {
+              cx: "12",
+              cy: "12",
+              r: "10",
+              stroke: "currentColor",
+              "stroke-width": "4"
+            }
+          }),
+          _vm._v(" "),
+          _c("path", {
+            staticClass: "opacity-75",
+            attrs: {
+              fill: "currentColor",
+              d:
+                "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            }
+          })
+        ]
+      ),
+      _vm._v("\n    Loading...\n")
+    ]
   )
 }
 var staticRenderFns = []
@@ -38120,7 +38256,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container m-auto " },
+    { staticClass: "container m-auto" },
     [
       _c("partition-form", {
         attrs: { formData: _vm.formData, show: _vm.showForm },
@@ -38187,7 +38323,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(" " + _vm._s(_vm.$t("acc.search")))]
+                [
+                  _vm._v(
+                    "\n        " + _vm._s(_vm.$t("acc.search")) + "\n      "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("add-btn", {
@@ -38202,8 +38342,28 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { attrs: { id: "main-table" } }, [
-            _c("table", { staticClass: "table  table-sm w-full" }, [
-              _vm._m(0),
+            _c("table", { staticClass: "table table-sm w-full" }, [
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.bill_id")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.cusomer_id")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.prepaid")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.total")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.discount")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.pure_total")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.creator")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.created_at")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.$t("acc.tools")))])
+                ])
+              ]),
               _vm._v(" "),
               _vm.models && _vm.models.data && _vm.models.data.length > 0
                 ? _c(
@@ -38267,7 +38427,7 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "flex w-full content-center justify-center items-center  bg-blue-300 "
+                            "\n            flex\n            w-full\n            content-center\n            justify-center\n            items-center\n            bg-blue-300\n          "
                         },
                         [_c("div", [_vm._v("no data")])]
                       )
@@ -38293,34 +38453,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("bill id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("cusomer_id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("prepaid")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("total")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("discount")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("pure_total")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("creator")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("created_at")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("tools")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39966,8 +40099,95 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { attrs: { id: "bill_header" } }, [
+      _c("div", { staticClass: "w-full shadow stats" }, [
+        _c("div", { staticClass: "stat" }, [
+          _c("div", { staticClass: "stat-figure text-primary" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "h-8 w-8",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 20 20",
+                  fill: "currentColor"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "fill-rule": "evenodd",
+                    d:
+                      "M9.243 3.03a1 1 0 01.727 1.213L9.53 6h2.94l.56-2.243a1 1 0 111.94.486L14.53 6H17a1 1 0 110 2h-2.97l-1 4H15a1 1 0 110 2h-2.47l-.56 2.242a1 1 0 11-1.94-.485L10.47 14H7.53l-.56 2.242a1 1 0 11-1.94-.485L5.47 14H3a1 1 0 110-2h2.97l1-4H5a1 1 0 110-2h2.47l.56-2.243a1 1 0 011.213-.727zM9.03 8l-1 4h2.938l1-4H9.031z",
+                    "clip-rule": "evenodd"
+                  }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-title" }, [
+            _vm._v(_vm._s(_vm.$t("acc.bill_id")))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-value text-primary" }, [
+            _vm._v(_vm._s(_vm.bill_header.bill_id))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-desc" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "stat" }, [
+          _c("div", { staticClass: "stat-figure text-info" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "inline-block w-8 h-8 stroke-current",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M13 10V3L4 14h7v7l9-11h-7z"
+                  }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-title" }, [
+            _vm._v(_vm._s(_vm.$t("acc.customer")))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-value text-info" }, [
+            _vm._v("  " + _vm._s(_vm.bill_header.customer_name))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-desc" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "stat" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-value" }, [
+            _vm._v(_vm._s(_vm.current_section.big_total))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-title" }, [
+            _vm._v(_vm._s(_vm.$t("acc.total")) + " $")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "stat-desc text-info" })
+        ])
+      ]),
       _vm._v(
-        "\n        " +
+        "\n\n        " +
           _vm._s(_vm.$t("acc.id")) +
           " : " +
           _vm._s(_vm.bill_header.bill_id) +
@@ -40184,7 +40404,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "stat-figure text-info" }, [
+      _c("div", { staticClass: "avatar" }, [
+        _c("div", {
+          staticClass: "w-16 h-16 p-1 mask mask-squircle bg-base-100"
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -41343,7 +41576,7 @@ var render = function() {
                   expression: "search"
                 }
               ],
-              staticClass: "input input-success",
+              staticClass: "input input-sm input-success",
               attrs: { type: "text" },
               domProps: { value: _vm.search },
               on: {
