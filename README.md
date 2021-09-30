@@ -26,6 +26,14 @@ composer install
 
 then seed the test data
 
+
+# to custom javascript
+
+```bash
+ npm install
+ npm run dev
+```
+
 # seed the test data 
 
 to seed the test database data go to this route '/seed/test'
