@@ -14,7 +14,11 @@ this project emplymented with
 
 # installation
 
-run command 
+first require composer installation in pc then run commands :
+
+```bash
+composer install
+```
 
 ```bash
  php artisan migrate
