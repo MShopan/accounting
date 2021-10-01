@@ -22,7 +22,6 @@
           {{ $t("acc.search") }}
         </button>
 
-        <add-btn @click="addNew()"></add-btn>
       </form>
 
       <div id="main-table">

@@ -76,6 +76,8 @@ export const ar =  {
     updated_at : 'تاريح التحديث',
 
     no_bill_founded: 'لم يتم إيجاد فاتورة',
+    stock_permissions : 'أذونات المخزن' ,
+
 
 
 

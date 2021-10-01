@@ -75,7 +75,8 @@ export const en =
     created_at: 'Created at',
     updated_at: 'Updated at',
 
-    no_bill_founded: 'No bill founded'
+    no_bill_founded: 'No bill founded' ,
+    stock_permissions : 'Stock Permissions' ,
 }
 
 

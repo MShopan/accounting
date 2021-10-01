@@ -17,6 +17,7 @@
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/partitions">{{$t('acc.partitions')}}</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/cats">{{$t('acc.category')}}</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/products">{{$t('acc.products')}}</Link>
+      <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock">{{$t('acc.stock_permissions')}}</Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock_add">{{$t('acc.stock_add')}}  </Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/stock_dis">{{$t('acc.stock_dis')}}  </Link>
       <Link class="btn btn-ghost btn-sm rounded-btn" href="/mybills">{{$t('acc.my_bills')}}  </Link>

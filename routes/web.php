@@ -18,6 +18,7 @@ use App\Models\Section;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\StockController;
 use App\Models\Cat;
 use App\Models\Partition;
 
@@ -100,6 +101,7 @@ Route::inertia('/stock_add' ,'stockAdd')->middleware('auth');
 Route::inertia('/stock_dis' ,'stockDis')->middleware('auth');
 Route::inertia('/mybills' ,'mybills')->middleware('auth');
 Route::inertia('/bills' ,'bills')->middleware('auth');
+Route::inertia('/stock' ,'stock')->middleware('auth');
 
 
 // post controller

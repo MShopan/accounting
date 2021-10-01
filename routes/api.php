@@ -177,5 +177,6 @@ Route::post('close_section', [BillController::class, 'close_section'] );
 
 
 Route::get('bill_header', [BillHeaderController::class, 'index'] );
+Route::get('get_stock', [StockController::class, 'get_stock'] );
 
 
