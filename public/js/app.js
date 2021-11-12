@@ -6948,6 +6948,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _productComp_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./productComp.vue */ "./resources/js/components/productComp.vue");
 /* harmony import */ var _customerComp_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customerComp.vue */ "./resources/js/components/customerComp.vue");
+/* harmony import */ var _globalMix__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../globalMix */ "./resources/js/globalMix.js");
 //
 //
 //
@@ -7129,10 +7130,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [_globalMix__WEBPACK_IMPORTED_MODULE_3__.globalMix],
   components: {
     productComp: _productComp_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     customerComp: _customerComp_vue__WEBPACK_IMPORTED_MODULE_2__.default
@@ -7186,6 +7193,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.show_customers = false;
         }
       });
+    },
+    print_bill: function print_bill() {
+      console.log('start printing'); //  print form qz tray
+
+      this.posPrint("\n             <h1> ..... ACOUNTING ..... </h1>\n             <div>********** bill no : ".concat(this.current_section.bill_id, " ********** </div>\n             <table>\n             <thead>\n               <tr>\n                <th>no.</th>\n                <th>product</th>\n                <th>quantity</th>\n                <th>price</th>\n                <th>total</th>\n               </tr>\n             </thead>\n             <tbody>\n\n             </tbody>\n             </tabel>\n        "));
     },
     close_section: function close_section() {
       var _this2 = this;
@@ -8497,7 +8509,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js"); // start qz tray and start it
+
+
+qz.websocket.connect().then(function () {// return qz.printers.find('Microsoft Print to PDF');
+}); // end of qz tray coad
 
 
 
@@ -8675,6 +8691,20 @@ var globalMix = {
         // console.log('local return ',_local);
         return JSON.parse(_local);
       }
+    },
+    // printing methods
+    posPrint: function posPrint(myData) {
+      var config = qz.configs.create("Microsoft Print to PDF");
+      var data = [{
+        type: 'pixel',
+        format: 'html',
+        flavor: 'plain',
+        // or 'plain' if the data is raw HTML
+        data: myData
+      }];
+      qz.print(config, data)["catch"](function (e) {
+        console.error(e);
+      });
     }
   }
 };
@@ -40617,7 +40647,16 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { attrs: { id: "closse_bill" } }, [
+      _c("div", { attrs: { id: "manage bill" } }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-warning btn-sm",
+            on: { click: _vm.print_bill }
+          },
+          [_vm._v("print bill")]
+        ),
+        _vm._v(" "),
         _c(
           "button",
           {

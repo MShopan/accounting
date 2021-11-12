@@ -75,7 +75,20 @@ export const globalMix =  {
                 return JSON.parse(_local) ;
             }
 
-        }
+        },
+        // printing methods
+        posPrint(myData) {
+            var config = qz.configs.create("Microsoft Print to PDF");
+
+             var data = [{
+             type: 'pixel',
+             format: 'html',
+             flavor: 'plain', // or 'plain' if the data is raw HTML
+             data: myData ,
+             }];
+             qz.print(config, data).catch(function(e) { console.error(e); });
+
+         },
     }
 }
 

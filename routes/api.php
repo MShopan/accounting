@@ -179,4 +179,10 @@ Route::post('close_section', [BillController::class, 'close_section'] );
 Route::get('bill_header', [BillHeaderController::class, 'index'] );
 Route::get('get_stock', [StockController::class, 'get_stock'] );
 
+Route::get('print', function () {
+    $fp=pfsockopen("127.0.0.1", 9100);
+    fputs($fp, "man");
+    fclose($fp);
+});
+
 

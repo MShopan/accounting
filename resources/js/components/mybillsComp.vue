@@ -129,7 +129,11 @@
                  </tr>
              </tbody>
          </table>
-         <div id="closse_bill">
+
+         <div id="manage bill">
+             <button class="btn btn-warning btn-sm"
+             @click="print_bill"
+             >print bill</button>
              <button id="close_bill_btn" class="btn btn-info btn-sm"
              @click="close_bill">{{$t('acc.close_bill')}}</button>
          </div>
@@ -183,8 +187,13 @@
 import axios from 'axios';
 import productComp from './productComp.vue' ;
 import customerComp from './customerComp.vue' ;
+import {globalMix} from '../globalMix';
+
 
 export default {
+    mixins:[
+        globalMix,
+    ],
     components :{
         productComp,
         customerComp,
@@ -234,6 +243,32 @@ export default {
                    this.show_customers = false ;
                }
            })
+       },
+       print_bill(){
+         console.log('start printing');
+        //  print form qz tray
+
+        this.posPrint(`
+             <h1> ..... ACOUNTING ..... </h1>
+             <div>********** bill no : ${this.current_section.bill_id} ********** </div>
+             <table>
+             <thead>
+               <tr>
+                <th>no.</th>
+                <th>product</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>total</th>
+               </tr>
+             </thead>
+             <tbody>
+
+             </tbody>
+             </tabel>
+        `);
+
+
+
        },
        close_section(){
 

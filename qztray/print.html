@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- qz tray script   -->
+    <script src="qz-tray.js"></script>
+    <script>
+
+
+
+        qz.websocket.connect().then(()=>{
+            // return qz.printers.find('POS-80');
+
+        })
+
+        var config = qz.configs.create("Microsoft Print to PDF");
+
+        function posPrint(myData) {
+            var data = [{
+            type: 'pixel',
+            format: 'html',
+            flavor: 'plain', // or 'plain' if the data is raw HTML
+            data: myData ,
+            }];
+            qz.print(config, data).catch(function(e) { console.error(e); });
+
+        }
+
+        // print with 30 *
+    </script>
+
+</head>
+<body>
+
+    <div id="printArea">
+        ****************************** <br>
+        <img src="syn.jpg" alt="" width="240px" height="80px"> <br>
+        mohammed ali <br>
+        ****************************** <br>
+    </div>
+
+    <button id="printBtn">print</button>
+
+</body>
+
+<script>
+
+    document.getElementById('printBtn').addEventListener('click',function (e) {
+
+
+let printArea = document.getElementById('printArea').innerHTML ;
+posPrint(printArea);
+})
+</script>
+</html>

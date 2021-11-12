@@ -2,6 +2,16 @@ require('./bootstrap');
 
 require('alpinejs');
 
+// start qz tray and start it
+
+qz.websocket.connect().then(()=>{
+    // return qz.printers.find('Microsoft Print to PDF');
+
+})
+
+
+
+// end of qz tray coad
 
 import Vue from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue'
