@@ -7197,7 +7197,15 @@ __webpack_require__.r(__webpack_exports__);
     print_bill: function print_bill() {
       console.log('start printing'); //  print form qz tray
 
-      this.posPrint("\n             <h1> ..... ACOUNTING ..... </h1>\n             <div>********** bill no : ".concat(this.current_section.bill_id, " ********** </div>\n             <table>\n             <thead>\n               <tr>\n                <th>no.</th>\n                <th>product</th>\n                <th>quantity</th>\n                <th>price</th>\n                <th>total</th>\n               </tr>\n             </thead>\n             <tbody>\n\n             </tbody>\n             </tabel>\n        "));
+      var data_source = this.current_section;
+      var customer_name = this.bill_header.customer_name;
+      var logo = '<h1> ..... ACOUNTING ..... </h1>';
+      var header_print = "<tr>\n                <th>no.</th>\n                <th>product</th>\n                <th>quantity</th>\n                <th>price</th>\n                <th>total</th>\n                </tr>";
+      var bill_footer_print = '';
+      data_source.rows.forEach(function (row) {
+        bill_footer_print = bill_footer_print + "<tr>\n                     <td>".concat(1, "</td>\n                     <td>", row.product_data.name, "</td>\n                     <td>").concat(row.quant, "</td>\n                     <td>").concat(row.price, "</td>\n                     <td>").concat(row.total, "</td>\n                     </tr>");
+      });
+      this.posPrint("\n             ".concat(logo, " <br>\n             <div>********** bill no : ").concat(data_source.bill_id, " ********** </div>\n             <div>** customer : ").concat(customer_name, " **</div>\n             <table>\n             <thead>\n               ").concat(header_print, "\n             </thead>\n             <tbody>\n               ").concat(bill_footer_print, "\n               <tr>\n                <td></td>\n                <td><strong>Total</strong></td>\n                <td></td>\n                <td></td>\n                <td><strong>").concat(data_source.big_total, "</strong></td>\n               </tr>\n             </tbody>\n             </tabel>\n        "));
     },
     close_section: function close_section() {
       var _this2 = this;
