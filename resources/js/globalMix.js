@@ -1,6 +1,93 @@
 // this is global mixin in the projct
 import axios from 'axios';
+import {logo_base64} from './logo_base64.js';
 import {get_data , help} from './helper' ;
+export class Receipt {
+    // logo = '<h1> ..... ACOUNTING ..... </h1>';
+    logo =`
+    ****************************** <br>
+    <img style='display:block; width:240px;height:80px;' id='base64image'
+       src='${logo_base64}' />
+    `;
+
+
+}
+export class billReceipt extends Receipt {
+
+      bill_id = -1 ;
+      bill_source = '' ;
+      customer_name = '';
+      header_print = `<tr>
+                <th>no.</th>
+                <th>product</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>total</th>
+                </tr>` ;
+      print() {
+
+        // let bill_id = this.current_section.bill_id;
+
+        // let bill_source = this.current_section ;
+
+        // let customer_name =  this.bill_header.customer_name ;
+
+
+        let bill_footer_print ='';
+        let big_total = 0 ;
+        this.bill_source.rows.forEach((row)=>{
+
+                    bill_footer_print = bill_footer_print +
+
+                     `<tr>
+                     <td>${1}</td>
+                     <td>${row.product_data.name}</td>
+                     <td>${row.quant}</td>
+                     <td>${row.price}</td>
+                     <td>${row.total}</td>
+                     </tr>` ;
+
+                     big_total += row.total ;
+        });
+
+
+        this.POS_Print(`
+             ${this.logo} <br>
+             <div>********** bill no : ${this.bill_id} ********** </div>
+             <div>** customer : ${this.customer_name} **</div>
+             <table>
+             <thead>
+               ${this.header_print}
+             </thead>
+             <tbody>
+               ${bill_footer_print}
+               <tr>
+                <td></td>
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td></td>
+                <td><strong>${big_total}</strong></td>
+               </tr>
+             </tbody>
+             </tabel>
+        `);
+
+       }
+       // printing methods
+       POS_Print(myData) {
+        var config = qz.configs.create("Microsoft Print to PDF");
+
+         var data = [{
+         type: 'pixel',
+         format: 'html',
+         flavor: 'plain', // or 'plain' if the data is raw HTML
+         data: myData ,
+         }];
+         qz.print(config, data).catch(function(e) { console.error(e); });
+
+     }
+
+}
 export const globalMix =  {
     data() {
         return {
@@ -76,19 +163,7 @@ export const globalMix =  {
             }
 
         },
-        // printing methods
-        posPrint(myData) {
-            var config = qz.configs.create("Microsoft Print to PDF");
 
-             var data = [{
-             type: 'pixel',
-             format: 'html',
-             flavor: 'plain', // or 'plain' if the data is raw HTML
-             data: myData ,
-             }];
-             qz.print(config, data).catch(function(e) { console.error(e); });
-
-         },
     }
 }
 
