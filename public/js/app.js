@@ -7134,6 +7134,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -7194,12 +7199,20 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    print_bill: function print_bill() {
-      console.log('start printing');
+    assign_bill: function assign_bill() {
       var bill = new _globalMix__WEBPACK_IMPORTED_MODULE_3__.billReceipt();
       bill.bill_id = this.current_section.bill_id;
       bill.bill_source = this.current_section;
       bill.customer_name = this.bill_header.customer_name;
+      return bill;
+    },
+    preview_bill: function preview_bill() {
+      var bill = this.assign_bill();
+      bill.preview();
+    },
+    print_bill: function print_bill() {
+      console.log('start printing');
+      var bill = this.assign_bill();
       bill.print();
     },
     close_section: function close_section() {
@@ -8516,7 +8529,9 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js"); /
 
 
 qz.websocket.connect().then(function () {// return qz.printers.find('Microsoft Print to PDF');
-}); // end of qz tray coad
+}); // load printer to local host ! important  this in the future will be async value form db
+
+localStorage.setItem('POS_PrinterName', "Microsoft Print to PDF"); // end of qz tray coad
 
 
 
@@ -8625,10 +8640,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper */ "./resources/js/helper.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -8645,17 +8656,34 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // this is global mixin in the projct
 
 
 
-var Receipt = function Receipt() {
-  _classCallCheck(this, Receipt);
+var Receipt = /*#__PURE__*/function () {
+  function Receipt() {
+    _classCallCheck(this, Receipt);
 
-  _defineProperty(this, "logo", "\n    ****************************** <br>\n    <img style='display:block; width:240px;height:80px;' id='base64image'\n       src='".concat(_logo_base64_js__WEBPACK_IMPORTED_MODULE_1__.logo_base64, "' />\n    "));
-};
+    _defineProperty(this, "logo", "\n    ****************************** <br>\n    <img style='display:block; width:240px;height:80px;' id='base64image'\n       src='".concat(_logo_base64_js__WEBPACK_IMPORTED_MODULE_1__.logo_base64, "' />\n    "));
+  }
+
+  _createClass(Receipt, [{
+    key: "preview",
+    value: function preview() {
+      localStorage.setItem('receipt', this.generateReceiptData()); //    alert('preview');
+
+      var _preview = window.open("/preview_receipt", "preview_receipt", "left=900,top=40,innerWidth=270,innerHeight=600");
+    }
+  }]);
+
+  return Receipt;
+}();
 var billReceipt = /*#__PURE__*/function (_Receipt) {
   _inherits(billReceipt, _Receipt);
 
@@ -8684,8 +8712,13 @@ var billReceipt = /*#__PURE__*/function (_Receipt) {
   }
 
   _createClass(billReceipt, [{
-    key: "print",
-    value: function print() {
+    key: "get_bill_id",
+    value: function get_bill_id() {
+      return this.bill_id;
+    }
+  }, {
+    key: "generateReceiptData",
+    value: function generateReceiptData() {
       // let bill_id = this.current_section.bill_id;
       // let bill_source = this.current_section ;
       // let customer_name =  this.bill_header.customer_name ;
@@ -8695,13 +8728,19 @@ var billReceipt = /*#__PURE__*/function (_Receipt) {
         bill_footer_print = bill_footer_print + "<tr>\n                     <td>".concat(1, "</td>\n                     <td>", row.product_data.name, "</td>\n                     <td>").concat(row.quant, "</td>\n                     <td>").concat(row.price, "</td>\n                     <td>").concat(row.total, "</td>\n                     </tr>");
         big_total += row.total;
       });
-      this.POS_Print("\n             ".concat(this.logo, " <br>\n             <div>********** bill no : ").concat(this.bill_id, " ********** </div>\n             <div>** customer : ").concat(this.customer_name, " **</div>\n             <table>\n             <thead>\n               ").concat(this.header_print, "\n             </thead>\n             <tbody>\n               ").concat(bill_footer_print, "\n               <tr>\n                <td></td>\n                <td><strong>Total</strong></td>\n                <td></td>\n                <td></td>\n                <td><strong>").concat(big_total, "</strong></td>\n               </tr>\n             </tbody>\n             </tabel>\n        "));
+      var billData = "\n        ".concat(this.logo, " <br>\n        <div>********** bill no : ").concat(this.bill_id, " ********** </div>\n        <div>** customer : ").concat(this.customer_name, " **</div>\n        <table>\n        <thead>\n          ").concat(this.header_print, "\n        </thead>\n        <tbody>\n          ").concat(bill_footer_print, "\n          <tr>\n           <td></td>\n           <td><strong>Total</strong></td>\n           <td></td>\n           <td></td>\n           <td><strong>").concat(big_total, "</strong></td>\n          </tr>\n        </tbody>\n        </tabel>\n        ");
+      return billData;
+    }
+  }, {
+    key: "print",
+    value: function print() {
+      this.POS_Print(this.generateReceiptData());
     } // printing methods
 
   }, {
     key: "POS_Print",
     value: function POS_Print(myData) {
-      var config = qz.configs.create("Microsoft Print to PDF");
+      var config = qz.configs.create(localStorage.getItem('POS_PrinterName'));
       var data = [{
         type: 'pixel',
         format: 'html',
@@ -40753,6 +40792,15 @@ var render = function() {
             on: { click: _vm.print_bill }
           },
           [_vm._v("print bill")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-error btn-sm",
+            on: { click: _vm.preview_bill }
+          },
+          [_vm._v("preview bill")]
         ),
         _vm._v(" "),
         _c(

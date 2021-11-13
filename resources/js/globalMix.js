@@ -10,6 +10,16 @@ export class Receipt {
        src='${logo_base64}' />
     `;
 
+    preview(){
+       localStorage.setItem('receipt', this.generateReceiptData());
+       //    alert('preview');
+       let _preview = window.open(
+        "/preview_receipt",
+        "preview_receipt",
+        "left=900,top=40,innerWidth=270,innerHeight=600"
+       );
+    }
+
 
 }
 export class billReceipt extends Receipt {
@@ -24,7 +34,11 @@ export class billReceipt extends Receipt {
                 <th>price</th>
                 <th>total</th>
                 </tr>` ;
-      print() {
+      get_bill_id(){
+          return this.bill_id ;
+      }
+      generateReceiptData(){
+
 
         // let bill_id = this.current_section.bill_id;
 
@@ -50,32 +64,38 @@ export class billReceipt extends Receipt {
                      big_total += row.total ;
         });
 
+        let billData = `
+        ${this.logo} <br>
+        <div>********** bill no : ${this.bill_id} ********** </div>
+        <div>** customer : ${this.customer_name} **</div>
+        <table>
+        <thead>
+          ${this.header_print}
+        </thead>
+        <tbody>
+          ${bill_footer_print}
+          <tr>
+           <td></td>
+           <td><strong>Total</strong></td>
+           <td></td>
+           <td></td>
+           <td><strong>${big_total}</strong></td>
+          </tr>
+        </tbody>
+        </tabel>
+        `;
 
-        this.POS_Print(`
-             ${this.logo} <br>
-             <div>********** bill no : ${this.bill_id} ********** </div>
-             <div>** customer : ${this.customer_name} **</div>
-             <table>
-             <thead>
-               ${this.header_print}
-             </thead>
-             <tbody>
-               ${bill_footer_print}
-               <tr>
-                <td></td>
-                <td><strong>Total</strong></td>
-                <td></td>
-                <td></td>
-                <td><strong>${big_total}</strong></td>
-               </tr>
-             </tbody>
-             </tabel>
-        `);
+        return billData ;
+
+       }
+       print() {
+
+        this.POS_Print(this.generateReceiptData());
 
        }
        // printing methods
        POS_Print(myData) {
-        var config = qz.configs.create("Microsoft Print to PDF");
+        var config = qz.configs.create(localStorage.getItem('POS_PrinterName'));
 
          var data = [{
          type: 'pixel',

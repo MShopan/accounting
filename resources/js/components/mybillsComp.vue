@@ -134,6 +134,11 @@
              <button class="btn btn-warning btn-sm"
              @click="print_bill"
              >print bill</button>
+
+             <button class="btn btn-error btn-sm"
+             @click="preview_bill"
+             >preview bill</button>
+
              <button id="close_bill_btn" class="btn btn-info btn-sm"
              @click="close_bill">{{$t('acc.close_bill')}}</button>
          </div>
@@ -244,13 +249,25 @@ export default {
                }
            })
        },
-       print_bill(){
-         console.log('start printing');
-
-            let bill = new billReceipt;
+       assign_bill(){
+        let bill = new billReceipt;
             bill.bill_id = this.current_section.bill_id;
             bill.bill_source = this.current_section ;
             bill.customer_name =  this.bill_header.customer_name ;
+        return bill;
+       },
+       preview_bill(){
+
+         let bill = this.assign_bill();
+
+         bill.preview();
+
+       },
+       print_bill(){
+
+         console.log('start printing');
+
+         let bill = this.assign_bill();
 
          bill.print();
 

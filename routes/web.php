@@ -111,6 +111,12 @@ Route::post('/myposts/delete', [PostController::class, 'destroy']);
 Route::post('/myposts/create', [PostController::class, 'create']);
 Route::post('/myposts/edit', [PostController::class, 'edit']);
 
+Route::get('/preview_receipt', function ()
+{
+    // return "hello world";
+    return view('preview_receipt');
+});
+
 
 
 

@@ -1,7 +1,6 @@
 require('./bootstrap');
 
 require('alpinejs');
-
 // start qz tray and start it
 
 qz.websocket.connect().then(()=>{
@@ -9,6 +8,9 @@ qz.websocket.connect().then(()=>{
 
 })
 
+// load printer to local host ! important  this in the future will be async value form db
+
+localStorage.setItem('POS_PrinterName' , "Microsoft Print to PDF" )
 
 
 // end of qz tray coad
