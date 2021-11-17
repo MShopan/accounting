@@ -5704,13 +5704,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaginationApi.vue */ "./resources/js/components/PaginationApi.vue");
-/* harmony import */ var _globalMix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../globalMix */ "./resources/js/globalMix.js");
-/* harmony import */ var _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./btns/addBtn.vue */ "./resources/js/components/btns/addBtn.vue");
-/* harmony import */ var _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./btns/editBtn.vue */ "./resources/js/components/btns/editBtn.vue");
-/* harmony import */ var _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./btns/assignBtn.vue */ "./resources/js/components/btns/assignBtn.vue");
-/* harmony import */ var _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./btns/deleteBtn.vue */ "./resources/js/components/btns/deleteBtn.vue");
-/* harmony import */ var _forms_partitionForm_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./forms/partitionForm.vue */ "./resources/js/components/forms/partitionForm.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaginationApi.vue */ "./resources/js/components/PaginationApi.vue");
+/* harmony import */ var _globalMix__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../globalMix */ "./resources/js/globalMix.js");
+/* harmony import */ var _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./btns/addBtn.vue */ "./resources/js/components/btns/addBtn.vue");
+/* harmony import */ var _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./btns/editBtn.vue */ "./resources/js/components/btns/editBtn.vue");
+/* harmony import */ var _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./btns/assignBtn.vue */ "./resources/js/components/btns/assignBtn.vue");
+/* harmony import */ var _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./btns/deleteBtn.vue */ "./resources/js/components/btns/deleteBtn.vue");
+/* harmony import */ var _forms_partitionForm_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./forms/partitionForm.vue */ "./resources/js/components/forms/partitionForm.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
 //
 //
 //
@@ -5822,14 +5832,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    paginationApi: _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    AddBtn: _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    EditBtn: _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    AssignBtn: _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    DeleteBtn: _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    PartitionForm: _forms_partitionForm_vue__WEBPACK_IMPORTED_MODULE_6__.default
+    paginationApi: _PaginationApi_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    AddBtn: _btns_addBtn_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    EditBtn: _btns_editBtn_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    AssignBtn: _btns_assignBtn_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    DeleteBtn: _btns_deleteBtn_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    PartitionForm: _forms_partitionForm_vue__WEBPACK_IMPORTED_MODULE_7__.default
   },
-  mixins: [_globalMix__WEBPACK_IMPORTED_MODULE_1__.globalMix],
+  mixins: [_globalMix__WEBPACK_IMPORTED_MODULE_2__.globalMix],
   data: function data() {
     return {
       models: Object,
@@ -5855,6 +5865,54 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    preview: function preview(id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var bill;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                bill = new _globalMix__WEBPACK_IMPORTED_MODULE_2__.billReceipt();
+                bill.bill_id = id;
+                _context.next = 4;
+                return bill.get_bill_from_db();
+
+              case 4:
+                //   console.log(bill.bill_source);
+                bill.preview();
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    print: function print(id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var bill;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                bill = new _globalMix__WEBPACK_IMPORTED_MODULE_2__.billReceipt();
+                bill.bill_id = id;
+                _context2.next = 4;
+                return bill.get_bill_from_db();
+
+              case 4:
+                //   console.log(bill.bill_source);
+                bill.print();
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     getModels: function getModels() {
       var _this = this;
 
@@ -8634,11 +8692,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "billReceipt": () => (/* binding */ billReceipt),
 /* harmony export */   "globalMix": () => (/* binding */ globalMix)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _logo_base64_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logo_base64.js */ "./resources/js/logo_base64.js");
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper */ "./resources/js/helper.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _logo_base64_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./logo_base64.js */ "./resources/js/logo_base64.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper */ "./resources/js/helper.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -8670,7 +8736,7 @@ var Receipt = /*#__PURE__*/function () {
   function Receipt() {
     _classCallCheck(this, Receipt);
 
-    _defineProperty(this, "logo", "\n    ****************************** <br>\n    <img style='display:block; width:240px;height:80px;' id='base64image'\n       src='".concat(_logo_base64_js__WEBPACK_IMPORTED_MODULE_1__.logo_base64, "' />\n    "));
+    _defineProperty(this, "logo", "\n    ****************************** <br>\n    <img style='display:block; width:240px;height:80px;' id='base64image'\n       src='".concat(_logo_base64_js__WEBPACK_IMPORTED_MODULE_2__.logo_base64, "' />\n    "));
   }
 
   _createClass(Receipt, [{
@@ -8716,6 +8782,40 @@ var billReceipt = /*#__PURE__*/function (_Receipt) {
     value: function get_bill_id() {
       return this.bill_id;
     }
+  }, {
+    key: "get_bill_from_db",
+    value: function () {
+      var _get_bill_from_db = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _this2 = this;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/get_bill_from_db', {
+                  params: {
+                    id: this.bill_id
+                  }
+                }).then(function (data) {
+                  _this2.bill_source = data.data;
+                  return 0;
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function get_bill_from_db() {
+        return _get_bill_from_db.apply(this, arguments);
+      }
+
+      return get_bill_from_db;
+    }()
   }, {
     key: "generateReceiptData",
     value: function generateReceiptData() {
@@ -8784,7 +8884,7 @@ var globalMix = {
       this.fireEvent('endLoad');
     },
     deleteModel: function deleteModel(model, id, updateFunction) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$swal.fire({
         title: this.$t('acc.sure'),
@@ -8798,22 +8898,22 @@ var globalMix = {
       }).then(function (result) {
         if (result.isConfirmed) {
           // do delete here
-          _this2.startLoad();
+          _this3.startLoad();
 
-          axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/delete/model', {
+          axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/delete/model', {
             model: model,
             id: id
           }).then(function () {
             updateFunction();
 
-            _this2.$emit('modelDeleted', {
+            _this3.$emit('modelDeleted', {
               model: model,
               id: id
             });
 
-            _this2.fireEvent('dataSaved');
+            _this3.fireEvent('dataSaved');
 
-            _this2.endLoad();
+            _this3.endLoad();
           }); // end do delete
         }
       });
@@ -38924,7 +39024,33 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(model.created_at))]),
                             _vm._v(" "),
-                            _c("td")
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-warning btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.preview(model.bill_id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Preview")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.print(model.bill_id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Print")]
+                              )
+                            ])
                           ]
                         )
                       }),

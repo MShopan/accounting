@@ -37,6 +37,19 @@ export class billReceipt extends Receipt {
       get_bill_id(){
           return this.bill_id ;
       }
+      async get_bill_from_db(){
+         await axios.get('/api/get_bill_from_db',{params:{
+              id: this.bill_id
+          }}).then((data)=>{
+              this.bill_source = data.data;
+              return 0;
+
+
+
+          })
+
+
+      }
       generateReceiptData(){
 
 

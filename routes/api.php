@@ -6,6 +6,7 @@ use App\Http\Controllers\CatController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\BillHeaderController;
 use App\Http\Controllers\StockController;
+use App\Models\bill_footer;
 use App\Models\Customer;
 use App\Models\Partition;
 use App\Models\mainVar;
@@ -188,5 +189,16 @@ Route::get('get_stock', [StockController::class, 'get_stock'] );
 Route::get('get_POS_PrinterName', function () {
    return 'Microsoft Print to PDF';
 });
+
+Route::get('get_bill_from_db', function (Request $request) {
+    $bill_id = $request->id ;
+    $bill_footer = bill_footer::where('bill_id',$bill_id)->get();
+
+    foreach ($bill_footer as $key => $el) {
+        $product_data = Product::find($el['product_id'])->first();
+        $el['product_data'] = $product_data ;
+    }
+    return ['rows'=>$bill_footer] ;
+ });
 
 

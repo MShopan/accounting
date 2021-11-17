@@ -56,6 +56,8 @@
               <td>{{ model.created_at }}</td>
               <td>
                 <!-- <delete-btn @click="deleteModel(modelName,model.id,getModels)"></delete-btn> -->
+                 <button class="btn btn-warning btn-sm" @click="preview(model.bill_id)">Preview</button>
+                 <button class="btn btn-info btn-sm" @click="print(model.bill_id)">Print</button>
               </td>
             </tr>
 
@@ -102,7 +104,7 @@
 
 <script>
 import paginationApi from "./PaginationApi.vue";
-import golbalMix, { globalMix } from "../globalMix";
+import golbalMix, { billReceipt, globalMix } from "../globalMix";
 import AddBtn from "./btns/addBtn.vue";
 import EditBtn from "./btns/editBtn.vue";
 import AssignBtn from "./btns/assignBtn.vue";
@@ -143,6 +145,22 @@ export default {
     },
   },
   methods: {
+      async preview(id){
+          let bill = new billReceipt ;
+          bill.bill_id = id ;
+          await bill.get_bill_from_db();
+        //   console.log(bill.bill_source);
+          bill.preview();
+
+      },
+     async print(id){
+          let bill = new billReceipt ;
+          bill.bill_id = id ;
+          await bill.get_bill_from_db();
+        //   console.log(bill.bill_source);
+          bill.print();
+
+      },
     getModels(page = 1) {
       this.startLoad();
       axios
